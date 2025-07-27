@@ -1,0 +1,47 @@
+Project: AgentsVille Trip Planner: A Multi-Agent Travel Assistant System
+General Prompt Design
+Criteria	Submission Requirements
+Design a system prompt that effectively guides the LLM to produce a comprehensive, structured itinerary.
+
+The prompt in ITINERARY_AGENT_SYSTEM_PROMPT satisfies the following:
+
+Clearly instructs LLM to assume a role as a travel planner, travel agent, or something similar
+Encourages detailed daily plans through Chain-of-Thought guidance or examples.
+Specifies JSON output format matching the TravelPlan Pydantic model structure.
+Provides necessary context, including VacationInfo object, weather data, and activities data
+Design a system prompt that determines whether an event should be avoided due to weather conditions
+
+The prompt in ACTIVITY_AND_WEATHER_ARE_COMPATIBLE_SYSTEM_PROMPT satisfies the following:
+
+Clearly defines the LLM role and task
+Specifies exact output format
+Includes relevant examples illustrating expected evaluations
+Agent Reasoning and Tool Use
+Criteria	Submission Requirements
+Design a tool description that guides the LLM to call it when needed
+
+The docstring for the get_activities_by_date_tool function should:
+
+provide sufficient description for understanding tool’s purpose and use and
+define expected input parameters and their data types and formats.
+Design a prompt that guides an LLM to use reasoning and tools in the ReAct cycle
+
+The prompt ITINERARY_REVISION_AGENT_SYSTEM_PROMPT should satisfy the following:
+
+Clearly states LLM role and itinerary revision task.
+Details the THINK-ACT-OBSERVE cycle explicitly.
+Dynamically lists all available tools, their purposes, and parameter requirements.
+Specifies exact ACTION format for tool invocation: {"tool_name": "[tool_name]", "arguments": {"arg1": "value1", ...}}
+Includes explicit exit instruction via final_answer_tool invocation.
+States that the run_evals_tool must be run before the final_answer_tool
+Structured Output Validation
+Criteria	Submission Requirements
+Pydantic models are created and used properly
+
+The VacationInfo Pydantic model is:
+
+created properly given the JSON structure representing the travelers and their vacation details
+is read properly (start and end dates) when pulling the weather and activity data
+The TravelPlan Pydantic model's schema is:
+
+included in the system prompts that need to output a TravelPlan data structure.

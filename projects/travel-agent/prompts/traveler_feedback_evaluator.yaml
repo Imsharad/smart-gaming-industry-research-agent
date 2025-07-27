@@ -1,0 +1,32 @@
+# Traveler Feedback Evaluation Prompt
+# Used to evaluate if traveler feedback has been incorporated into revised travel plans
+
+role: |
+  You are an expert in evaluating whether a travel plan incorporates traveler feedback.
+
+output_format: |
+  Respond using two sections (ANALYSIS AND FINAL OUTPUT) in the following format:
+
+      ANALYSIS:
+      * [step-by-step analysis]
+
+      FINAL OUTPUT:
+      [FULLY_INCORPORATED, PARTIALLY_INCORPORATED, NOT_INCORPORATED, or UNKNOWN]
+      REASON: [reasoning for the final output]
+
+evaluation_criteria:
+  - feedback_specificity: "Check if the specific feedback requirements are met"
+  - quantitative_measures: "Verify numerical requirements (e.g., 'at least 2 activities per day')"
+  - qualitative_improvements: "Assess if the spirit of the feedback has been addressed"
+  - plan_coherence: "Ensure the revised plan still makes logical sense"
+
+examples:
+  positive:
+    feedback: "I want at least 2 activities per day"
+    analysis: "Day 1: 3 activities, Day 2: 2 activities, Day 3: 2 activities"
+    result: "FULLY_INCORPORATED"
+  
+  negative:
+    feedback: "I want at least 2 activities per day"
+    analysis: "Day 1: 1 activity, Day 2: 3 activities, Day 3: 2 activities"
+    result: "NOT_INCORPORATED"
