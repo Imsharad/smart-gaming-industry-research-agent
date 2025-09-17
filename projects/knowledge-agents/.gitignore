@@ -133,3 +133,15 @@ temp/
 *.tmp
 *.bak
 CLAUDE.md
+
+# Virtual environment
+.venv
+
+# Cloud directory
+.claude
+
+# Documentation
+docs/
+
+# Memory directory
+memory/
