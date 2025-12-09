@@ -1,0 +1,1952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCP Agentic AI Masterclass</title>
+    
+    <!-- 1. FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- 2. ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* =========================================
+           3. CORE VARIABLES & RESET
+           ========================================= */
+        :root {
+            --bg-color: #fdfbf7;       /* Warm Sand */
+            --card-bg: #ffffff;        /* White */
+            --text-primary: #1c1917;   /* Charcoal */
+            --text-secondary: #44403c; /* Soft Grey */
+            --accent-coral: #da7756;   /* Anthropic Coral */
+            --accent-blue: #3b82f6;    /* Tech Blue */
+            --accent-green: #10b981;   /* Success Green */
+            --border-color: #ebeae8;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 50px;
+            margin: 0;
+            padding: 50px 0;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* =========================================
+           4. THE SLIDE CONTAINER
+           ========================================= */
+        .slide-container {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            height: 720px;
+            width: 1280px;
+            justify-content: center;
+            overflow: hidden;
+            padding: 50px 60px;
+            position: relative;
+            border: 1px solid var(--border-color);
+            flex-shrink: 0;
+        }
+
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-coral) 0%, #f2a386 50%, var(--accent-blue) 100%);
+            z-index: 2;
+        }
+
+        .slide-number {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            color: #d6d3d1;
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+        }
+
+        /* Section Divider */
+        .slide-container.section-divider {
+            background-color: var(--text-primary);
+            color: white;
+            border: none;
+        }
+        .slide-container.section-divider h1 { color: white; }
+        .slide-container.section-divider .subtitle { color: #a8a29e; }
+        .slide-container.section-divider .tag { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+
+        /* =========================================
+           5. TYPOGRAPHY
+           ========================================= */
+        h1, h2, h3, h4, .slide-title {
+            font-family: 'Merriweather', serif;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        h1 { font-size: 64px; line-height: 1.05; margin-bottom: 20px; }
+        
+        .slide-title {
+            font-size: 40px;
+            margin-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+            width: 100%;
+        }
+
+        p, li, table, .subtitle {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            line-height: 1.5;
+            color: var(--text-secondary);
+        }
+
+        .subtitle {
+            font-family: 'Merriweather', serif;
+            font-style: italic;
+            font-size: 24px;
+            color: #57534e;
+        }
+
+        strong { color: var(--accent-coral); font-weight: 700; }
+        
+        code {
+            font-family: 'Fira Code', monospace;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: var(--accent-coral);
+            font-weight: 500;
+        }
+
+        pre {
+            background: #f5f5f4;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* =========================================
+           6. LAYOUT GRIDS
+           ========================================= */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .tiled-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+        }
+        
+        /* Special 4-column grid for roadmap */
+        .tiled-content.four-col {
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        /* =========================================
+           7. COMPONENTS
+           ========================================= */
+        .tile {
+            background-color: #fafaf9;
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        .tile:hover {
+            border-color: var(--accent-coral);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(218, 119, 86, 0.15);
+        }
+        .tile .icon { font-size: 32px; color: var(--accent-coral); margin-bottom: 15px; }
+        .tile h3 { font-size: 20px; margin-bottom: 10px; }
+        .tile p { font-size: 16px; }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 8px;
+        }
+        .tag-coral { background: #fff7ed; color: #c2410c; }
+        .tag-gray { background: #f5f5f4; color: #57534e; }
+
+        .highlight-box {
+            background-color: #fff7ed;
+            border: 1px solid #e8a68a;
+            border-left: 4px solid var(--accent-coral);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        /* Architecture Diagram Elements */
+        .agent-arch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            font-family: 'Fira Code', monospace;
+            flex-wrap: wrap;
+        }
+        .agent-box {
+            border: 2px solid var(--text-primary);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            background: #fff;
+            min-width: 140px;
+            box-shadow: 0 4px 0 var(--text-primary);
+            font-size: 14px;
+        }
+        .agent-box.core { border-color: var(--accent-coral); color: var(--accent-coral); box-shadow: 0 4px 0 var(--accent-coral); }
+        .agent-arrow { font-size: 18px; color: #57534e; }
+
+    </style>
+</head>
+<body>
+
+    <!-- ===========================================
+         SLIDE 1: INTRO
+         =========================================== -->
+    <div class="slide-container">
+        <div class="content-area" style="text-align: center;">
+            <div style="margin-bottom: 20px; letter-spacing: 2px; text-transform: uppercase; font-size: 14px; color: #78716c;">GCP AGENTIC AI MASTERCLASS</div>
+            <h1>Designing, Building &<br>Orchestrating AI Agents</h1>
+            <p class="subtitle">A complete guide to the Agent Development Kit (ADK) and Vertex AI.</p>
+            <div style="margin-top: 40px;">
+                <span class="tag tag-coral">Design</span>
+                <span class="tag tag-coral">Build</span>
+                <span class="tag tag-gray">Deploy</span>
+            </div>
+        </div>
+        <div class="slide-number">1 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 2: ROADMAP
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Course Roadmap</h2>
+        <div class="content-area">
+            <div class="tiled-content four-col">
+                <div class="tile">
+                    <div class="icon">1</div>
+                    <h3>Design</h3>
+                    <p>Architecture & Roles</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">2</div>
+                    <h3>Build</h3>
+                    <p>ADK Implementation</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">3</div>
+                    <h3>Orchestrate</h3>
+                    <p>Sequential vs Parallel</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">4</div>
+                    <h3>Route</h3>
+                    <p>Intelligent Flow</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">5</div>
+                    <h3>State</h3>
+                    <p>Session Mgmt</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">6</div>
+                    <h3>Tools</h3>
+                    <p>SQL & MCP</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">7</div>
+                    <h3>RAG</h3>
+                    <p>Vertex AI Search</p>
+                </div>
+                <div class="tile" style="border-color: var(--accent-coral);">
+                    <div class="icon"><i class="fas fa-flag"></i></div>
+                    <h3>Project</h3>
+                    <p>Banking System</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">2 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 3: TECH STACK
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Tech Stack</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Core Components</h3>
+                    <p>We leverage a modern, cloud-native stack.</p>
+                    <ul>
+                        <li><strong>Google ADK:</strong> The Python-based Agent Development Kit.</li>
+                        <li><strong>Vertex AI:</strong> Access to Gemini 1.5 Flash/Pro models.</li>
+                        <li><strong>MCP:</strong> Model Context Protocol for tool interfaces.</li>
+                        <li><strong>Cloud SQL:</strong> Persistent MySQL storage.</li>
+                    </ul>
+                </div>
+                <div class="tile" style="text-align: center; justify-content: center; align-items: center;">
+                    <i class="fas fa-layer-group" style="font-size: 80px; color: var(--accent-coral); margin-bottom: 30px;"></i>
+                    <h3>Hybrid Architecture</h3>
+                    <p>Deterministic Tools (SQL) + Probabilistic Reasoning (LLMs).</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">3 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 4: LESSON 1 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Lesson 01</span>
+            <h1 style="margin-top: 20px;">Designing Multi-Agent Systems</h1>
+            <p class="subtitle">Planning before Coding</p>
+        </div>
+        <div class="slide-number">4 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 5: CONCEPTS
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Core Concepts</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Why Multi-Agent?</h3>
+                    <p>Single agents struggle with broad, complex contexts. Multi-agent systems break problems down into specialized units.</p>
+                </div>
+                <div class="highlight-box">
+                    <strong>Strategy: Orchestrator & Workers</strong>
+                    <ol style="margin-top: 10px;">
+                        <li>Orchestrator receives user intent.</li>
+                        <li>Delegates to specialized Worker.</li>
+                        <li>Worker executes and returns result.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">5 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 6: CASE STUDY
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Case Study: Google Photos</h2>
+        <div class="content-area">
+            <p style="text-align: center; margin-bottom: 40px;">How a complex application is decomposed into agents.</p>
+            
+            <div class="agent-arch">
+                <div class="agent-box">User</div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box core"><strong>Orchestrator</strong><br>(Router)</div>
+                <div class="agent-arrow">→</div>
+                <div style="display:flex; flex-direction:column; gap:15px;">
+                    <div class="agent-box">Search Agent</div>
+                    <div class="agent-box">Edit Agent</div>
+                    <div class="agent-box">Storage Agent</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">6 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 7: EXERCISE DESIGN
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Exercise: E-Commerce Design</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>The Task</h3>
+                    <p>Design an agent system for an online store.</p>
+                    <ul>
+                        <li><strong>Storefront:</strong> The greeter/router.</li>
+                        <li><strong>Shopping:</strong> Product search & cart.</li>
+                        <li><strong>Inventory:</strong> Stock checks.</li>
+                        <li><strong>Shipping:</strong> Status & fulfillment.</li>
+                    </ul>
+                </div>
+                <pre>
+[Storefront Agent]
+      |
+      +--> [Shopping Agent]
+      |         |
+      |         +--> [Search Tool]
+      |         +--> [Cart Tool]
+      |
+      +--> [Shipping Agent]
+                |
+                +--> [Tracking Tool]
+                </pre>
+            </div>
+        </div>
+        <div class="slide-number">7 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 8: LESSON 2 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Lesson 02</span>
+            <h1 style="margin-top: 20px;">Implementation with ADK</h1>
+            <p class="subtitle">From Diagrams to Python Code</p>
+        </div>
+        <div class="slide-number">8 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 9: DEFINING AGENT
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Defining an Agent</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>The ADK Class</h3>
+                    <p>The <code>Agent</code> class wraps the model, prompts, and tools.</p>
+                    <ul>
+                        <li><code>name</code>: Unique identifier.</li>
+                        <li><code>model</code>: e.g., gemini-2.5-flash.</li>
+                        <li><code>instruction</code>: The System Prompt.</li>
+                    </ul>
+                </div>
+                <pre>
+from google.adk.agents import Agent
+
+shipping_agent = Agent(
+    name="shipping_agent",
+    description="Handles shipping requests.",
+    model="gemini-2.5-flash",
+    instruction="You are a shipping agent...",
+    tools=[place_order, track_package],
+)
+                </pre>
+            </div>
+        </div>
+        <div class="slide-number">9 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 10: SUB AGENTS
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Delegation via Sub-Agents</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <pre>
+root_agent = Agent(
+    name="orchestrator",
+    # ...
+    sub_agents=[
+        shipping_agent, 
+        inquiry_agent
+    ]
+)
+                </pre>
+                <div>
+                    <h3>How Delegation Works</h3>
+                    <p>The ADK automatically converts <code>sub_agents</code> into tools that the LLM can call.</p>
+                    <div class="highlight-box">
+                        <p>If the user asks "Where is my order?", the Orchestrator sees a tool named <code>delegate_to_shipping_agent</code> and calls it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">10 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 11: DEMO SHIPPING
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Demo: Shipping Orchestrator</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-robot"></i></div>
+                    <h3>Orchestrator</h3>
+                    <p>Receives request. Decides if it's an inquiry or a new order.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-question"></i></div>
+                    <h3>Inquiry Agent</h3>
+                    <p>Read-only access. Checks order status. Answers FAQs.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-truck"></i></div>
+                    <h3>Shipping Agent</h3>
+                    <p>Write access. Places orders. Updates addresses.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">11 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 12: LESSON 3 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Lesson 03</span>
+            <h1 style="margin-top: 20px;">Orchestration Patterns</h1>
+            <p class="subtitle">Sequential vs Parallel Execution</p>
+        </div>
+        <div class="slide-number">12 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 13: SEQUENTIAL
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Sequential Orchestration</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Dependency Chains</h3>
+                    <p>Use <code>SequentialAgent</code> when Step B requires data from Step A.</p>
+                    <p><strong>Example:</strong> "Add to Cart" workflow.</p>
+                    <ol>
+                        <li>Get active order ID.</li>
+                        <li>Check Inventory for item.</li>
+                        <li>Add item to cart.</li>
+                    </ol>
+                </div>
+                <div class="agent-arch" style="flex-direction: column;">
+                    <div class="agent-box">Step 1</div>
+                    <div class="agent-arrow">↓</div>
+                    <div class="agent-box">Step 2</div>
+                    <div class="agent-arrow">↓</div>
+                    <div class="agent-box">Step 3</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">13 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 14: PARALLEL
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Parallel Orchestration</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div class="agent-arch">
+                    <div class="agent-box">Task A</div>
+                    <div style="width: 20px;"></div>
+                    <div class="agent-box">Task B</div>
+                </div>
+                <div>
+                    <h3>Speed & Efficiency</h3>
+                    <p>Use <code>ParallelAgent</code> when tasks are independent.</p>
+                    <div class="highlight-box">
+                        <p><strong>Example: Calculating Costs</strong></p>
+                        <ul>
+                            <li>Calculate Shipping (based on weight).</li>
+                            <li>Calculate Taxes (based on location).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">14 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 15: CODE COMPARISON
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Code Implementation</h2>
+        <div class="content-area">
+            <div class="two-column" style="align-items: start;">
+                <div>
+                    <h3>Sequential</h3>
+                    <pre>
+cart_agent = SequentialAgent(
+    name="cart_workflow",
+    sub_agents=[
+        get_order_agent,
+        check_inventory_agent,
+        add_item_agent
+    ]
+)
+                    </pre>
+                </div>
+                <div>
+                    <h3>Parallel</h3>
+                    <pre>
+costs_agent = ParallelAgent(
+    name="cost_calculator",
+    sub_agents=[
+        shipping_cost_agent,
+        tax_calculator_agent
+    ]
+)
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">15 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 16: LESSON 4 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Lesson 04</span>
+            <h1 style="margin-top: 20px;">Data Routing Strategies</h1>
+            <p class="subtitle">Controlling the Flow of Information</p>
+        </div>
+        <div class="slide-number">16 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 17: INTENT ROUTING
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Intent-Based Routing</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>The "Traffic Cop"</h3>
+                    <p>Standard routing uses an LLM to decide where to go based on the user's natural language request.</p>
+                    <p>This is probabilistic. "I want to buy a car" → Maps to <code>Loan Agent</code>.</p>
+                </div>
+                <div class="tile" style="text-align: center;">
+                    <i class="fas fa-traffic-light" style="font-size: 60px; color: var(--accent-coral); margin-bottom: 20px;"></i>
+                    <h3>LlmAgent</h3>
+                    <p>The default router in ADK. Flexible, easy to set up, but can be non-deterministic.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">17 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 18: CUSTOM ROUTING
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Custom Routing Logic</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <pre>
+class ShippingRouter(BaseAgent):
+    async def _run_async_impl(self, ctx):
+        total = ctx.state.get("total")
+        
+        if total > 100:
+            return self.free_shipping
+        else:
+            return self.standard_shipping
+                </pre>
+                <div>
+                    <h3>Deterministic Logic</h3>
+                    <p>Sometimes you need hard rules, not AI guesses.</p>
+                    <ul>
+                        <li><strong>Business Rules:</strong> Free shipping thresholds.</li>
+                        <li><strong>A/B Testing:</strong> Randomly routing 50% of users.</li>
+                        <li><strong>Security:</strong> Restricting access based on tiers.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">18 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 19: DEMO ROUTER
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Demo: Free Shipping Threshold</h2>
+        <div class="content-area">
+            <div class="agent-arch">
+                <div class="agent-box">Cart Subtotal</div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box core"><strong>Logic Check</strong><br>IF > $100</div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box">Free Shipping Agent</div>
+            </div>
+        </div>
+        <div class="slide-number">19 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 20: LESSON 5 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Lesson 05</span>
+            <h1 style="margin-top: 20px;">State Management</h1>
+            <p class="subtitle">Memory, Context, and Persistence</p>
+        </div>
+        <div class="slide-number">20 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 21: INVOCATION CONTEXT
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Invocation Context</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>The "Brain" of the Request</h3>
+                    <p>Every agent execution in ADK receives an <code>InvocationContext</code>.</p>
+                    <ul>
+                        <li><strong>Session ID:</strong> Identifies the user conversation.</li>
+                        <li><strong>History:</strong> Previous turns (chat log).</li>
+                        <li><strong>State Dictionary:</strong> A shared key-value store for that session.</li>
+                    </ul>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-memory"></i></div>
+                    <h3>Types of State</h3>
+                    <p><strong>Implicit:</strong> Chat history ("I want that one").<br>
+                    <strong>Explicit:</strong> Code variables (<code>ctx.state['id'] = 1</code>).</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">21 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 22: IMPLEMENTING STATE
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Implementing State Code</h2>
+        <div class="content-area">
+            <pre>
+def get_order(tool_context: ToolContext):
+    # Check if order_id exists in session state
+    order_id = tool_context.state.get("order_id")
+
+    if order_id is None:
+        # Create new if missing
+        order_id = generate_new_id()
+        # Save to state for next turn
+        tool_context.state["order_id"] = order_id
+
+    return {"order_id": order_id}
+            </pre>
+        </div>
+        <div class="slide-number">22 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 23: STATE DEMO
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Demo: Persistent Cart</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div class="tile" style="opacity: 0.6;">
+                    <h3>Stateless</h3>
+                    <p>User: "Add apples"<br>Agent: "Added."<br>User: "Checkout"<br>Agent: "Checkout what?"</p>
+                </div>
+                <div class="tile" style="border-color: var(--accent-coral);">
+                    <div class="icon"><i class="fas fa-check-circle"></i></div>
+                    <h3>Stateful (ADK)</h3>
+                    <p>User: "Add apples"<br>Agent: "Added." [State: cart=['apples']]<br>User: "Checkout"<br>Agent: "Checking out 1 item: apples."</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">23 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 24: LESSON 6 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Lesson 06</span>
+            <h1 style="margin-top: 20px;">Tools & MCP</h1>
+            <p class="subtitle">Connecting AI to the Real World</p>
+        </div>
+        <div class="slide-number">24 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 25: MCP
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Model Context Protocol (MCP)</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>The Bridge</h3>
+                    <p>MCP is a standard for connecting AI models to data sources and tools.</p>
+                    <p>Instead of hardcoding Python functions inside the agent, we define them in a server (Toolbox) and the agent connects as a client.</p>
+                </div>
+                <div class="agent-arch" style="flex-direction: column;">
+                    <div class="agent-box">Agent (Client)</div>
+                    <div class="agent-arrow">↓</div>
+                    <div class="agent-box core">Toolbox Server</div>
+                    <div class="agent-arrow">↓</div>
+                    <div class="agent-box">Database (SQL)</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">25 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 26: TOOLS YAML
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Defining Tools: tools.yaml</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <pre>
+tools:
+  get-balance:
+    kind: mysql-sql
+    source: deposit
+    description: Get current balance
+    parameters:
+      - name: account_name
+        type: string
+    statement: SELECT bal FROM accounts WHERE name = ?
+                </pre>
+                <div>
+                    <h3>Declarative Safety</h3>
+                    <p>We define tools in YAML.</p>
+                    <ul>
+                        <li><strong>Safe:</strong> Parameterized SQL prevents injection.</li>
+                        <li><strong>Portable:</strong> Can be used by different agents.</li>
+                        <li><strong>Clear:</strong> Descriptions help the LLM know <em>when</em> to use it.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">26 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 27: STRUCTURED OUTPUTS
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Structured Outputs with Pydantic</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Strict Schemas</h3>
+                    <p>Ensure the LLM returns data that code can understand, not just chatty text.</p>
+                    <p>This forces Gemini to return valid JSON.</p>
+                </div>
+                <pre>
+class InventoryData(BaseModel):
+    product_id: str
+    in_stock: bool
+    count: int
+
+agent = LlmAgent(
+    ...,
+    output_schema=InventoryData
+)
+                </pre>
+            </div>
+        </div>
+        <div class="slide-number">27 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 28: LESSON 7 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Lesson 07</span>
+            <h1 style="margin-top: 20px;">Retrieval Augmented Generation</h1>
+            <p class="subtitle">Handling Unstructured Data</p>
+        </div>
+        <div class="slide-number">28 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 29: VERTEX AI
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Vertex AI Search</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Vector Search</h3>
+                    <p>Databases (SQL) are good for numbers. Vector Search is good for <strong>meaning</strong>.</p>
+                    <p>It converts text (PDFs, Manuals) into mathematical vectors (embeddings) to find "concepts" rather than just keywords.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-search"></i></div>
+                    <h3>Capabilities</h3>
+                    <ul>
+                        <li>Ingest PDFs/HTML.</li>
+                        <li>Semantic Search.</li>
+                        <li>Auto-summarization.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">29 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 30: MULTI AGENT RAG
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Multi-Agent RAG Strategy</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <h3>1. User Query</h3>
+                    <p>"Do you have the waterproof speaker in stock?"</p>
+                </div>
+                <div class="tile">
+                    <h3>2. RAG Agent</h3>
+                    <p>Searches Manuals: "Yes, Product P003 is waterproof."</p>
+                </div>
+                <div class="tile">
+                    <h3>3. SQL Agent</h3>
+                    <p>Checks DB: "P003 Count: 0"</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">30 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 31: RAG CODE
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">RAG Tool Implementation</h2>
+        <div class="content-area">
+            <pre>
+def datastore_search_tool(search_query: str):
+    client = discoveryengine.SearchServiceClient()
+    # Query Vertex AI Data Store
+    response = client.search(
+        serving_config=config_id,
+        query=search_query
+    )
+    return response.results
+            </pre>
+            <p style="margin-top: 20px;">This tool is given to the <code>product_qa_agent</code>, allowing it to "read" the documents.</p>
+        </div>
+        <div class="slide-number">31 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 32: DEEP DIVE TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Deep Dive</span>
+            <h1 style="margin-top: 20px;">Complete Execution Flow</h1>
+            <p class="subtitle">"Add wireless headphones to my cart"</p>
+        </div>
+        <div class="slide-number">32 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 33: FLOW OVERVIEW
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Six Phases of Execution</h2>
+        <div class="content-area">
+            <div class="tiled-content" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr);">
+                <div class="tile">
+                    <div class="icon">1</div>
+                    <h3>Initialization</h3>
+                    <p>Request handling & orchestrator setup</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">2</div>
+                    <h3>Search</h3>
+                    <p>Product discovery via MCP tools</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">3</div>
+                    <h3>Cart Prep</h3>
+                    <p>Parallel order & inventory checks</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">4</div>
+                    <h3>Add to Cart</h3>
+                    <p>Sequential item addition</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">5</div>
+                    <h3>Response</h3>
+                    <p>Event aggregation & streaming</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">6</div>
+                    <h3>Persistence</h3>
+                    <p>State & session management</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">33 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 34: PHASE 1 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Phase 1</span>
+            <h1 style="margin-top: 20px;">Initialization & Request Handling</h1>
+            <p class="subtitle">From user input to orchestrator decision</p>
+        </div>
+        <div class="slide-number">34 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 35: USER REQUEST
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 1-2: Request & Root Agent</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>User Request Submission</h3>
+                    <div class="highlight-box">
+                        <p><strong>Input:</strong> "Add wireless headphones to my cart"</p>
+                    </div>
+                    <p style="margin-top: 20px;">Request received by ADK runtime and wrapped in an <code>InvocationContext</code> object.</p>
+                </div>
+                <div>
+                    <h3>Root Agent Instantiation</h3>
+                    <pre>
+shopping_orchestrator = Agent(
+    name="shopping_orchestrator",
+    model="gemini-2.5-flash",
+    instruction="agent-prompt.txt",
+    sub_agents=[
+        search_agent,
+        inventory_agent,
+        cart_agent,
+        product_qa_agent
+    ]
+)
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">35 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 36: ORCHESTRATOR REASONING
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 3: Orchestrator Reasoning</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>LLM Decision Process</h3>
+                    <p><strong>Input to Gemini-2.5-Flash:</strong></p>
+                    <ul>
+                        <li>User message</li>
+                        <li>Orchestrator instructions</li>
+                        <li>Available sub-agents list</li>
+                    </ul>
+                    <p style="margin-top: 15px;"><strong>Analysis:</strong> User wants to "Add...to cart"</p>
+                </div>
+                <div>
+                    <h3>Determined Workflow</h3>
+                    <div class="agent-arch" style="flex-direction: column;">
+                        <div class="agent-box">1. Search for "wireless headphones"</div>
+                        <div class="agent-arrow">↓</div>
+                        <div class="agent-box">2. Check inventory</div>
+                        <div class="agent-arrow">↓</div>
+                        <div class="agent-box">3. Add to cart</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">36 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 37: PHASE 2 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Phase 2</span>
+            <h1 style="margin-top: 20px;">Search Agent Execution</h1>
+            <p class="subtitle">A/B Testing Router → MCP Toolbox → MySQL</p>
+        </div>
+        <div class="slide-number">37 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 38: SEARCH ROUTER
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 4-5: SearchRouter (A/B Testing)</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Custom Router Logic</h3>
+                    <pre>
+class SearchRouter(BaseAgent):
+    agent_a = search_agent_exact  # Phrase match
+    agent_b = search_agent_broad  # Any-word match
+    agent_b_rate = 0.5  # 50% probability
+
+    async def _run_async_impl(self, ctx):
+        if random.random() < (1 - self.agent_b_rate):
+            return self.agent_a
+        else:
+            return self.agent_b
+                    </pre>
+                </div>
+                <div class="tile" style="text-align: center;">
+                    <i class="fas fa-random" style="font-size: 50px; color: var(--accent-coral); margin-bottom: 20px;"></i>
+                    <h3>Probabilistic Routing</h3>
+                    <p>50% → Exact Search<br>50% → Broad Search</p>
+                    <p style="font-size: 14px; margin-top: 15px; color: #78716c;">Useful for testing which approach performs better.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">38 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 39: SEARCH EXECUTION
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 6-7: Search Agent & MCP Toolbox</h2>
+        <div class="content-area">
+            <div class="agent-arch">
+                <div class="agent-box">SearchAgentExact<br><span style="font-size: 11px;">(LlmAgent)</span></div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box core"><strong>MCP Toolbox</strong><br><span style="font-size: 11px;">http://127.0.0.1:5001</span></div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box">search-products<br><span style="font-size: 11px;">(mysql-sql tool)</span></div>
+            </div>
+            <div class="highlight-box" style="margin-top: 30px;">
+                <p><strong>Agent Instruction:</strong> "Your job is to help users find products based on their queries..."</p>
+                <p style="margin-top: 10px;"><strong>Tool Loaded:</strong> <code>search-products</code> from <code>tools.yaml</code></p>
+            </div>
+        </div>
+        <div class="slide-number">39 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 40: DATABASE QUERY
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 8-9: Database Query Execution</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Tool Definition (tools.yaml)</h3>
+                    <pre>
+search-products:
+  kind: mysql-sql
+  source: storefront
+  statement: |
+    SELECT * FROM products 
+    WHERE CONCAT(name, ' ', description) 
+    LIKE CONCAT('%', ?, '%')
+                    </pre>
+                </div>
+                <div>
+                    <h3>Query Result</h3>
+                    <pre>
+| product_id | name               | price  |
+|------------|--------------------|--------|
+| P001       | Wireless Headphones| 299.99 |
+
+description: "Noise cancelling 
+              over-ear headphones"
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">40 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 41: SEARCH RESPONSE
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 10-12: Response Generation</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Tool Result → LLM</h3>
+                    <pre>
+{
+  "product_id": "P001",
+  "name": "Wireless Headphones",
+  "description": "Noise cancelling...",
+  "price": 299.99
+}
+                    </pre>
+                </div>
+                <div>
+                    <h3>Agent Output</h3>
+                    <div class="highlight-box">
+                        <p>"I found <strong>Wireless Headphones</strong> - Noise cancelling over-ear headphones at <strong>$299.99</strong>. Would you like to add it to your cart?"</p>
+                    </div>
+                    <p style="margin-top: 15px; font-size: 14px;">Response wrapped in <code>Event</code> object and yielded back to orchestrator.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">41 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 42: PHASE 3 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Phase 3</span>
+            <h1 style="margin-top: 20px;">Cart Agent Execution</h1>
+            <p class="subtitle">SequentialAgent → ParallelAgent → Concurrent Tasks</p>
+        </div>
+        <div class="slide-number">42 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 43: CART AGENT STRUCTURE
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 13-14: SequentialAgent Workflow</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Cart Agent Structure</h3>
+                    <pre>
+cart_agent = SequentialAgent(
+    name="cart_agent",
+    sub_agents=[
+        cart_prep_agent,   # Phase 1
+        add_item_agent     # Phase 2
+    ]
+)
+                    </pre>
+                    <p style="margin-top: 15px;"><strong>Not an LlmAgent!</strong> This is deterministic sequential execution.</p>
+                </div>
+                <div class="agent-arch" style="flex-direction: column;">
+                    <div class="agent-box core"><strong>CartAgent</strong><br>(Sequential)</div>
+                    <div class="agent-arrow">↓</div>
+                    <div class="agent-box">cart_prep_agent (Parallel)</div>
+                    <div class="agent-arrow">↓</div>
+                    <div class="agent-box">add_item_agent (LLM)</div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">43 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 44: PARALLEL AGENT
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 15: CartPrepAgent (Parallel)</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <pre>
+cart_prep_agent = ParallelAgent(
+    name="cart_prep_agent",
+    sub_agents=[
+        get_order_agent,      # Get/create order
+        inventory_data_agent  # Check stock
+    ]
+)
+                </pre>
+                <div>
+                    <h3>Why Parallel?</h3>
+                    <p>These tasks are <strong>independent</strong>:</p>
+                    <ul>
+                        <li>Creating an order doesn't need inventory data</li>
+                        <li>Checking inventory doesn't need order ID</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <p><strong>Performance Win:</strong> Both execute simultaneously!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">44 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 45: PARALLEL TRACK A
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 15a: GetOrderAgent (Track A)</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <pre>
+def get_order(tool_context: ToolContext):
+    # Check if order exists
+    order_id = tool_context.state.get("order_id")
+    
+    if order_id is None:
+        # Create new order
+        order_id = get_next_order_id()  # "ORDER1001"
+        tool_context.state["order_id"] = order_id
+        
+        # In-memory storage
+        orders[order_id] = {
+            "cart": [],
+            "address": None,
+            "order_status": None
+        }
+    
+    return {"order_id": order_id}
+                </pre>
+                <div>
+                    <h3>State Flow</h3>
+                    <div class="agent-arch" style="flex-direction: column; gap: 10px;">
+                        <div class="agent-box">Check State → None</div>
+                        <div class="agent-arrow">↓</div>
+                        <div class="agent-box">Generate ID: ORDER1001</div>
+                        <div class="agent-arrow">↓</div>
+                        <div class="agent-box core">Save to State</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">45 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 46: PARALLEL TRACK B
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 15b: InventoryDataAgent (Track B)</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Structured Output Schema</h3>
+                    <pre>
+class InventoryData(BaseModel):
+    product_id: str
+    in_stock: bool
+    count: int
+
+inventory_data_agent = LlmAgent(
+    name="inventory_data_agent",
+    output_schema=InventoryData,
+    tools=[check_inventory]
+)
+                    </pre>
+                </div>
+                <div>
+                    <h3>SQL Query & Result</h3>
+                    <pre>
+-- check-inventory tool
+SELECT 
+  product_id,
+  quantity > 0 as in_stock,
+  quantity as count 
+FROM inventory 
+WHERE product_id = 'P001'
+
+-- Result:
+{
+  "product_id": "P001",
+  "in_stock": true,
+  "count": 50
+}
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">46 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 47: PARALLEL COMPLETION
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 15c: Parallel Completion</h2>
+        <div class="content-area" style="text-align: center;">
+            <div class="agent-arch" style="justify-content: center;">
+                <div class="agent-box" style="background: #ecfdf5; border-color: var(--accent-green);">
+                    <strong>Track A Complete</strong><br>
+                    Order: ORDER1001
+                </div>
+                <div style="width: 50px;"></div>
+                <div class="agent-box" style="background: #ecfdf5; border-color: var(--accent-green);">
+                    <strong>Track B Complete</strong><br>
+                    P001: 50 units in stock
+                </div>
+            </div>
+            <div class="highlight-box" style="max-width: 600px; margin: 40px auto 0;">
+                <p><strong>Synchronization Point:</strong> Both results merged into <code>InvocationContext</code> for the next step.</p>
+            </div>
+        </div>
+        <div class="slide-number">47 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 48: PHASE 4 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Phase 4</span>
+            <h1 style="margin-top: 20px;">Add to Cart Execution</h1>
+            <p class="subtitle">Tool invocation with state management</p>
+        </div>
+        <div class="slide-number">48 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 49: ADD ITEM AGENT
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 16-17: AddItemAgent Execution</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Agent Configuration</h3>
+                    <pre>
+add_item_agent = LlmAgent(
+    name="add_item_agent",
+    instruction="""
+    Your job is to add a product to cart.
+    Assume order exists and inventory 
+    has been checked.
+    
+    If sufficient inventory, use the 
+    add_to_cart tool. If not, alert 
+    the customer.
+    """,
+    tools=[add_to_cart]
+)
+                    </pre>
+                </div>
+                <div>
+                    <h3>Context Available</h3>
+                    <ul>
+                        <li><strong>From Search:</strong> product_id = "P001"</li>
+                        <li><strong>From Track A:</strong> order_id = "ORDER1001"</li>
+                        <li><strong>From Track B:</strong> in_stock = true, count = 50</li>
+                    </ul>
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <p>Agent has full context to make decision → <strong>Proceed with add_to_cart</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">49 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 50: ADD TO CART FUNCTION
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 18-19: add_to_cart Function</h2>
+        <div class="content-area">
+            <pre>
+def add_to_cart(product_id: str, tool_context: ToolContext):
+    # Step 19.1: Extract order_id from context
+    order_id = tool_context.state.get("order_id")  # Returns "ORDER1001"
+    
+    # Step 19.2: Validate order exists
+    order = orders[order_id]  # Retrieves from in-memory store
+    
+    # Step 19.3: Check order status
+    if order["order_status"] is not None:
+        return {"error": "Order cannot be modified..."}
+    
+    # Step 19.4: Add product to cart array
+    order["cart"].append(product_id)  # cart = ["P001"]
+    
+    # Step 19.5: Return success response
+    return {
+        "status": "success",
+        "message": f"Added {product_id} to cart.",
+        "cart": order["cart"]  # ["P001"]
+    }
+            </pre>
+        </div>
+        <div class="slide-number">50 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 51: PHASE 5 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Phase 5</span>
+            <h1 style="margin-top: 20px;">Response Aggregation</h1>
+            <p class="subtitle">Event collection and streaming</p>
+        </div>
+        <div class="slide-number">51 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 52: EVENT COLLECTION
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 21-22: Event Collection</h2>
+        <div class="content-area">
+            <div class="tiled-content four-col">
+                <div class="tile">
+                    <div class="icon">1</div>
+                    <h3>Search</h3>
+                    <p style="font-size: 14px;">"I found Wireless Headphones..."</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">2</div>
+                    <h3>Order</h3>
+                    <p style="font-size: 14px;">"Order created: ORDER1001"</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">3</div>
+                    <h3>Inventory</h3>
+                    <p style="font-size: 14px;">"P001 in stock: 50 units"</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">4</div>
+                    <h3>Cart</h3>
+                    <p style="font-size: 14px;">"Successfully added..."</p>
+                </div>
+            </div>
+            <div class="highlight-box" style="margin-top: 30px;">
+                <p><strong>Events Queue:</strong> All responses stored in <code>invocation_context.session.events</code></p>
+                <p style="margin-top: 10px;"><strong>Streaming:</strong> Events yielded back through async generator in sequence of execution.</p>
+            </div>
+        </div>
+        <div class="slide-number">52 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 53: FINAL RESPONSE
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 23-24: Final User Response</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Combined Output</h3>
+                    <div class="tile" style="background: #fafaf9;">
+                        <p><strong>Search Result:</strong> I found Wireless Headphones - Noise cancelling over-ear headphones at $299.99</p>
+                        <p style="margin-top: 15px;"><strong>Order Status:</strong> Order created with ID ORDER1001</p>
+                        <p style="margin-top: 15px;"><strong>Inventory:</strong> P001 in stock (50 units available)</p>
+                        <p style="margin-top: 15px;"><strong>Cart Update:</strong> Successfully added Wireless Headphones to your cart!</p>
+                    </div>
+                </div>
+                <div>
+                    <h3>Final State</h3>
+                    <pre>
+# Session State
+{
+  "order_id": "ORDER1001"
+}
+
+# In-Memory Orders
+orders["ORDER1001"] = {
+  "cart": ["P001"],
+  "address": None,
+  "order_status": None
+}
+                    </pre>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">53 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 54: PHASE 6 TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Phase 6</span>
+            <h1 style="margin-top: 20px;">State Persistence</h1>
+            <p class="subtitle">Session continuity for future requests</p>
+        </div>
+        <div class="slide-number">54 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 55: FUTURE INVOCATION
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Step 25-26: Future Invocation Handling</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Next User Request</h3>
+                    <div class="highlight-box">
+                        <p><strong>User:</strong> "Add USB-C cable"</p>
+                    </div>
+                    <p style="margin-top: 20px;"><strong>GetOrderAgent checks:</strong></p>
+                    <pre>
+order_id = tool_context.state.get("order_id")
+# Returns "ORDER1001" (NOT None!)
+
+# Reuses existing order
+# No new order created
+                    </pre>
+                </div>
+                <div>
+                    <h3>Updated Cart</h3>
+                    <pre>
+# Before
+orders["ORDER1001"]["cart"] = ["P001"]
+
+# After adding USB-C cable (P004)
+orders["ORDER1001"]["cart"] = [
+    "P001",  # Wireless Headphones
+    "P004"   # USB-C Cable
+]
+                    </pre>
+                    <div class="tile" style="margin-top: 20px; text-align: center;">
+                        <i class="fas fa-shopping-cart" style="font-size: 30px; color: var(--accent-green);"></i>
+                        <p style="margin-top: 10px;"><strong>Cart persists across requests!</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">55 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 56: TECHNICAL SUMMARY TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Summary</span>
+            <h1 style="margin-top: 20px;">Key Technical Layers</h1>
+            <p class="subtitle">The architecture that powers it all</p>
+        </div>
+        <div class="slide-number">56 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 57: TECHNICAL LAYERS
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Four-Layer Architecture</h2>
+        <div class="content-area">
+            <div class="tiled-content four-col">
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-cogs"></i></div>
+                    <h3>ADK Framework</h3>
+                    <ul style="font-size: 14px;">
+                        <li><code>InvocationContext</code></li>
+                        <li><code>ToolContext</code></li>
+                        <li><code>Event</code> objects</li>
+                    </ul>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-robot"></i></div>
+                    <h3>Agent Layer</h3>
+                    <ul style="font-size: 14px;">
+                        <li><code>LlmAgent</code></li>
+                        <li><code>SequentialAgent</code></li>
+                        <li><code>ParallelAgent</code></li>
+                        <li><code>SearchRouter</code></li>
+                    </ul>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-wrench"></i></div>
+                    <h3>Tool Layer (MCP)</h3>
+                    <ul style="font-size: 14px;">
+                        <li><code>ToolboxSyncClient</code></li>
+                        <li>SQL tools in YAML</li>
+                        <li>Pydantic schemas</li>
+                    </ul>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-database"></i></div>
+                    <h3>Data Layer</h3>
+                    <ul style="font-size: 14px;">
+                        <li>MySQL Database</li>
+                        <li>Vertex AI Search</li>
+                        <li>In-Memory State</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">57 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 58: COMPLETE FLOW DIAGRAM
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Complete Execution Flow</h2>
+        <div class="content-area">
+            <div class="agent-arch" style="flex-wrap: wrap; justify-content: center; gap: 10px;">
+                <div class="agent-box">User Request</div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box core">Orchestrator</div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box">SearchRouter</div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box">MCP Toolbox</div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box">MySQL</div>
+            </div>
+            <div class="agent-arch" style="flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 20px;">
+                <div class="agent-arrow">↓</div>
+            </div>
+            <div class="agent-arch" style="flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 10px;">
+                <div class="agent-box">CartAgent<br><span style="font-size: 11px;">(Sequential)</span></div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box" style="background: #ecfdf5;">GetOrder<br><span style="font-size: 11px;">║</span><br>Inventory<br><span style="font-size: 11px;">(Parallel)</span></div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box">AddItemAgent</div>
+                <div class="agent-arrow">→</div>
+                <div class="agent-box core">Response<br>Stream</div>
+            </div>
+        </div>
+        <div class="slide-number">58 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 59: PROJECT TITLE
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <span class="tag">Final Project</span>
+            <h1 style="margin-top: 20px;">Intelligent Banking System</h1>
+            <p class="subtitle">Putting it all together</p>
+        </div>
+        <div class="slide-number">59 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 60: ARCHITECTURE
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">System Architecture</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Three Specialized Agents</h3>
+                    <ul>
+                        <li><strong>Manager Agent:</strong> The router/greeter.</li>
+                        <li><strong>Deposit Agent:</strong> Handles checking/savings.</li>
+                        <li><strong>Loan Agent:</strong> Handles mortgages/auto loans.</li>
+                    </ul>
+                </div>
+                <div class="agent-arch" style="flex-direction: column;">
+                    <div class="agent-box core">Manager Agent</div>
+                    <div style="display:flex; gap: 20px; margin-top: 20px;">
+                        <div class="agent-box">Deposit Agent</div>
+                        <div class="agent-box">Loan Agent</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">60 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 34: DEPOSIT AGENT
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Deposit Agent</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Responsibilities</h3>
+                    <ul>
+                        <li>Check Balances.</li>
+                        <li>List Transactions.</li>
+                        <li>Verify Minimum Balances.</li>
+                    </ul>
+                </div>
+                <pre>
+tools:
+  - get-accounts
+  - get-balance
+  - check-minimum-balance (SQL SUM query)
+  - get-transactions
+                </pre>
+            </div>
+        </div>
+        <div class="slide-number">61 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 62: LOAN AGENT
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Loan Agent: Complex Logic</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon">1</div>
+                    <h3>Collect Data</h3>
+                    <p>Ask user for Amount and Type (Auto, Home).</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">2</div>
+                    <h3>Check Policy</h3>
+                    <p>Read <code>loan-policy.pdf</code> via RAG to get rules.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon">3</div>
+                    <h3>Decision</h3>
+                    <p>Compare User Data vs Policy Rules -> Approve/Deny.</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">62 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 63: LOAN FLOW
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Flow: Applying for a Loan</h2>
+        <div class="content-area">
+            <div class="highlight-box">
+                <p><strong>User:</strong> "I want a car loan for $20k"<br>
+                <strong>Manager:</strong> Routes to Loan Agent.<br>
+                <strong>Loan Agent:</strong> Checks existing debt (SQL).<br>
+                <strong>Loan Agent:</strong> Checks policy manual (RAG).<br>
+                <strong>Loan Agent:</strong> "Your debt ratio is too high based on policy. Denied."</p>
+            </div>
+        </div>
+        <div class="slide-number">63 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 64: CODE STRUCTURE
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Project Code Structure</h2>
+        <div class="content-area">
+            <pre style="height: 500px;">
+project/solution/
+├── manager/
+│   ├── agent.py
+│   └── agent-prompt.txt
+├── deposit/
+│   ├── agent.py
+│   └── tools.yaml (SQL)
+└── loan/
+    ├── agent.py
+    ├── loan.py (Logic)
+    └── tools.yaml
+            </pre>
+        </div>
+        <div class="slide-number">64 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 65: TAKEAWAYS
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Key Project Takeaways</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Orchestration</h3>
+                    <p>Coordinating distinct agents (Manager -> Loan) is powerful.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-database"></i></div>
+                    <h3>Data Grounding</h3>
+                    <p>Real-world agents need real data (SQL) and policies (PDFs).</p>
+                </div>
+            </div>
+        </div>
+        <div class="slide-number">65 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 66: SUMMARY
+         =========================================== -->
+    <div class="slide-container">
+        <h2 class="slide-title">Course Summary</h2>
+        <div class="content-area">
+            <ul>
+                <li><strong>Design First:</strong> Always diagram your agents.</li>
+                <li><strong>Use the ADK:</strong> It handles the glue code (HTTP, Context).</li>
+                <li><strong>Tools are Key:</strong> Agents are only as good as their tools (MCP).</li>
+                <li><strong>State Matters:</strong> Remember the user's cart/session.</li>
+                <li><strong>Hybrid Data:</strong> Combine Vector Search + SQL for complete answers.</li>
+            </ul>
+        </div>
+        <div class="slide-number">66 / 67</div>
+    </div>
+
+    <!-- ===========================================
+         SLIDE 67: CLOSING
+         =========================================== -->
+    <div class="slide-container section-divider">
+        <div class="content-area" style="text-align: center;">
+            <i class="fas fa-check-circle" style="font-size: 60px; color: var(--accent-green); margin-bottom: 30px;"></i>
+            <h1>Thank You!</h1>
+            <p class="subtitle">Now go build intelligent agents.</p>
+        </div>
+        <div class="slide-number">67 / 67</div>
+    </div>
+
+</body>
+</html>

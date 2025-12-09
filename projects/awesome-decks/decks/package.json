@@ -1,0 +1,19 @@
+{
+  "name": "awesome-decks",
+  "version": "1.0.0",
+  "main": "generatePDF.js",
+  "scripts": {
+    "pdf": "bun generatePDF.js",
+    "pdf:all": "bun generatePDF.js --all",
+    "pdf:node": "node generatePDF.js",
+    "pdf:node:all": "node generatePDF.js --all"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "HTML slide presentation to PDF converter",
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "puppeteer": "^24.32.0"
+  }
+}

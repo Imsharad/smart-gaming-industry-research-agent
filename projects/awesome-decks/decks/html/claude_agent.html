@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Agents with Claude Agent SDK</title>
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- ICONS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* =========================================
+           CORE VARIABLES & RESET
+           ========================================= */
+        :root {
+            --bg-color: #fdfbf7;       /* Warm Sand */
+            --card-bg: #ffffff;        /* White */
+            --text-primary: #1c1917;   /* Charcoal */
+            --text-secondary: #44403c; /* Soft Grey */
+            --accent-coral: #da7756;   /* Anthropic Coral */
+            --accent-blue: #3b82f6;    /* Tech Blue */
+            --accent-green: #10b981;   /* Success Green */
+            --accent-red: #ef4444;     /* Red */
+            --border-color: #ebeae8;
+            --scale: 1;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden; /* Prevent scrollbars */
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            
+            /* FLEXBOX CENTERING ENGINE */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* =========================================
+           SLIDE CONTAINER (The "Canvas")
+           ========================================= */
+        .slide-container {
+            background-color: var(--card-bg);
+            border-radius: 24px;
+            box-shadow: 
+                0 0 0 1px rgba(0,0,0,0.03),
+                0 20px 50px rgba(0, 0, 0, 0.08);
+            
+            /* Hidden by default until JS activates */
+            display: none; 
+            
+            /* Fixed Aspect Ratio Layout */
+            width: 1280px;
+            height: 720px;
+            padding: 50px 70px;
+            
+            /* Scaling Logic */
+            position: relative;
+            flex-shrink: 0;
+            transform: scale(var(--scale));
+            transform-origin: center center;
+            
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            
+            /* Entry Animation */
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .slide-container.active {
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(calc(var(--scale) * 0.98)); }
+            to { opacity: 1; transform: scale(var(--scale)); }
+        }
+
+        /* The Top Gradient Bar */
+        .slide-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--accent-coral) 0%, #f2a386 50%, var(--accent-blue) 100%);
+            z-index: 2;
+        }
+
+        /* Variant: Section Divider Slide (Dark) */
+        .slide-container.section-divider {
+            background-color: #1c1917;
+            background-image: radial-gradient(circle at top right, #292524 0%, #1c1917 40%);
+            color: white;
+            border: none;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .slide-container.section-divider h1 { color: white; margin-bottom: 20px;}
+        .slide-container.section-divider .subtitle { color: #a8a29e; }
+        .slide-container.section-divider::before { display: none; }
+
+        /* =========================================
+           TYPOGRAPHY
+           ========================================= */
+        h1, h2, h3, h4, .slide-title {
+            font-family: 'Merriweather', serif;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            margin: 0;
+        }
+
+        h1 { font-size: 64px; line-height: 1.1; margin-bottom: 25px; }
+        
+        /* The Standard Header for every slide */
+        .slide-title {
+            font-size: 38px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+            width: 100%;
+        }
+
+        p, li, table {
+            font-family: 'Inter', sans-serif;
+            font-size: 19px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .subtitle {
+            font-family: 'Merriweather', serif;
+            font-style: italic;
+            font-size: 26px;
+            color: #57534e;
+        }
+
+        strong { color: var(--accent-coral); font-weight: 700; }
+        
+        /* Code Blocks & Inline */
+        pre {
+            background: #1c1917;
+            color: #e5e7eb;
+            padding: 25px;
+            border-radius: 12px;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            border-left: 5px solid var(--accent-coral);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin: 0;
+            width: 100%;
+        }
+
+        code { font-family: 'Fira Code', monospace; }
+
+        .inline-code {
+            font-family: 'Fira Code', monospace;
+            background: #f3f4f6;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 0.9em;
+            color: #b91c1c; /* Slightly darker red for contrast */
+            font-weight: 600;
+            border: 1px solid #e5e7eb;
+        }
+
+        ul.clean-list { list-style: none; padding: 0; }
+        ul.clean-list li { margin-bottom: 15px; display: flex; align-items: flex-start; gap: 12px; }
+
+        /* =========================================
+           LAYOUT GRIDS
+           ========================================= */
+        .content-area {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            width: 100%;
+            align-items: center;
+            height: 100%;
+        }
+
+        .tiled-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+        }
+
+        /* =========================================
+           COMPONENTS
+           ========================================= */
+        
+        /* Card/Tile */
+        .tile {
+            background-color: #fafaf9;
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            transition: all 0.3s ease;
+            height: 100%;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+        }
+        .tile:hover {
+            border-color: var(--accent-coral);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(218, 119, 86, 0.1);
+            background-color: white;
+        }
+        .tile .icon { font-size: 32px; color: var(--accent-coral); margin-bottom: 15px; }
+        .tile h3 { font-size: 20px; margin-bottom: 12px; font-weight: 700; }
+        .tile p { font-size: 16px; margin: 0; }
+
+        /* Metric Box */
+        .metric-box {
+            text-align: center;
+            padding: 25px;
+            background: #fff7ed;
+            border-radius: 12px;
+            border: 1px solid #ffedd5;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+        }
+        .metric-number { font-size: 48px; font-weight: 800; color: var(--accent-coral); line-height: 1; letter-spacing: -1px;}
+        .metric-label { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: #78716c; margin-top: 8px; font-weight: 600; }
+
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-right: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .tag-coral { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; }
+        .tag-gray { background: #f5f5f4; color: #57534e; border: 1px solid #e7e5e4; }
+        .tag-blue { background: #eff6ff; color: #1d4ed8; border: 1px solid #dbeafe; }
+
+        /* Highlight Box */
+        .highlight-box {
+            background-color: #fff7ed;
+            border: 1px solid #fed7aa;
+            border-left: 4px solid var(--accent-coral);
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .highlight-box p { margin: 0; font-size: 17px; }
+
+        /* Diagrams */
+        .agent-arch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            font-family: 'Fira Code', monospace;
+        }
+        .agent-box {
+            border: 2px solid #57534e;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            background: #fff;
+            min-width: 140px;
+            box-shadow: 0 4px 0 #57534e;
+            font-size: 14px;
+            font-weight: 600;
+            color: #44403c;
+        }
+        .agent-box.core {
+            border-color: var(--accent-coral);
+            color: var(--accent-coral);
+            box-shadow: 0 4px 0 var(--accent-coral);
+            background: #fff7ed;
+        }
+        .agent-arrow { font-size: 18px; color: #a8a29e; }
+
+        /* Visual Diagram Container */
+        .visual-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 20px;
+            padding: 20px;
+            background: #fafaf9;
+            border: 1px dashed #d6d3d1;
+            border-radius: 16px;
+            height: 100%;
+        }
+
+        /* FOOTER */
+        .slide-footer {
+            position: absolute;
+            bottom: 25px;
+            left: 70px;
+            right: 70px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px; 
+            color: rgba(28, 25, 23, 0.4); /* Increased opacity for visibility */
+            font-family: 'Inter', sans-serif;
+            border-top: 1px solid rgba(28, 25, 23, 0.08);
+            padding-top: 20px;
+            pointer-events: none;
+            z-index: 10; /* Ensure it's on top */
+        }
+        
+        .brand-name { 
+            font-weight: 500; 
+            letter-spacing: 0.5px; 
+            color: rgba(28, 25, 23, 0.4); 
+            text-transform: uppercase;
+            font-size: 11px;
+        }
+        
+        .page-num {
+            font-family: 'Fira Code', monospace;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        /* Dark mode adjustment for footer */
+        .section-divider .slide-footer {
+            border-top-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.3);
+        }
+        .section-divider .brand-name {
+            color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* NAVIGATION CONTROLS */
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 100px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .nav-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 16px;
+            cursor: pointer;
+            padding: 5px 10px;
+            opacity: 0.6;
+            transition: all 0.2s;
+        }
+        
+        .nav-btn:hover { opacity: 1; color: var(--accent-coral); transform: scale(1.1); }
+
+        .slide-counter {
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            font-family: 'Fira Code', monospace;
+            font-size: 14px;
+            margin: 0 10px;
+            font-weight: 600;
+        }
+
+        /* Utility for diagrams */
+        .diagram-container {
+            border: 2px dashed #d6d3d1; 
+            border-radius: 16px; 
+            padding: 20px; 
+            background: #fafaf9;
+            position: relative;
+        }
+
+        /* =========================================
+           PRINT / PDF EXPORT STYLES
+           ========================================= */
+        @media print {
+            @page {
+                size: 1280px 720px;
+                margin: 0;
+            }
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+                overflow: visible;
+                display: block; /* Disable flex centering */
+            }
+            .nav-controls {
+                display: none !important;
+            }
+            .slide-container {
+                display: flex !important; /* Show all slides */
+                opacity: 1 !important;
+                visibility: visible !important;
+                transform: none !important; /* Remove JS scaling */
+                box-shadow: none;
+                border: none;
+                border-radius: 0;
+                page-break-after: always;
+                break-after: always;
+                margin: 0;
+                width: 100%;
+                height: 100vh;
+                position: relative;
+                top: auto;
+                left: auto;
+            }
+            .slide-container:last-child {
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTROLS -->
+    <div class="nav-controls">
+        <button class="nav-btn" onclick="prevSlide()" title="Previous"><i class="fas fa-arrow-left"></i></button>
+        <span class="slide-counter" id="slideCounter"></span>
+        <button class="nav-btn" onclick="nextSlide()" title="Next"><i class="fas fa-arrow-right"></i></button>
+        <div style="width: 1px; background: #e5e7eb; height: 20px;"></div>
+        <button class="nav-btn" onclick="window.print()" title="Save as PDF"><i class="fas fa-file-pdf"></i></button>
+    </div>
+
+    <!-- FOOTER TEMPLATE -->
+    <div id="footer-template" style="display:none;">
+        <div class="slide-footer">
+            <span class="brand-name">Sharad Jain | https://sharadja.in</span>
+            <span class="page-num"></span>
+        </div>
+    </div>
+
+    <!-- SLIDE 1: Title -->
+    <div class="slide-container active">
+        <div class="content-area" style="text-align: center; align-items: center;">
+            <div style="margin-bottom: 25px; letter-spacing: 3px; text-transform: uppercase; font-size: 14px; color: #78716c; font-weight: 700;">Anthropic Solution Engineering</div>
+            <h1>Building Intelligent Agents<br>with Claude Agent SDK</h1>
+            <p class="subtitle" style="margin-top: 10px;">Architecting the "Rei" Engine in Python</p>
+            <div style="margin-top: 50px;">
+                <span class="tag tag-coral">Python SDK</span>
+                <span class="tag tag-coral">Agentic Workflow</span>
+                <span class="tag tag-gray">Enterprise Harness</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: The Shift -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Shift: Chat vs. Agents</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3 style="color: #78716c; margin-bottom: 20px;">Stateless Chat</h3>
+                    <p>Standard API interactions are stateless. You send a prompt, you get a completion. Logic lives in your application code.</p>
+                    <ul class="clean-list" style="margin-top: 30px; font-size: 18px; color: #78716c;">
+                        <li><i class="fas fa-times" style="color: #d6d3d1;"></i> Complex state management on client</li>
+                        <li><i class="fas fa-times" style="color: #d6d3d1;"></i> Tool execution requires external loops</li>
+                        <li><i class="fas fa-times" style="color: #d6d3d1;"></i> Hard to "contain" mid-flight</li>
+                    </ul>
+                </div>
+                <div style="background: white; padding: 40px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+                    <h3 style="color: var(--accent-coral); margin-bottom: 20px;">The Agentic Model (SDK)</h3>
+                    <p style="margin-bottom: 30px;">The SDK brings the "Loop" inside. It allows Claude to:</p>
+                    
+                    <div style="display: flex; gap: 15px; flex-direction: column;">
+                        <div style="background: #fafaf9; padding: 15px 20px; border-radius: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid #e7e5e4;">
+                            <div style="background: #fff7ed; padding: 8px; border-radius: 8px; color: var(--accent-coral);"><i class="fas fa-brain"></i></div>
+                            <strong>Plan & Reason</strong>
+                        </div>
+                        <div style="background: #fafaf9; padding: 15px 20px; border-radius: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid #e7e5e4;">
+                            <div style="background: #eff6ff; padding: 8px; border-radius: 8px; color: var(--accent-blue);"><i class="fas fa-tools"></i></div>
+                            <strong>Execute Tools (In-Process)</strong>
+                        </div>
+                        <div style="background: #fafaf9; padding: 15px 20px; border-radius: 10px; display: flex; align-items: center; gap: 15px; border: 1px solid #e7e5e4;">
+                            <div style="background: #ecfdf5; padding: 8px; border-radius: 8px; color: var(--accent-green);"><i class="fas fa-shield-alt"></i></div>
+                            <strong>Adhere to Safety Hooks</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: What is the SDK? -->
+    <div class="slide-container">
+        <h2 class="slide-title">What is the Claude Agent SDK?</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>It is not just a wrapper around the Messages API. It is the <strong>engine</strong> that powers Claude Code.</p>
+                    <p>It provides a standardized harness for building agents that can:</p>
+                    <ul>
+                        <li>Execute terminal commands safely</li>
+                        <li>Edit files with permissioning</li>
+                        <li>Maintain persistent context</li>
+                        <li>Fork sessions for exploration</li>
+                    </ul>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>The Bundle</h3>
+                    <p>The Python SDK automatically bundles the <strong>Claude Code CLI</strong> binary.</p>
+                    <p style="margin-top:15px; font-size:14px; color:#78716c;">No separate Node.js or binary installation required. <span class="inline-code">pip install</span> handles the binary fetch and setup.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 4: Architecture Definitions -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Stack Decoded</h2>
+        <div class="content-area">
+            <p style="margin-bottom: 30px;">To understand the SDK, we must distinguish between the components.</p>
+            <div class="tiled-content">
+                <div class="tile" style="border-top: 4px solid var(--accent-blue);">
+                    <div style="background: #eff6ff; padding: 12px; border-radius: 50%; margin-bottom: 20px; color: var(--accent-blue); width: fit-content;">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>1. Python Script</h3>
+                    <p><strong>Your Entry Point.</strong> This is the <code>main.py</code> you write. It imports the SDK and initiates the connection.</p>
+                </div>
+                <div class="tile" style="border-top: 4px solid var(--accent-green);">
+                    <div style="background: #ecfdf5; padding: 12px; border-radius: 50%; margin-bottom: 20px; color: var(--accent-green); width: fit-content;">
+                        <i class="fas fa-cubes"></i>
+                    </div>
+                    <h3>2. Python App</h3>
+                    <p><strong>The Wrapper.</strong> The ecosystem hosting your script (e.g., a FastAPI backend or CLI tool).</p>
+                </div>
+                <div class="tile" style="background-color: #fff7ed; border: 1px solid #fed7aa; border-top: 4px solid var(--accent-coral);">
+                    <div style="background: white; padding: 12px; border-radius: 50%; margin-bottom: 20px; color: var(--accent-coral); width: fit-content;">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>3. The Agent</h3>
+                    <p><strong>The Logic.</strong> The <code>ClaudeSDKClient</code> instance. It holds state and manages the loop.</p>
+                </div>
+            </div>
+            <div style="margin-top: 25px; text-align: center;">
+                <div style="background: #1c1917; color: white; padding: 25px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; gap: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <div style="text-align: left;">
+                        <h3 style="color: #fff; margin-bottom: 5px;">4. The CLI Binary (The Engine)</h3>
+                        <p style="color: #a8a29e; font-size: 16px; margin: 0;">A pre-compiled binary (managed by the SDK) that runs as a subprocess. It handles the heavy lifting: API communication and sandboxed execution.</p>
+                    </div>
+                    <i class="fas fa-microchip" style="font-size: 40px; color: #57534e;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 5: Architecture Diagram -->
+    <div class="slide-container">
+        <h2 class="slide-title">Visualizing the Harness</h2>
+        <div class="content-area">
+            <p>The SDK acts as a bridge between your application logic and the Anthropic execution engine.</p>
+            
+            <div class="agent-arch" style="margin-bottom: 40px; transform: scale(1.1);">
+                <div class="agent-box" style="border-style:dashed;">Python App<br>(FastAPI/Flask)</div>
+                <div class="agent-arrow">↔</div>
+                <div class="agent-box core">SDK Client<br>(Hooks & State)</div>
+                <div class="agent-arrow" style="font-size: 12px;">STDIN/OUT<br>Transport</div>
+                <div class="agent-box" style="background:#1c1917; color:white; border:none; box-shadow: 0 4px 0 #000;">CLI Binary<br>(Subprocess)</div>
+                <div class="agent-arrow">↔</div>
+                <div class="agent-box">Anthropic API<br>(LLM)</div>
+            </div>
+
+            <div class="two-column">
+                <div class="tile">
+                    <h3>Control Protocol</h3>
+                    <p>A JSON-RPC style protocol flows over the transport layer, handling interrupts, permissions, and tool calls.</p>
+                </div>
+                <div class="tile">
+                    <h3>Isolation</h3>
+                    <p>If the Agent generates a "crash" (e.g., runs a bad bash command), it happens in the Subprocess, protecting your main Python App.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: SECTION DIVIDER -->
+    <div class="slide-container section-divider">
+        <div class="content-area">
+            <h1>Getting Started</h1>
+            <p class="subtitle">Installation & Basic Concepts</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: Installation -->
+    <div class="slide-container">
+        <h2 class="slide-title">Installation & Prerequisites</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Requirements</h3>
+                    <ul>
+                        <li>Python 3.10+</li>
+                        <li>Valid Anthropic API Key</li>
+                    </ul>
+                    <h3>Setup</h3>
+                    <pre>pip install claude-agent-sdk</pre>
+                    <p style="font-size: 15px; margin-top: 15px; color: #78716c;">
+                        <em>Note: The SDK will automatically download the platform-specific Claude Code CLI binary during the first run or build process.</em>
+                    </p>
+                </div>
+                <div class="tile">
+                    <h3>Environment Variables</h3>
+                    <pre style="width: 100%; margin-top: 10px;">export ANTHROPIC_API_KEY="sk-..."</pre>
+                    <p style="margin-top: 15px;">The SDK uses this key to authenticate the underlying bundled CLI against the Anthropic API.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 8: Hello World (Query) -->
+    <div class="slide-container">
+        <h2 class="slide-title">Hello World: The <code>query()</code> Function</h2>
+        <div class="content-area">
+            <p>For simple, one-shot interactions where you don't need complex state management.</p>
+            <div class="two-column">
+                <pre>import anyio
+from claude_agent_sdk import query, AssistantMessage, TextBlock
+
+async def main():
+    # Simple one-shot query
+    async for message in query(prompt="What is 2 + 2?"):
+        if isinstance(message, AssistantMessage):
+            for block in message.content:
+                if isinstance(block, TextBlock):
+                    print(block.text)
+
+anyio.run(main)</pre>
+                <div>
+                    <h3>Key Characteristics</h3>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-arrow-right" style="color: var(--accent-coral);"></i> <strong>Unidirectional:</strong> Send prompt, stream response.</li>
+                        <li><i class="fas fa-eraser" style="color: var(--accent-coral);"></i> <strong>Stateless:</strong> Each query is a fresh start.</li>
+                        <li><i class="fas fa-sync" style="color: var(--accent-coral);"></i> <strong>Async Iterator:</strong> Yields messages as they arrive.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 9: ClaudeAgentOptions -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Control Center: <code>ClaudeAgentOptions</code></h2>
+        <div class="content-area">
+            <p>This object controls the environment, permissions, and capabilities of the agent.</p>
+            <div class="tiled-content">
+                <div class="tile">
+                    <h3>Context & Identity</h3>
+                    <ul style="padding-left: 20px;">
+                        <li><span class="inline-code">system_prompt</span></li>
+                        <li><span class="inline-code">cwd</span> (Working Directory)</li>
+                        <li><span class="inline-code">model</span> (e.g., Sonnet 3.5)</li>
+                    </ul>
+                </div>
+                <div class="tile">
+                    <h3>Safety & Limits</h3>
+                    <ul style="padding-left: 20px;">
+                        <li><span class="inline-code">max_budget_usd</span></li>
+                        <li><span class="inline-code">max_turns</span></li>
+                        <li><span class="inline-code">permission_mode</span></li>
+                    </ul>
+                </div>
+                <div class="tile">
+                    <h3>Capabilities</h3>
+                    <ul style="padding-left: 20px;">
+                        <li><span class="inline-code">allowed_tools</span></li>
+                        <li><span class="inline-code">mcp_servers</span></li>
+                        <li><span class="inline-code">hooks</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 10: Setting the Context -->
+    <div class="slide-container">
+        <h2 class="slide-title">Defining the Working Environment</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Agents interact with the filesystem. Setting the <span class="inline-code">cwd</span> is critical for file operations.</p>
+                    <pre>from pathlib import Path
+
+options = ClaudeAgentOptions(
+    # Set the root of the agent's world
+    cwd="/path/to/project",
+    
+    # Define the persona
+    system_prompt="You are a DevOps engineer."
+)
+
+# Pass options to query or client
+await client.query("Check git status", options=options)</pre>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-folder-open"></i></div>
+                    <h3>Sandbox Implications</h3>
+                    <p>By default, tools like <code>ls</code>, <code>grep</code>, or <code>Edit</code> will operate relative to this CWD.</p>
+                    <p style="margin-top: 10px;">The SDK ensures operations are grounded in this path.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 11: SECTION DIVIDER -->
+    <div class="slide-container section-divider">
+        <div class="content-area">
+            <h1>Interactive Agents</h1>
+            <p class="subtitle">The ClaudeSDKClient & State</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 12: ClaudeSDKClient -->
+    <div class="slide-container">
+        <h2 class="slide-title">The <code>ClaudeSDKClient</code></h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <h3>Bidirectional & Stateful</h3>
+                    <p>Unlike <span class="inline-code">query()</span>, the Client maintains a persistent connection to the agent process.</p>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-check" style="color:var(--accent-green)"></i> Send follow-up messages.</li>
+                        <li><i class="fas fa-check" style="color:var(--accent-green)"></i> Interrupt generation.</li>
+                        <li><i class="fas fa-check" style="color:var(--accent-green)"></i> Change settings mid-flight.</li>
+                        <li><i class="fas fa-check" style="color:var(--accent-green)"></i> Receive tool events and hooks.</li>
+                    </ul>
+                </div>
+                <pre>async with ClaudeSDKClient() as client:
+    # First turn
+    await client.query("Check the logs")
+    async for msg in client.receive_response():
+        print(msg)
+
+    # Second turn (maintains context)
+    await client.query("Fix the error you found")
+    async for msg in client.receive_response():
+        print(msg)</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 13: Streaming & Partial Messages -->
+    <div class="slide-container">
+        <h2 class="slide-title">Streaming Deltas</h2>
+        <div class="content-area">
+            <p>To build rich UIs, you need to show the agent "typing" via <span class="inline-code">StreamEvent</span>.</p>
+            <pre>options = ClaudeAgentOptions(
+    include_partial_messages=True, # Enable deltas
+)
+
+async with ClaudeSDKClient(options=options) as client:
+    await client.query("Write a story...")
+    
+    async for msg in client.receive_response():
+        if isinstance(msg, StreamEvent):
+            # msg.event contains: message_start, 
+            # content_block_delta, etc.
+            delta = msg.event.get('delta', {})
+            if delta.get('type') == 'text_delta':
+                print(delta['text'], end="", flush=True)</pre>
+        </div>
+    </div>
+
+    <!-- SLIDE 14: Transparency with Thinking Blocks -->
+    <div class="slide-container">
+        <h2 class="slide-title">Transparency: Auditing "Thinking"</h2>
+        <div class="content-area">
+            
+            <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin-bottom: 30px;">
+                <div style="text-align: center;">
+                    <div style="background: #f5f5f4; color: #57534e; padding: 20px 40px; border-radius: 12px; border: 2px dashed #d6d3d1; font-weight: bold;">
+                        <i class="fas fa-brain" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                        Thinking Block
+                    </div>
+                    <div style="font-size: 12px; color: #78716c; margin-top: 10px; font-weight: bold; letter-spacing: 1px;">HIDDEN / INTERNAL LOGS</div>
+                </div>
+                
+                <i class="fas fa-arrow-right" style="color: #d6d3d1; font-size: 30px;"></i>
+                
+                <div style="text-align: center;">
+                    <div style="background: #ecfdf5; color: #059669; padding: 20px 40px; border-radius: 12px; border: 2px solid #10b981; font-weight: bold;">
+                        <i class="fas fa-comment-alt" style="font-size: 24px; margin-bottom: 10px; display: block;"></i>
+                        Text Block
+                    </div>
+                    <div style="font-size: 12px; color: #059669; margin-top: 10px; font-weight: bold; letter-spacing: 1px;">USER VISIBLE OUTPUT</div>
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <p>Agents using <strong>Extended Thinking</strong> models produce reasoning steps before the final answer.</p>
+                    <p>The SDK exposes these as <span class="inline-code">ThinkingBlock</span> objects, allowing you to audit the agent's logic chain.</p>
+                </div>
+                <pre>if isinstance(msg, AssistantMessage):
+    for block in msg.content:
+        if isinstance(block, ThinkingBlock):
+            # Hidden reasoning
+            logger.info(f"Reasoning: {block.thinking}")
+            
+        elif isinstance(block, TextBlock):
+            # Final output to user
+            print(block.text)</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 15: Interrupts -->
+    <div class="slide-container">
+        <h2 class="slide-title">Control Flow: Interrupts</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Agents can get stuck in loops or go down wrong paths. The SDK allows you to signal an interrupt to the underlying process.</p>
+                    <p>This stops the generation but keeps the session alive for a new prompt.</p>
+                </div>
+                <pre># Start a long running task
+await client.query("Count to 1 million")
+
+# ... some logic decides to stop it ...
+await asyncio.sleep(2)
+
+# Send interrupt signal
+await client.interrupt()
+
+# Send new instruction
+await client.query("Actually, just count to 10")</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 16: Dynamic Control -->
+    <div class="slide-container">
+        <h2 class="slide-title">Dynamic Runtime Control</h2>
+        <div class="content-area">
+            <p style="margin-bottom: 30px;">You can change the agent's brain or permissions without restarting the session.</p>
+            <div class="tiled-content">
+                <div class="tile">
+                    <h3>Switch Models</h3>
+                    <pre style="width:100%; margin-bottom: 10px;">await client.set_model(
+  "claude-3-5-haiku"
+)</pre>
+                    <p>Swap to a faster/cheaper model for simple sub-tasks.</p>
+                </div>
+                <div class="tile">
+                    <h3>Change Permissions</h3>
+                    <pre style="width:100%; margin-bottom: 10px;">await client.set_permission_mode(
+  "acceptEdits"
+)</pre>
+                    <p>Grant write access dynamically after a review phase.</p>
+                </div>
+                <div class="tile">
+                    <h3>Budgeting</h3>
+                    <pre style="width:100%; margin-bottom: 10px;">options.max_budget_usd = 0.50</pre>
+                    <p>Hard stop the agent if it burns too many tokens.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 17: Session Forking -->
+    <div class="slide-container">
+        <h2 class="slide-title">Session Forking</h2>
+        <div class="content-area">
+            
+            <div style="position: relative; height: 180px; margin-bottom: 30px; border-left: 6px solid #3b82f6; margin-left: 40px; padding-left: 20px;">
+                <div style="position: absolute; top: -10px; left: 10px; font-weight: bold; font-size: 18px; color: #1c1917;">Session A (Original Context)</div>
+                <div style="margin-top: 10px; color: #78716c;">Read Repo • Analyze Bugs • Plan Fixes</div>
+                
+                <div style="position: absolute; top: 50%; left: -14px; width: 22px; height: 22px; background: #3b82f6; border-radius: 50%; border: 4px solid white;"></div>
+                <div style="position: absolute; top: 45%; left: 30px; background: #eff6ff; color: #1d4ed8; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: bold; border: 1px solid #bfdbfe;">FORK POINT</div>
+                
+                <!-- Branch -->
+                <div style="position: absolute; top: 52%; left: -6px; width: 80px; height: 80px; border-left: 6px solid var(--accent-coral); border-bottom: 6px solid var(--accent-coral); border-bottom-left-radius: 30px;"></div>
+                <div style="position: absolute; top: 140px; left: 90px; color: var(--accent-coral); font-weight: bold; font-size: 18px;">Session B (New Branch)</div>
+                <div style="position: absolute; top: 165px; left: 90px; color: #78716c; font-size: 14px;">Try Fix Attempt #1 (Isolated)</div>
+            </div>
+
+            <div class="two-column">
+                <div>
+                    <h3>Exploration Pattern</h3>
+                    <p>Start a session, establish context (e.g., read a repo), and then "fork" the session to try multiple parallel experiments without re-reading the repo.</p>
+                </div>
+                <pre>options = ClaudeAgentOptions(
+    resume="session-id-123",
+    fork_session=True 
+)
+
+# This creates a NEW session ID but keeps 
+# the history of session-123.
+async with ClaudeSDKClient(options) as client:
+    await client.query("Try approach A")</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 18: SECTION DIVIDER -->
+    <div class="slide-container section-divider">
+        <div class="content-area">
+            <h1>Tools & MCP</h1>
+            <p class="subtitle">The Agent's Hands and Eyes</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 19: What is MCP? -->
+    <div class="slide-container">
+        <h2 class="slide-title">Model Context Protocol (MCP)</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>MCP is the standard way to connect AI models to data and tools.</p>
+                    <p>Instead of hardcoding API calls, you expose "Servers" that provide:</p>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-check" style="color:var(--accent-coral)"></i> <strong>Tools:</strong> Executable functions (e.g., "query_db")</li>
+                        <li><i class="fas fa-check" style="color:var(--accent-coral)"></i> <strong>Resources:</strong> readable data (e.g., "logs://")</li>
+                        <li><i class="fas fa-check" style="color:var(--accent-coral)"></i> <strong>Prompts:</strong> Reusable templates</li>
+                    </ul>
+                </div>
+                <div class="tile" style="align-items: center; justify-content: center; background: white;">
+                    <i class="fas fa-network-wired" style="font-size: 80px; color: #e7e5e4;"></i>
+                    <h3 style="margin-top:20px; color: #a8a29e;">Standardized Interface</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 20: In-Process MCP -->
+    <div class="slide-container">
+        <h2 class="slide-title">Game Changer: In-Process MCP</h2>
+        <div class="content-area">
+            <p>Traditionally, MCP servers run as separate processes (stdio/SSE). The SDK allows you to run MCP servers <strong>directly inside your Python application</strong>.</p>
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-bolt"></i></div>
+                    <h3>No Overhead</h3>
+                    <p>No IPC serialization lag. Function calls are direct Python calls.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-link"></i></div>
+                    <h3>Shared State</h3>
+                    <p>Tools can access your app's global variables, database connections, and memory.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-bug"></i></div>
+                    <h3>Simple Debugging</h3>
+                    <p>Set breakpoints in your tool code and step through it alongside your agent logic.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 21: Tooling Pattern -->
+    <div class="slide-container">
+        <h2 class="slide-title">Tooling Pattern: Input Sanitization</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>You can intercept tool inputs before execution to "fix" or redirect them transparently.</p>
+                    <p>This is crucial for sandboxing writes or preventing agents from touching forbidden directories without breaking the flow.</p>
+                </div>
+                <div class="highlight-box">
+                    <pre style="background:transparent; padding:0; box-shadow:none; border:none; margin:0;">async def permission_callback(tool, input, context):
+    if tool == "Write" and "forbidden" in input["file_path"]:
+        # Redirect to safe location silently
+        new_input = input.copy()
+        new_input["file_path"] = "/tmp/safe_write.txt"
+        
+        return PermissionResultAllow(
+            updated_input=new_input
+        )</pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 22: External vs In-Process MCP -->
+    <div class="slide-container">
+        <h2 class="slide-title">Architecture: External vs. In-Process</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div class="tile">
+                    <h3>External (Standard MCP)</h3>
+                    <p style="margin-bottom: 15px;"><strong>Mechanism:</strong> Spawns a new process. Communicates via Stdio pipes.</p>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-check-circle" style="color:var(--accent-green)"></i> Isolated environment</li>
+                        <li><i class="fas fa-check-circle" style="color:var(--accent-green)"></i> Language agnostic</li>
+                        <li><i class="fas fa-times-circle" style="color:var(--accent-red)"></i> High latency (IPC)</li>
+                        <li><i class="fas fa-times-circle" style="color:var(--accent-red)"></i> Hard to share state</li>
+                    </ul>
+                </div>
+                <div class="tile" style="border: 2px solid var(--accent-coral); background: #fff7ed;">
+                    <h3>In-Process (SDK)</h3>
+                    <p style="margin-bottom: 15px;"><strong>Mechanism:</strong> Registers Python functions directly within the SDK client memory.</p>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-check-circle" style="color:var(--accent-green)"></i> Zero Latency</li>
+                        <li><i class="fas fa-check-circle" style="color:var(--accent-green)"></i> Shared Memory Access</li>
+                        <li><i class="fas fa-check-circle" style="color:var(--accent-green)"></i> Easy Debugging</li>
+                        <li><i class="fas fa-exclamation-circle" style="color:#f59e0b"></i> Python only (for now)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 23: Why In-Process? -->
+    <div class="slide-container">
+        <h2 class="slide-title">Why use In-Process MCP?</h2>
+        <div class="content-area">
+            <p>For Solution Engineers integrating Claude into existing platforms, In-Process is often superior.</p>
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-database"></i></div>
+                    <h3>Reuse Connections</h3>
+                    <p>Don't open a new DB connection for every tool call. Use your existing SQLAlchemy session.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-bolt"></i></div>
+                    <h3>Speed</h3>
+                    <p>Eliminating JSON serialization/deserialization over pipes saves milliseconds per turn.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-code"></i></div>
+                    <h3>Complexity</h3>
+                    <p>No need to package/dockerize a separate "server". It's just a module in your app.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 24: Implementing In-Process MCP -->
+    <div class="slide-container">
+        <h2 class="slide-title">Implementation: The <code>@tool</code> Decorator</h2>
+        <div class="content-area">
+            <p>Creating an In-Process server is as simple as decorating a Python function.</p>
+            <div class="two-column">
+                <pre>from claude_agent_sdk import tool, create_sdk_mcp_server
+
+# 1. Define the tool
+@tool("get_user_data", "Fetch user info", {"user_id": str})
+async def get_user_data(args):
+    # Direct access to your app logic
+    user = await db.fetch_user(args['user_id'])
+    return {
+        "content": [{"type": "text", "text": str(user)}]
+    }
+
+# 2. Create the server
+server = create_sdk_mcp_server(
+    name="internal-api",
+    tools=[get_user_data]
+)</pre>
+                <div>
+                    <h3>Key Concepts</h3>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-chevron-right" style="color:var(--accent-coral)"></i> <strong>Type Hints:</strong> Used for validation.</li>
+                        <li><i class="fas fa-chevron-right" style="color:var(--accent-coral)"></i> <strong>Async:</strong> Tools must be async functions.</li>
+                        <li><i class="fas fa-chevron-right" style="color:var(--accent-coral)"></i> <strong>Return Format:</strong> Standard MCP content structure.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 25: Shared State Pattern -->
+    <div class="slide-container">
+        <h2 class="slide-title">Pattern: Shared State Access</h2>
+        <div class="content-area">
+            <p>The killer feature: Your tool can see your application's memory.</p>
+            <pre>class ApplicationState:
+    def __init__(self):
+        self.feature_flags = {"beta_access": False}
+
+app_state = ApplicationState()
+
+@tool("toggle_feature", "Toggle a feature flag", {"feature": str})
+async def toggle_feature(args):
+    # Modify state directly!
+    feat = args['feature']
+    app_state.feature_flags[feat] = not app_state.feature_flags.get(feat, False)
+    return {"content": [{"type": "text", "text": "Flag updated"}]}
+
+# The agent effectively has "Root Access" to this specific state object.</pre>
+        </div>
+    </div>
+
+    <!-- SLIDE 26: Shared State Visualized -->
+    <div class="slide-container">
+        <h2 class="slide-title">Concept: Zero-Latency State</h2>
+        <div class="content-area">
+            <div style="display: flex; gap: 40px; align-items: stretch; height: 450px; justify-content: center;">
+                
+                <!-- EXTERNAL MCP MODEL -->
+                <div style="flex: 1; border: 2px dashed #cbd5e1; border-radius: 20px; padding: 30px; display: flex; flex-direction: column; align-items: center; position: relative; background: #fafaf9;">
+                    <div style="background: #cbd5e1; color: #475569; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-bottom: 20px;">External MCP</div>
+                    
+                    <!-- App Process -->
+                    <div class="agent-box" style="width: 100%; border-color: #78716c; box-shadow: none;">
+                        Your Python App
+                    </div>
+
+                    <!-- PIPE -->
+                    <div style="flex-grow: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; gap: 5px; color: #78716c;">
+                        <div style="width: 2px; height: 100%; background: #cbd5e1;"></div>
+                        <div style="background: white; padding: 5px 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 12px; font-family: 'Fira Code', monospace; z-index: 2; margin-top: -60px;">JSON Over Pipe</div>
+                        <div style="font-size: 12px; margin-top: 5px;">Latency Added</div>
+                    </div>
+
+                    <!-- External Process -->
+                    <div class="agent-box" style="width: 100%; background: #f5f5f4; color: #78716c; border-style: dashed; box-shadow: none;">
+                        Process: node server.js
+                    </div>
+                </div>
+
+                <!-- INTERNAL MCP MODEL -->
+                <div style="flex: 1; border: 3px solid var(--accent-coral); border-radius: 20px; padding: 30px; display: flex; flex-direction: column; align-items: center; background: #fff7ed; box-shadow: 0 20px 40px rgba(234, 88, 12, 0.1);">
+                    <div style="background: var(--accent-coral); color: white; padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold; margin-bottom: 20px;">In-Process SDK</div>
+                    
+                    <div style="width: 100%; height: 100%; border: 2px solid #1c1917; border-radius: 12px; background: white; position: relative; padding: 25px; display: flex; flex-direction: column; justify-content: center;">
+                        <div style="position: absolute; top: -12px; left: 20px; background: #1c1917; color: white; padding: 2px 12px; font-weight: bold; font-family: monospace; font-size: 12px; border-radius: 4px;">PID: 12345 (Single Process)</div>
+                        
+                        <div style="display: flex; justify-content: space-between; align-items: center; gap: 20px;">
+                            <div style="flex: 1; height: 100px; background: #eff6ff; color: #1d4ed8; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-weight: bold; border: 2px solid #bfdbfe;">
+                                <i class="fas fa-robot" style="margin-right: 10px;"></i> Agent Tool
+                            </div>
+                            
+                            <!-- POINTER CONNECTION -->
+                            <div style="display: flex; flex-direction: column; align-items: center; gap: 5px; width: 80px;">
+                                <div style="height: 4px; width: 100%; background: #1c1917; border-radius: 2px;"></div>
+                                <div style="font-size: 10px; font-weight: bold; text-align: center; color: #1c1917;">DIRECT<br>POINTER</div>
+                            </div>
+
+                            <div style="flex: 1; height: 100px; background: #ecfdf5; color: #059669; display: flex; align-items: center; justify-content: center; border-radius: 12px; font-weight: bold; border: 2px solid #bbf7d0;">
+                                <i class="fas fa-database" style="margin-right: 10px;"></i> Global State
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 27: Real World Examples -->
+    <div class="slide-container">
+        <h2 class="slide-title">Real-World Examples</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <h3>Internal API Gateway</h3>
+                    <p>Expose your company's private microservices (User Service, Billing) as tools without building public wrappers.</p>
+                </div>
+                <div class="tile">
+                    <h3>RAG & Vector DB</h3>
+                    <p>Pass your pre-loaded Vector Search client into the tool. Agent queries Pinecone/Weaviate directly.</p>
+                </div>
+                <div class="tile">
+                    <h3>DevOps Control</h3>
+                    <p>Expose Kubernetes client methods to allow the agent to inspect pods running in the current cluster context.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 28: Registering Tools -->
+    <div class="slide-container">
+        <h2 class="slide-title">Registering the Server</h2>
+        <div class="content-area">
+            <p>Once created, you pass the in-process server to the Agent Options.</p>
+            <pre>options = ClaudeAgentOptions(
+    # Register the server
+    mcp_servers={"internal_tools": server},
+    
+    # Whitelist the tools you want available
+    # Format: mcp__{server_name}__{tool_name}
+    allowed_tools=["mcp__internal_tools__greet"]
+)
+
+async with ClaudeSDKClient(options=options) as client:
+    await client.query("Greet Alice")</pre>
+        </div>
+    </div>
+
+    <!-- SLIDE 29: Hybrid Tooling -->
+    <div class="slide-container">
+        <h2 class="slide-title">Hybrid Tooling Strategy</h2>
+        <div class="content-area">
+            <p>You can mix In-Process tools with External MCP servers.</p>
+            <div class="two-column">
+                <div class="tile">
+                    <h3>Internal (SDK)</h3>
+                    <ul>
+                        <li>Business Logic</li>
+                        <li>Database Writes</li>
+                        <li>App Control</li>
+                    </ul>
+                </div>
+                <div class="tile">
+                    <h3>External (Stdio/SSE)</h3>
+                    <ul>
+                        <li>PostgreSQL MCP Server</li>
+                        <li>GitHub MCP Server</li>
+                        <li>Slack MCP Server</li>
+                    </ul>
+                </div>
+            </div>
+            <pre style="margin-top: 25px;">options = ClaudeAgentOptions(
+    mcp_servers={
+        "internal": sdk_server,
+        "github": {"type": "stdio", "command": "docker", "args": [...] }
+    }
+)</pre>
+        </div>
+    </div>
+
+    <!-- SLIDE 30: Tool Permissions -->
+    <div class="slide-container">
+        <h2 class="slide-title">Controlling Tool Access</h2>
+        <div class="content-area">
+            <p style="margin-bottom: 30px;">Just because a tool exists doesn't mean the agent should use it freely. The SDK offers three levels of granularity.</p>
+            
+            <div class="tiled-content">
+                <!-- Card 1 -->
+                <div class="tile" style="text-align: center; align-items: center; border-top: 6px solid #78716c;">
+                    <div style="background: #f5f5f4; padding: 10px; border-radius: 50%; margin-bottom: 15px;">
+                        <i class="fas fa-list" style="color: #78716c;"></i>
+                    </div>
+                    <h3>tools</h3>
+                    <p style="font-size: 14px; margin-bottom: 10px;">Definition</p>
+                    <p style="font-size: 14px; color: #78716c;">Defines the <em>existence</em> of tools. This registers them with the LLM but does not guarantee execution rights.</p>
+                    <div class="inline-code" style="margin-top: auto;">["Read", "Edit"]</div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="tile" style="text-align: center; align-items: center; border-top: 6px solid var(--accent-green); background: #f0fdf4;">
+                    <div style="background: #dcfce7; padding: 10px; border-radius: 50%; margin-bottom: 15px;">
+                        <i class="fas fa-check" style="color: var(--accent-green);"></i>
+                    </div>
+                    <h3>allowed_tools</h3>
+                    <p style="font-size: 14px; margin-bottom: 10px;">Auto-Approval</p>
+                    <p style="font-size: 14px; color: #78716c;">Bypasses the human-in-the-loop check. The agent can execute these immediately.</p>
+                    <div class="inline-code" style="margin-top: auto;">["mcp__read_logs"]</div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="tile" style="text-align: center; align-items: center; border-top: 6px solid var(--accent-red); background: #fef2f2;">
+                    <div style="background: #fee2e2; padding: 10px; border-radius: 50%; margin-bottom: 15px;">
+                        <i class="fas fa-ban" style="color: var(--accent-red);"></i>
+                    </div>
+                    <h3>disallowed_tools</h3>
+                    <p style="font-size: 14px; margin-bottom: 10px;">Hard Block</p>
+                    <p style="font-size: 14px; color: #78716c;">Prevents usage entirely, even if the model tries to call it. Useful for rigorous safety.</p>
+                    <div class="inline-code" style="margin-top: auto;">["Bash"]</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         SLIDES 31-45: FROM PART 2 (Enhanced with Visuals)
+         ============================================== -->
+
+    <!-- SLIDE 31: SECTION DIVIDER -->
+    <div class="slide-container section-divider">
+        <div class="content-area">
+            <h1>The Harness</h1>
+            <p class="subtitle">Hooks, Safety & Permissions</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 32: Hooks Intro -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Safety Harness: Hooks</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Hooks act as a <strong>middleware layer</strong> between Claude's intent and the actual execution.</p>
+                    <ul class="clean-list">
+                        <li><i class="fas fa-arrow-right" style="color:var(--accent-coral)"></i> <strong>PreToolUse:</strong> Intercept before execution (Block/Allow).</li>
+                        <li><i class="fas fa-check" style="color:var(--accent-green)"></i> <strong>PostToolUse:</strong> Inspect results after execution.</li>
+                        <li><i class="fas fa-user" style="color:var(--accent-blue)"></i> <strong>UserPromptSubmit:</strong> Modify user input before LLM.</li>
+                    </ul>
+                </div>
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram">
+                    <div style="display: flex; flex-direction: column; gap: 20px; align-items: center; width: 100%;">
+                        <div style="background: white; border: 2px solid #57534e; padding: 15px; border-radius: 8px; width: 100%; text-align: center; font-weight: bold;">
+                            User Input
+                        </div>
+                        <i class="fas fa-arrow-down" style="color: #a8a29e;"></i>
+                        <div style="background: #eff6ff; border: 2px solid var(--accent-blue); padding: 15px; border-radius: 8px; width: 100%; text-align: center; color: var(--accent-blue); font-weight: bold;">
+                            <i class="fas fa-filter"></i> Hook Layer
+                        </div>
+                        <i class="fas fa-arrow-down" style="color: #a8a29e;"></i>
+                        <div style="background: #fff7ed; border: 2px solid var(--accent-coral); padding: 15px; border-radius: 8px; width: 100%; text-align: center; color: var(--accent-coral); font-weight: bold;">
+                            <i class="fas fa-robot"></i> Agent / Tool
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 33: Human in the Loop -->
+    <div class="slide-container">
+        <h2 class="slide-title">Human-in-the-Loop: Async Hooks</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <!-- Code Column -->
+                <div>
+                    <pre>async def approval_hook(input, tool, ctx):
+    # Keep connection open, pause loop
+    return {
+        "async_": True, 
+        "asyncTimeout": 300000 
+    }
+
+# App handles approval out-of-band</pre>
+                    <div style="margin-top: 20px;">
+                        <span class="tag tag-coral">Enterprise Pattern</span>
+                        <span class="tag tag-gray">Slack Approval</span>
+                    </div>
+                </div>
+                
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram" style="background: #fff7ed; border-color: #fed7aa;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="background: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; border: 1px solid #e5e5e5;">Agent Request</div>
+                        <i class="fas fa-arrow-right" style="color: var(--accent-coral);"></i>
+                        <div style="background: var(--accent-coral); color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold;">PAUSED</div>
+                    </div>
+                    
+                    <div style="height: 40px; border-left: 2px dashed #a8a29e; margin-left: -50px;"></div>
+                    
+                    <div style="display: flex; align-items: center; gap: 15px; margin-left: 20px;">
+                        <i class="fab fa-slack" style="font-size: 30px; color: #4A154B;"></i>
+                        <div style="font-size: 14px; font-style: italic; color: #78716c;">Human approves<br>via Slack</div>
+                    </div>
+
+                    <div style="height: 40px; border-left: 2px dashed #a8a29e; margin-left: -50px;"></div>
+
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                         <div style="background: var(--accent-green); color: white; padding: 10px 20px; border-radius: 8px; font-weight: bold;">RESUMED</div>
+                         <i class="fas fa-arrow-right" style="color: var(--accent-green);"></i>
+                         <div style="background: white; padding: 10px 20px; border-radius: 8px; font-weight: bold; border: 1px solid #e5e5e5;">Tool Runs</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 34: Data Privacy -->
+    <div class="slide-container">
+        <h2 class="slide-title">Data Privacy: PII Redaction</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Intercept user prompts <strong>before</strong> they reach the LLM to redact sensitive info.</p>
+                    <pre>async def redact_pii(input, tool, ctx):
+    p = input["prompt"]
+    # Regex to find Credit Cards
+    cleaned = re.sub(
+        r'\b(?:\d[ -]*?){13,16}\b', 
+        '[REDACTED_CC]', p
+    )
+    return {
+        "hookSpecificOutput": {
+            "hookEventName": "UserPromptSubmit",
+            "prompt": cleaned 
+        }
+    }</pre>
+                </div>
+                
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram">
+                    <div style="background: #fef2f2; border: 1px solid #fca5a5; padding: 15px; border-radius: 8px; width: 100%; color: #991b1b;">
+                        <i class="fas fa-times-circle"></i> <strong>User Input</strong><br>
+                        <span style="font-family: monospace; font-size: 13px;">"My card is 4242 4242..."</span>
+                    </div>
+                    
+                    <i class="fas fa-arrow-down" style="color: var(--accent-coral);"></i>
+                    <div style="background: var(--accent-coral); color: white; padding: 8px 20px; border-radius: 50px; font-size: 12px; font-weight: bold;">
+                        HOOK: REDACTION
+                    </div>
+                    <i class="fas fa-arrow-down" style="color: var(--accent-coral);"></i>
+                    
+                    <div style="background: #ecfdf5; border: 1px solid #6ee7b7; padding: 15px; border-radius: 8px; width: 100%; color: #065f46;">
+                        <i class="fas fa-check-circle"></i> <strong>To Claude</strong><br>
+                        <span style="font-family: monospace; font-size: 13px;">"My card is [REDACTED]"</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 35: Data Safety -->
+    <div class="slide-container">
+        <h2 class="slide-title">Data Safety: Output Auditing</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Use <code>PostToolUse</code> to ensure tools aren't leaking secrets to the context window.</p>
+                    <pre>async def audit_output(input, tool, ctx):
+    res = str(input["tool_response"])
+    
+    if "sk-ant-" in res:
+        return {
+            "hookSpecificOutput": {
+                "hookEventName": "PostToolUse",
+                "tool_response": "[REDACTED]" 
+            }
+        }</pre>
+                </div>
+
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram">
+                    <div style="display:flex; align-items:center; gap:10px; width:100%;">
+                        <div style="flex:1; background:white; border:1px solid #e5e5e5; padding:15px; border-radius:8px; font-family:monospace; font-size:12px;">
+                            {"key": "sk-ant-123"}
+                        </div>
+                        <div style="font-size:12px; font-weight:bold; color:#78716c;">RAW</div>
+                    </div>
+
+                    <div style="width: 2px; height: 30px; background: #d6d3d1;"></div>
+                    
+                    <div style="display:flex; align-items:center; justify-content:center; background:#1c1917; color:white; width:50px; height:50px; border-radius:50%;">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+
+                    <div style="width: 2px; height: 30px; background: #d6d3d1;"></div>
+
+                    <div style="display:flex; align-items:center; gap:10px; width:100%;">
+                        <div style="flex:1; background:#ecfdf5; border:1px solid #6ee7b7; padding:15px; border-radius:8px; font-family:monospace; font-size:12px; color:#065f46;">
+                            {"key": "[REDACTED]"}
+                        </div>
+                        <div style="font-size:12px; font-weight:bold; color:#065f46;">SAFE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 36: Guardrails -->
+    <div class="slide-container">
+        <h2 class="slide-title">PreToolUse: Implementing Guardrails</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Intercept a tool call before it executes to inspect arguments.</p>
+                    <pre>async def check_bash(input, tool, ctx):
+    cmd = input["tool_input"].get("command")
+    
+    if "rm -rf" in cmd:
+        return {
+            "hookSpecificOutput": {
+                "hookEventName": "PreToolUse",
+                "permissionDecision": "deny"
+            }
+        }</pre>
+                </div>
+
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram" style="background: #fef2f2; border-color: #fca5a5;">
+                    <div style="font-size: 60px; color: var(--accent-red); margin-bottom: 10px;">
+                        <i class="fas fa-hand-paper"></i>
+                    </div>
+                    <div style="font-family: 'Fira Code', monospace; background: rgba(255,255,255,0.7); padding: 5px 10px; border-radius: 4px; color: #991b1b; font-weight: bold;">
+                        > rm -rf /
+                    </div>
+                    <div style="margin-top: 10px; font-weight: 800; color: #991b1b; letter-spacing: 2px; font-size: 24px;">
+                        BLOCKED
+                    </div>
+                    <p style="font-size: 14px; color: #b91c1c; text-align: center;">Policy Violation Detected</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 37: Validation -->
+    <div class="slide-container">
+        <h2 class="slide-title">PostToolUse: Validation & Feedback</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Inspect output. If it failed, intervene with helpful context.</p>
+                    <pre>async def validate(input, tool, ctx):
+    res = input["tool_response"]
+    
+    if "Error" in str(res):
+        return {
+            "systemMessage": "Tool failed.",
+            "hookSpecificOutput": {
+                "hookEventName": "PostToolUse",
+                "additionalContext": "Check syntax."
+            }
+        }</pre>
+                </div>
+
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                        <div style="background:#fef2f2; border:1px solid #ef4444; padding:10px; border-radius:8px; color:#ef4444;">
+                            <i class="fas fa-exclamation-triangle"></i> Tool Error
+                        </div>
+                        <i class="fas fa-arrow-right" style="color:#a8a29e;"></i>
+                        <div style="background:#eff6ff; border:1px solid #3b82f6; padding:10px; border-radius:8px; color:#3b82f6;">
+                            <i class="fas fa-search"></i> Hook
+                        </div>
+                    </div>
+                    
+                    <div style="height:30px; border-left:2px solid #a8a29e; margin-left: 20px;"></div>
+                    
+                    <div style="background:#fff7ed; border:1px solid #f97316; padding:15px; border-radius:8px; width:100%;">
+                        <strong><i class="fas fa-lightbulb" style="color:#f97316;"></i> Feedback to Agent:</strong><br>
+                        <span style="font-size:14px; color:#c2410c;">"You made a syntax error. Try adding quotes."</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 38: Context Injection -->
+    <div class="slide-container">
+        <h2 class="slide-title">UserPromptSubmit: Context Injection</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Inject secret context or instructions without the user typing them.</p>
+                    <pre>async def inject(input, tool, ctx):
+    return {
+        "hookSpecificOutput": {
+            "hookEventName": "UserPromptSubmit",
+            "additionalContext": "Time: 12:00."
+        }
+    }</pre>
+                </div>
+
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram">
+                    <div style="display: flex; gap: 20px; align-items: flex-end;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 12px; font-weight: bold; margin-bottom: 5px;">User</div>
+                            <div style="background: white; border: 1px solid #d6d3d1; padding: 10px; border-radius: 8px; width: 100px; font-size: 12px;">"Hello"</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 12px; font-weight: bold; margin-bottom: 5px; color: var(--accent-blue);">System</div>
+                            <div style="background: #eff6ff; border: 1px solid #93c5fd; padding: 10px; border-radius: 8px; width: 100px; font-size: 12px; color: #1e3a8a;">+ Context</div>
+                        </div>
+                    </div>
+                    
+                    <div style="font-size: 20px; color: #a8a29e; margin: 10px 0;"><i class="fas fa-arrow-down"></i></div>
+                    
+                    <div style="background: #fafaf9; border: 2px solid #1c1917; padding: 15px; border-radius: 8px; width: 100%; font-family: monospace; font-size: 13px;">
+                        <strong>LLM Input:</strong><br>
+                        "Hello"<br>
+                        <span style="color: var(--accent-blue);">&lt;context&gt;Time: 12:00&lt;/context&gt;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 39: ROI & Metrics -->
+    <div class="slide-container">
+        <h2 class="slide-title">ROI & Usage Tracking</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>The <span class="inline-code">ResultMessage</span> contains precise cost and token usage data.</p>
+                    <div class="metric-box">
+                        <div class="metric-number">$0.042</div>
+                        <div class="metric-label">Session Cost</div>
+                    </div>
+                </div>
+                <!-- UPDATED VISUAL: Replaced raw code with a visual "Dashboard" representation -->
+                <div class="visual-diagram" style="align-items: flex-start; background: #1e293b; border: none; color: white;">
+                    <div style="font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; margin-bottom: 15px;">Session Analytics</div>
+                    
+                    <div style="display: flex; gap: 15px; width: 100%;">
+                        <div style="flex: 1; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 10px; color: #cbd5e1;">TOKENS</div>
+                            <div style="font-size: 20px; font-weight: bold; color: #60a5fa;">1,420</div>
+                        </div>
+                        <div style="flex: 1; background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 10px; color: #cbd5e1;">LATENCY</div>
+                            <div style="font-size: 20px; font-weight: bold; color: #34d399;">240ms</div>
+                        </div>
+                    </div>
+
+                    <div style="width: 100%; height: 1px; background: rgba(255,255,255,0.1); margin: 15px 0;"></div>
+                    
+                    <div style="font-family: monospace; font-size: 12px; color: #94a3b8;">
+                        > Sending metrics to DataDog...<br>
+                        > <span style="color: #4ade80;">Success</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 40: Configuring Hooks -->
+    <div class="slide-container">
+        <h2 class="slide-title">Wiring it Together</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Hooks are registered using <span class="inline-code">HookMatcher</span>.</p>
+                    <pre>options = ClaudeAgentOptions(
+    hooks={
+        "PreToolUse": [
+            # Only run for "Bash"
+            HookMatcher(
+                matcher="Bash", 
+                hooks=[check_bash]
+            ),
+        ]
+    }
+)</pre>
+                </div>
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram">
+                    <div style="background: white; border: 1px solid #d6d3d1; padding: 15px; border-radius: 8px; width: 100%;">
+                        <div style="font-weight: bold; margin-bottom: 10px;"><i class="fas fa-cogs"></i> Configuration</div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 8px; height: 8px; background: var(--accent-coral); border-radius: 50%;"></div>
+                                <div style="flex: 1; font-size: 14px;">PreToolUse</div>
+                                <i class="fas fa-arrow-right" style="font-size: 10px; color: #a8a29e;"></i>
+                                <div style="background: #f3f4f6; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px;">check_bash</div>
+                            </div>
+                            
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 8px; height: 8px; background: var(--accent-blue); border-radius: 50%;"></div>
+                                <div style="flex: 1; font-size: 14px;">UserPrompt</div>
+                                <i class="fas fa-arrow-right" style="font-size: 10px; color: #a8a29e;"></i>
+                                <div style="background: #f3f4f6; padding: 4px 8px; border-radius: 4px; font-family: monospace; font-size: 12px;">inject_context</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 41: Advanced Permissions -->
+    <div class="slide-container">
+        <h2 class="slide-title">Advanced: <code>can_use_tool</code> Callback</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>For complex logic beyond simple blocking.</p>
+                    <pre>async def perm_cb(tool, input, ctx):
+    if tool == "Write" and "/etc" in input:
+        return Deny("No system writes")
+        
+    # Redirect write
+    if tool == "Write":
+        new = input.copy()
+        new["path"] = "/tmp/safe.txt"
+        return Allow(new)</pre>
+                </div>
+
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram">
+                    <div style="background: var(--accent-blue); color: white; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 14px;">Incoming Tool Call</div>
+                    <i class="fas fa-arrow-down" style="color: #a8a29e;"></i>
+                    
+                    <div style="transform: rotate(45deg); width: 60px; height: 60px; border: 2px solid #57534e; display: flex; align-items: center; justify-content: center; background: white;">
+                        <div style="transform: rotate(-45deg); font-weight: bold;">?</div>
+                    </div>
+                    
+                    <div style="display: flex; gap: 40px; margin-top: 10px;">
+                        <div style="text-align: center;">
+                            <i class="fas fa-arrow-down" style="color: var(--accent-green);"></i>
+                            <div style="color: var(--accent-green); font-weight: bold; margin-top: 5px;">ALLOW</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <i class="fas fa-arrow-down" style="color: var(--accent-red);"></i>
+                            <div style="color: var(--accent-red); font-weight: bold; margin-top: 5px;">DENY</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 42: Budgeting -->
+    <div class="slide-container">
+        <h2 class="slide-title">Enterprise Safety: Budgeting</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Prevent runaway agents from consuming infinite tokens. The SDK terminates the session if the limit is breached.</p>
+                     <pre style="margin-top:20px;">options = ClaudeAgentOptions(
+    max_budget_usd=0.50, 
+    max_turns=20         
+)</pre>
+                </div>
+                
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram">
+                     <div class="metric-box">
+                        <div class="metric-number">$0.50</div>
+                        <div class="metric-label">Max Budget USD</div>
+                    </div>
+                    
+                    <div style="width: 100%; margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: bold; color: #78716c; margin-bottom: 5px;">
+                            <span>Current Spend</span>
+                            <span>$0.35</span>
+                        </div>
+                        <div style="width: 100%; height: 10px; background: #e5e5e5; border-radius: 5px; overflow: hidden;">
+                            <div style="width: 70%; height: 100%; background: var(--accent-coral);"></div>
+                        </div>
+                        <div style="text-align: right; font-size: 10px; color: var(--accent-coral); margin-top: 5px;">70% Consumed</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 43: Testing Strategy -->
+    <div class="slide-container">
+        <h2 class="slide-title">Reliability: The Testing Pyramid</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile" style="border-bottom: 4px solid var(--accent-green);">
+                    <h3>Unit Tests</h3>
+                    <p style="font-size: 14px;">Test your <code>@tool</code> functions directly in Python.</p>
+                </div>
+                <div class="tile" style="border-bottom: 4px solid var(--accent-blue);">
+                    <h3>Integration</h3>
+                    <p style="font-size: 14px;">Mock the <code>Transport</code> layer to simulate Claude.</p>
+                </div>
+                <div class="tile" style="border-bottom: 4px solid var(--accent-coral);">
+                    <h3>E2E</h3>
+                    <p style="font-size: 14px;">Run real loops against a sandbox.</p>
+                </div>
+            </div>
+            <pre style="margin-top: 20px;">@pytest.mark.e2e
+async def test_agent_completes_task():
+    async with ClaudeSDKClient(options) as client:
+        await client.query("Echo 'success'")</pre>
+        </div>
+    </div>
+
+    <!-- SLIDE 44: SECTION DIVIDER -->
+    <div class="slide-container section-divider">
+        <div class="content-area">
+            <h1>Advanced Architectures</h1>
+            <p class="subtitle">Sub-Agents & Orchestration</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 45: Agent Definitions -->
+    <div class="slide-container">
+        <h2 class="slide-title">Defining Sub-Agents</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Claude can "handoff" tasks to named agents.</p>
+                    <pre>options = ClaudeAgentOptions(
+    agents={
+        "code-reviewer": AgentDefinition(
+            description="Reviews code",
+            prompt="You are an auditor.",
+            tools=["Read", "Grep"],
+            model="claude-3-opus"
+        )
+    }
+)</pre>
+                </div>
+
+                <!-- VISUAL DIAGRAM ADDED -->
+                <div class="visual-diagram" style="background: white; border-style: solid;">
+                    <div style="display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #e5e5e5; padding-bottom: 15px; width: 100%;">
+                        <div style="width: 50px; height: 50px; background: var(--accent-blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                            <i class="fas fa-user-secret"></i>
+                        </div>
+                        <div>
+                            <div style="font-weight: bold; font-size: 18px;">code-reviewer</div>
+                            <div style="font-size: 12px; color: #78716c;">Specialized Sub-Agent</div>
+                        </div>
+                    </div>
+                    
+                    <div style="width: 100%; margin-top: 15px;">
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <span class="tag tag-gray" style="font-size: 10px;">Opus</span>
+                            <span class="tag tag-gray" style="font-size: 10px;">Strict Mode</span>
+                        </div>
+                        <p style="font-size: 14px; color: #44403c; font-style: italic;">"I only review code. I do not write it."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         SLIDES 46-59: FROM PART 1 (Resumed)
+         ============================================== -->
+
+    <!-- SLIDE 46: Orchestrator Pattern -->
+    <div class="slide-container">
+        <h2 class="slide-title">The Orchestrator Pattern</h2>
+        <div class="content-area">
+            <div class="agent-arch">
+                <div class="agent-box core">Main Agent<br>(Router)</div>
+                <div class="agent-arrow">→</div>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                    <div class="agent-box">Coder Agent</div>
+                    <div class="agent-box">Reviewer Agent</div>
+                    <div class="agent-box">Docs Agent</div>
+                </div>
+            </div>
+            <div class="highlight-box">
+                <p>The Main Agent uses the <strong>"agents"</strong> tool (automatically provided by SDK) to delegate work to the definitions provided in <span class="inline-code">AgentDefinition</span>.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 47: Structured Output -->
+    <div class="slide-container">
+        <h2 class="slide-title">Structured Output: From Chaos to JSON</h2>
+        <div class="content-area">
+            <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin-top: 20px;">
+                <!-- Chaos State -->
+                <div style="text-align: center; width: 300px;">
+                    <div style="background: #f5f5f4; padding: 20px; border-radius: 12px; border: 2px dashed #a8a29e; position: relative;">
+                        <i class="fas fa-file-alt" style="font-size: 40px; color: #78716c;"></i>
+                        <p style="margin-top: 10px; font-size: 14px; color: #78716c;">
+                            "I found 3 files. One is a test, two are source code. Oh, and here are the details..."
+                        </p>
+                        <div style="position: absolute; top: -10px; right: -10px; background: #ef4444; color: white; padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: bold;">UNSTRUCTURED</div>
+                    </div>
+                </div>
+
+                <!-- Process Arrow -->
+                <div style="text-align: center; color: var(--accent-coral);">
+                    <i class="fas fa-long-arrow-alt-right" style="font-size: 40px;"></i>
+                    <div style="font-size: 12px; font-weight: bold; margin-top: 5px;">JSON SCHEMA</div>
+                </div>
+
+                <!-- Structured State -->
+                <div style="text-align: center; width: 300px;">
+                    <div style="background: #ecfdf5; padding: 20px; border-radius: 12px; border: 2px solid #10b981; position: relative; font-family: 'Fira Code', monospace; text-align: left;">
+                        <span style="color: #047857;">{</span><br>
+                        &nbsp;&nbsp;<span style="color: #059669;">"file_count"</span>: <span style="color: #d97706;">3</span>,<br>
+                        &nbsp;&nbsp;<span style="color: #059669;">"has_tests"</span>: <span style="color: #2563eb;">true</span><br>
+                        <span style="color: #047857;">}</span>
+                        <div style="position: absolute; top: -10px; right: -10px; background: #10b981; color: white; padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: bold;">VALID JSON</div>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 30px; text-align: center; font-size: 14px; color: #78716c;">
+                The SDK forces the LLM to output only data that matches your strictly defined schema.
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 48: Network Isolation -->
+    <div class="slide-container">
+        <h2 class="slide-title">Security: Network Sandbox</h2>
+        <div class="content-area">
+            <div class="two-column">
+                <div>
+                    <p>Enterprise deployments often require strict network isolation. The <span class="inline-code">SandboxSettings</span> object controls exactly what the agent can access.</p>
+                    <ul>
+                        <li>Block all internet access.</li>
+                        <li>Allow specific Unix sockets (e.g., Docker).</li>
+                        <li>Force traffic through proxies.</li>
+                    </ul>
+                </div>
+                <pre>sandbox_config = {
+    "enabled": True,
+    "network": {
+        "allowAllUnixSockets": False,
+        "allowUnixSockets": ["/var/run/docker.sock"],
+        "httpProxyPort": 8080
+    }
+}
+
+options = ClaudeAgentOptions(sandbox=sandbox_config)</pre>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 49: Visualizing Network Isolation -->
+    <div class="slide-container">
+        <h2 class="slide-title">Visualizing Network Isolation</h2>
+        <div class="content-area">
+            <div style="display: flex; justify-content: center; gap: 50px; margin-top: 40px; align-items: center;">
+                
+                <!-- The Sandbox Box -->
+                <div style="width: 400px; height: 300px; border: 3px solid #1c1917; border-radius: 12px; position: relative; background: #fafaf9; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                    <div style="position: absolute; top: -15px; left: 20px; background: #1c1917; color: white; padding: 5px 15px; font-size: 14px; font-weight: bold; border-radius: 4px;">AGENT SANDBOX</div>
+                    
+                    <div style="width: 120px; height: 120px; background: white; border: 2px solid var(--accent-coral); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+                        <i class="fas fa-robot" style="font-size: 50px; color: var(--accent-coral);"></i>
+                    </div>
+                    <div style="margin-top: 15px; font-weight: bold;">Running Agent</div>
+                </div>
+
+                <!-- Connections -->
+                <div style="display: flex; flex-direction: column; gap: 40px;">
+                    <!-- Blocked Internet -->
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <i class="fas fa-arrow-left" style="font-size: 24px; color: #d6d3d1;"></i>
+                        <i class="fas fa-times-circle" style="font-size: 30px; color: var(--accent-red);"></i>
+                        <div style="border: 2px dashed #a8a29e; padding: 10px 20px; border-radius: 8px; background: #f5f5f4;">
+                            <i class="fas fa-globe"></i> Public Internet
+                        </div>
+                    </div>
+
+                    <!-- Allowed Socket -->
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <i class="fas fa-arrow-left" style="font-size: 24px; color: var(--accent-green);"></i>
+                        <i class="fas fa-check-circle" style="font-size: 30px; color: var(--accent-green);"></i>
+                        <div style="border: 2px solid var(--accent-green); padding: 10px 20px; border-radius: 8px; background: #ecfdf5;">
+                            <i class="fab fa-docker"></i> Docker Socket
+                        </div>
+                    </div>
+
+                    <!-- Allowed Proxy -->
+                    <div style="display: flex; align-items: center; gap: 15px;">
+                        <i class="fas fa-arrow-left" style="font-size: 24px; color: var(--accent-green);"></i>
+                        <i class="fas fa-check-circle" style="font-size: 30px; color: var(--accent-green);"></i>
+                        <div style="border: 2px solid var(--accent-green); padding: 10px 20px; border-radius: 8px; background: #ecfdf5;">
+                            <i class="fas fa-server"></i> Corporate Proxy (8080)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 50: Error Handling -->
+    <div class="slide-container">
+        <h2 class="slide-title">Robust Error Handling</h2>
+        <div class="content-area">
+            <p>Production agents must handle failures gracefully. The SDK provides specific exception types.</p>
+            <div class="tiled-content">
+                <div class="tile">
+                    <h3>CLINotFoundError</h3>
+                    <p>Agent runtime binary is missing or corrupt.</p>
+                </div>
+                <div class="tile">
+                    <h3>CLIConnectionError</h3>
+                    <p>The transport layer failed (process crash).</p>
+                </div>
+                <div class="tile">
+                    <h3>ProcessError</h3>
+                    <p>The underlying command exited with a non-zero code.</p>
+                </div>
+            </div>
+            <pre style="margin-top: 20px;">try:
+    async for msg in query(...):
+        pass
+except CLIConnectionError:
+    # Handle retry logic or fallback
+    logger.error("Agent transport died, restarting...")</pre>
+        </div>
+    </div>
+
+    <!-- SLIDE 51: Settings Isolation -->
+    <div class="slide-container">
+        <h2 class="slide-title">Settings Isolation</h2>
+        <div class="content-area">
+            <p>Control where Claude reads its configuration from. Vital for testing and secure environments.</p>
+            <div class="tiled-content">
+                <div class="tile">
+                    <h3>User</h3>
+                    <p>Global settings (<span class="inline-code">~/.claude/</span>).</p>
+                </div>
+                <div class="tile">
+                    <h3>Project</h3>
+                    <p>Repo settings (<span class="inline-code">./.claude/</span>).</p>
+                </div>
+                <div class="tile">
+                    <h3>Local</h3>
+                    <p>Git-ignored local overrides.</p>
+                </div>
+            </div>
+            <pre style="margin-top:20px;"># Load NOTHING by default (Clean slate)
+options = ClaudeAgentOptions(setting_sources=[])
+
+# Load only User settings
+options = ClaudeAgentOptions(setting_sources=["user"])</pre>
+        </div>
+    </div>
+
+    <!-- SLIDE 52: Plugins -->
+    <div class="slide-container">
+        <h2 class="slide-title">Plugins Architecture</h2>
+        <div class="content-area">
+            <div style="display: flex; justify-content: center; gap: 30px; align-items: stretch; margin-bottom: 30px;">
+                
+                <!-- Agent Box -->
+                <div style="background: #1c1917; color: white; padding: 30px; border-radius: 12px; width: 250px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                    <i class="fas fa-brain" style="font-size: 40px; margin-bottom: 15px;"></i>
+                    <h3>Core Agent</h3>
+                    <p style="color: #a8a29e; font-size: 14px; text-align: center;">Base Capabilities</p>
+                </div>
+
+                <!-- Connector -->
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; color: var(--accent-coral);">
+                    <i class="fas fa-plug" style="font-size: 30px;"></i>
+                    <div style="height: 2px; width: 50px; background: var(--accent-coral); margin: 10px 0;"></div>
+                    <span style="font-size: 12px; font-weight: bold;">LOADS</span>
+                </div>
+
+                <!-- Plugins Box -->
+                <div style="border: 2px dashed #a8a29e; padding: 20px; border-radius: 12px; background: #f5f5f4; flex-grow: 1;">
+                    <h3 style="margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-folder-open" style="color: #f59e0b;"></i> Plugin Directory
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                        <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #e5e5e5;">
+                            <strong>/commands/jira.md</strong>
+                            <p style="font-size: 12px; margin: 5px 0 0; color: #78716c;">Custom prompts for ticket creation</p>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #e5e5e5;">
+                            <strong>/commands/deploy.md</strong>
+                            <p style="font-size: 12px; margin: 5px 0 0; color: #78716c;">Macros for deployment steps</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <pre>options = ClaudeAgentOptions(
+    plugins=[
+        {
+            "type": "local",
+            "path": "/path/to/my/plugins"
+        }
+    ]
+)</pre>
+        </div>
+    </div>
+
+    <!-- SLIDE 53: Debugging -->
+    <div class="slide-container">
+        <h2 class="slide-title">Debugging: The Stderr Callback</h2>
+        <div class="content-area">
+            <p>Since the CLI runs in a subprocess, you need a way to see its internal logs.</p>
+            <pre>def my_logger(line):
+    if "[ERROR]" in line:
+        logger.error(line)
+    else:
+        logger.debug(line)
+
+options = ClaudeAgentOptions(
+    stderr=my_logger,
+    extra_args={"debug-to-stderr": None} # Enable debug mode
+)</pre>
+        </div>
+    </div>
+
+    <!-- SLIDE 54: SECTION DIVIDER -->
+    <div class="slide-container section-divider">
+        <div class="content-area">
+            <h1>Enterprise Deployment</h1>
+            <p class="subtitle">Sandboxing & Production</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 55: Deep Sandboxing: Firecracker VMs -->
+    <div class="slide-container">
+        <h2 class="slide-title">Deep Sandboxing: Firecracker VMs</h2>
+        <div class="content-area">
+            <div style="display: flex; gap: 40px; align-items: center; justify-content: center;">
+                
+                <!-- Left Context -->
+                <div style="flex: 1; max-width: 400px;">
+                    <p style="font-size: 20px;">The SDK's internal sandbox protects the <em>filesystem</em>, but for running untrusted code from users, you need <strong>Kernel Isolation</strong>.</p>
+                    <div style="margin-top: 30px; background: white; padding: 20px; border-radius: 12px; border: 1px solid #e5e5e5;">
+                         <div style="font-size: 14px; font-weight: bold; color: #78716c; margin-bottom: 10px;">TRAFFIC FLOW</div>
+                         <div style="display: flex; align-items: center; gap: 10px; font-size: 14px;">
+                             <span style="background: #eff6ff; color: #1d4ed8; padding: 4px 8px; border-radius: 4px; border: 1px solid #bfdbfe;">API Gateway</span>
+                             <i class="fas fa-arrow-right" style="color: #a8a29e;"></i>
+                             <span style="background: #1c1917; color: white; padding: 4px 8px; border-radius: 4px;">Orchestrator</span>
+                         </div>
+                    </div>
+                </div>
+
+                <!-- Right Diagram (High Fidelity Stack) -->
+                <div style="flex: 1; max-width: 600px;">
+                    <!-- Host Machine (Outer Shell) -->
+                    <div style="background: #1c1917; color: white; border-radius: 16px; padding: 25px; position: relative; box-shadow: 0 20px 40px rgba(0,0,0,0.2);">
+                        <div style="position: absolute; top: -12px; left: 20px; background: #57534e; color: white; padding: 2px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; font-family: 'Fira Code', monospace;">HOST: EC2 METAL</div>
+                        
+                        <!-- Firecracker Process -->
+                        <div style="border: 2px dashed #78716c; border-radius: 12px; padding: 20px; margin-top: 10px; position: relative;">
+                            <div style="position: absolute; top: -10px; right: 20px; background: #1c1917; color: #a8a29e; padding: 0 10px; font-size: 12px; font-family: 'Fira Code', monospace;">PROCESS: FIRECRACKER VMM</div>
+                            
+                            <!-- The MicroVM -->
+                            <div style="background: #fafaf9; color: #1c1917; border-radius: 8px; padding: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.3); border: 1px solid #57534e;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #e5e5e5; padding-bottom: 10px;">
+                                    <div style="font-weight: 800; font-size: 14px; color: var(--accent-coral);"><i class="fas fa-box"></i> GUEST MICRO-VM</div>
+                                    <div style="font-size: 10px; background: #ecfdf5; color: #059669; padding: 2px 6px; border-radius: 4px; font-weight: bold;">BOOT: &lt;125ms</div>
+                                </div>
+
+                                <!-- Kernel Layer -->
+                                <div style="background: #e5e5e5; padding: 8px; border-radius: 6px; text-align: center; font-size: 12px; color: #57534e; font-weight: bold; margin-bottom: 10px; border: 1px solid #d4d4d4;">
+                                    <i class="fas fa-microchip"></i> KVM GUEST KERNEL
+                                </div>
+                                
+                                <!-- User Space -->
+                                <div style="background: white; border: 2px solid var(--accent-blue); border-radius: 6px; padding: 15px; text-align: center;">
+                                    <div style="font-size: 14px; font-weight: bold; color: var(--accent-blue);">
+                                        <i class="fab fa-python"></i> AGENT PROCESS
+                                    </div>
+                                    <div style="font-size: 10px; color: #94a3b8; margin-top: 5px;">(SDK + CLI Binary)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Network Bridge -->
+                        <div style="margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px;">
+                            <div style="height: 2px; flex: 1; background: #57534e;"></div>
+                            <div style="background: #4ade80; color: #064e3b; padding: 4px 12px; border-radius: 100px; font-size: 10px; font-weight: bold; font-family: 'Fira Code', monospace;">
+                                <i class="fas fa-network-wired"></i> TAP DEVICE BRIDGE
+                            </div>
+                            <div style="height: 2px; flex: 1; background: #57534e;"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 56: Isolation Layers -->
+    <div class="slide-container">
+        <h2 class="slide-title">Defense in Depth</h2>
+        <div class="content-area">
+            <p>Layering protections ensures maximum security for enterprise agents.</p>
+            <div class="tiled-content">
+                <div class="tile">
+                    <h3>Layer 1: SDK Permissions</h3>
+                    <p>Controls what tools (Edit/Read) can be called. Prevents accidental file overwrites.</p>
+                </div>
+                <div class="tile">
+                    <h3>Layer 2: Bash Sandbox</h3>
+                    <p>SDK <span class="inline-code">SandboxSettings</span>. Restricts network access and blocks dangerous syscalls.</p>
+                </div>
+                <div class="tile">
+                    <h3>Layer 3: Firecracker/Docker</h3>
+                    <p>OS-level isolation. Prevents the agent from accessing host resources if Layer 1 & 2 fail.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 57: Sandboxing (Code) -->
+    <div class="slide-container">
+        <h2 class="slide-title">Sandboxing (Bash)</h2>
+        <div class="content-area">
+            <p>The SDK supports configuring the Bash sandbox for file and network isolation.</p>
+            <pre>sandbox_config = {
+    "enabled": True,
+    "network": {
+        "allowUnixSockets": ["/var/run/docker.sock"],
+        "allowLocalBinding": True
+    },
+    "excludedCommands": ["git"] # Git runs outside sandbox
+}
+
+options = ClaudeAgentOptions(sandbox=sandbox_config)</pre>
+            <p class="highlight-box"><strong>Note:</strong> Filesystem restrictions (Read/Write) are handled via Permissions, while Sandboxing handles process isolation.</p>
+        </div>
+    </div>
+
+    <!-- SLIDE 58: Deployment Architecture -->
+    <div class="slide-container">
+        <h2 class="slide-title">Deployment Architecture</h2>
+        <div class="content-area">
+            <div class="tiled-content">
+                <div class="tile">
+                    <div class="icon"><i class="fab fa-docker"></i></div>
+                    <h3>Containerization</h3>
+                    <p>Wrap your Python script + SDK in a Docker container. The SDK will pull the CLI binary inside the container.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-key"></i></div>
+                    <h3>Secret Management</h3>
+                    <p>Inject <span class="inline-code">ANTHROPIC_API_KEY</span> via environment variables. Do not hardcode.</p>
+                </div>
+                <div class="tile">
+                    <div class="icon"><i class="fas fa-server"></i></div>
+                    <h3>Headless Mode</h3>
+                    <p>Use <span class="inline-code">query()</span> for background jobs. Use <span class="inline-code">ClaudeSDKClient</span> for WebSocket/API backends.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 59: Closing -->
+    <div class="slide-container">
+        <div class="content-area" style="text-align: center;">
+            <h1 style="color: var(--accent-coral);">Build with Confidence</h1>
+            <p class="subtitle">The Claude Agent SDK provides the harness you need to move from Chatbots to Autonomous Agents.</p>
+            <div style="margin-top: 50px;">
+                <div class="metric-box" style="display:inline-block; width:auto; padding:20px 40px;">
+                    <div class="metric-number" style="font-size:24px;">pip install claude-agent-sdk</div>
+                </div>
+            </div>
+            <p style="margin-top:30px; font-weight: 600; color: #78716c;">docs.anthropic.com/en/docs/claude-code/sdk</p>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide-container');
+        const counter = document.getElementById('slideCounter');
+        
+        // Footer Template Logic
+        const footerTemplate = document.getElementById('footer-template').innerHTML;
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                
+                // Add footer if missing
+                if (!slide.querySelector('.slide-footer')) {
+                    const footerDiv = document.createElement('div');
+                    footerDiv.innerHTML = footerTemplate;
+                    const footer = footerDiv.querySelector('.slide-footer');
+                    footer.querySelector('.page-num').innerText = `${String(index + 1).padStart(2, '0')} / ${slides.length}`;
+                    slide.appendChild(footer);
+                }
+
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+            counter.innerText = `${String(currentSlide + 1).padStart(2, '0')} / ${slides.length}`;
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Auto-scaling logic
+        function resizeContent() {
+            const width = 1280;
+            const height = 720;
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            
+            // Calculate scale based on the window size
+            const scaleX = windowWidth / width;
+            const scaleY = windowHeight / height;
+            
+            // Use the smaller scale to fit content, with a small margin (0.9)
+            let scale = Math.min(scaleX, scaleY) * 0.9;
+            
+            // Set the CSS variable
+            document.documentElement.style.setProperty('--scale', scale);
+        }
+
+        // Initial setup
+        resizeContent();
+        updateSlide();
+        
+        // Listen for resize events
+        window.addEventListener('resize', resizeContent);
+        window.addEventListener('load', resizeContent); 
+        document.addEventListener('DOMContentLoaded', resizeContent);
+    </script>
+</body>
+</html>

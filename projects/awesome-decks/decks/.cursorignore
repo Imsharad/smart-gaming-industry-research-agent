@@ -1,0 +1,4 @@
+# Hide from Cursor file tree (not relevant for development)
+node_modules/
+package-lock.json
+.DS_Store
