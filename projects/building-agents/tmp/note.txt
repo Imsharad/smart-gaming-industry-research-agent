@@ -1,0 +1,19 @@
+<instructions>
+  <references>
+    <file>@criteria_prompts/final.md</file>
+    <file>@criteria_prompts/</file>
+    <file>@criteria_prompts/pact.md</file>
+    <file>@criteria_prompts/prompt.md</file>
+  </references>
+  <task>
+    Generate and evaluate all student assignments submitted as IPython notebook (.ipynb) files.
+  </task>
+  <feedback_generation>
+    Create feedback files using the content of <file>final.md</file>, <file>prompt.md</file>, and the attached pack guidelines.
+    Ensure that the feedback is always written in a genuine, authentic, and human tone. Avoid any formal, machine-generated, or robotic-sounding language.
+    Under no circumstances should emojis be included in the feedback.
+  </feedback_generation>
+  <external_links>
+    For every feedback file, append or attach the specific external links as described in the criteria files, following the instructions in <file>criteria_prompts/external_links.md</file> exactly.
+  </external_links>
+</instructions>

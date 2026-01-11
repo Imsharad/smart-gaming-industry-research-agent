@@ -1,0 +1,7 @@
+│ * @criteria_prompts/final.md @criteria_prompts/ @criteria_prompts/pact.md Can you help  │
+│   me generate and evaluate the current student assignment in IPython notebook files     │
+│   and generate feedback files based on the final.md file that I am generating and       │
+│   prompt.md file that exists and pack guidelines that I have attached along with this   │
+│   note. Please make sure that the generated feedback files do not sound like a          │
+│   LLM-generated machine robotic text but instead should be genuine and authentic human  │
+│   text. Please do not use any emojis ever.    Please attach and append external links described in criteria files across each and every feedback file

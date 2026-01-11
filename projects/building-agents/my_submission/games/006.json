@@ -1,0 +1,8 @@
+{
+  "Name": "Sample Game 6",
+  "Platform": "Multi-platform",
+  "Genre": "Action",
+  "Publisher": "Sample Publisher",
+  "Description": "A sample description for game 6 used for testing the RAG pipeline.",
+  "YearOfRelease": 2006
+}

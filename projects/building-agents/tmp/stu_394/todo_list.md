@@ -1,0 +1,24 @@
+# Udaplay Project Review TODO List
+
+- [x] Criterion 1: RAG Pipeline
+    - [x] Run verification commands for Criterion 1
+    - [x] Analyze results against rubric
+    - [x] Generate feedback/1.md
+    - [x] Include mandatory images and external links
+- [x] Criterion 2: Agent Development
+    - [x] Run verification commands for Criterion 2
+    - [x] Analyze results against rubric
+    - [x] Generate feedback/2.md
+    - [x] Include mandatory images and external links
+- [x] Criterion 3: Stateful Agent
+    - [x] Run verification commands for Criterion 3
+    - [x] Analyze results against rubric
+    - [x] Generate feedback/3.md
+    - [x] Include mandatory images and external links
+- [x] Criterion 4: Agent Demonstration and Reporting
+    - [x] Run verification commands for Criterion 4
+    - [x] Analyze results against rubric
+    - [x] Generate feedback/4.md
+    - [x] Include mandatory images and external links
+- [x] Final Summary
+    - [x] Generate summary.md based on all evaluations

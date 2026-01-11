@@ -1,0 +1,63 @@
+{
+    "description": "All active Udacity projects",
+    "generated_at": "2026-01-04T12:58:30+05:30",
+    "github_username": "Imsharad",
+    "projects": [
+        {
+            "name": "building-agents",
+            "path": "building-agents/tmp/archive",
+            "course": "Advanced Agentic AI Techniques",
+            "certificate": "https://www.udacity.com/certificate/e/5bb7ae40-787a-11f0-b628-c789fb089f38",
+            "github": "https://github.com/Imsharad/building-agents"
+        },
+        {
+            "name": "energy-advisor",
+            "path": "energy-advisor/tmp/archive",
+            "course": "Building AI Agents with LangGraph",
+            "certificate": "https://www.udacity.com/certificate/e/0dfc6e12-a5dd-11f0-870f-b7d5407b1654",
+            "github": "https://github.com/Imsharad/building-agents-langgraph"
+        },
+        {
+            "name": "finance-agent-fintool",
+            "path": "finance-agent-fintool/tmp/archive",
+            "course": "Building AI Agents for Financial Services",
+            "certificate": "https://www.udacity.com/certificate/e/2abe6ecc-b912-11f0-aafe-e7290981af08",
+            "github": "https://github.com/Imsharad/financial-agent-system"
+        },
+        {
+            "name": "swift-agent",
+            "path": "swift-agent/tmp/archive",
+            "course": "Agentic AI Workflows for Financial Services",
+            "certificate": "https://www.udacity.com/certificate/e/4c69e34a-b91b-11f0-838b-df8734b9782c",
+            "github": "https://github.com/Imsharad/ai-swift-transaction-processor"
+        },
+        {
+            "name": "knowledge-agents",
+            "path": "knowledge-agents/tmp/archive",
+            "course": "Prompting for Effective LLM Reasoning and Planning",
+            "certificate": "https://www.udacity.com/certificate/e/313cf4d4-56cb-11f0-b009-e3d4ea161056",
+            "github": "https://github.com/Imsharad/knowledge-agents"
+        },
+        {
+            "name": "travel-agent",
+            "path": "travel-agent/tmp/archive",
+            "course": "Building Agents",
+            "certificate": "https://www.udacity.com/certificate/e/1ffd8620-56cb-11f0-8fb1-af52c7611c99",
+            "github": "https://github.com/Imsharad/multimodal-ai-agents"
+        },
+        {
+            "name": "udaci-model-optimization",
+            "path": "udaci-model-optimization",
+            "course": "Advanced Model Compression Techniques",
+            "certificate": "https://www.udacity.com/certificate/e/7a29344c-6cd7-11f0-a307-3ffe3037db20",
+            "github": "https://github.com/Imsharad/model-compression-pipeline"
+        },
+        {
+            "name": "betty-bird-boutique",
+            "path": "betty-bird-boutique",
+            "course": "AI Customer Service Agent - Google ADK",
+            "github": "https://github.com/Imsharad/betty-bird-boutique"
+        }
+    ],
+    "total_count": 8
+}

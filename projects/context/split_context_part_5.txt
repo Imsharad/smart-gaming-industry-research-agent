@@ -1,0 +1,4869 @@
+START OF FILE: swift-agent/my_submission/master_context.md
+================================================================================
+
+# Master Context for swift-agent
+Generated on Mon Dec 22 17:11:41 IST 2025
+
+
+<file_content path="INDEX.md">
+# SWIFT Agent Project Review System - INDEX
+
+## 📁 Directory Overview
+
+```
+tmp/
+├── setup_next_student.sh      # Automated setup script
+├── README.md                   # Complete documentation
+├── SETUP_GUIDE.md             # Quick start guide
+├── INDEX.md                   # This file
+├── stu_template/              # Master template directory
+│   ├── criteria_prompts/      # Review criteria (11 files)
+│   ├── feedback/              # Example feedback files
+│   ├── project/               # Empty (for student code)
+│   └── TODO_MASTER_LIST.md    # Progress tracker template
+├── stu_01/                    # Student 1 directory (ready)
+├── stu_02/                    # Student 2 directory (ready)
+└── [future stu_XX dirs]       # Created by setup script
+```
+
+## 🚀 Quick Start
+
+### For Your First Review
+```bash
+cd /Users/sharad/Projects/udacity-reviews-hq/projects/swift-agent/tmp
+
+# If setting up new student
+./setup_next_student.sh
+
+# To start reviewing stu_01
+cd stu_01
+cat criteria_prompts/final.md
+```
+
+### For Subsequent Reviews
+```bash
+./setup_next_student.sh  # Auto-creates next student dir
+cd stu_XX
+# Follow criteria_prompts/criteria1.md → criteria2.md → criteria3.md
+```
+
+## 📋 File Reference
+
+### Setup & Documentation Files
+| File | Purpose |
+|------|---------|
+| `setup_next_student.sh` | Automated student directory creation |
+| `README.md` | Complete system documentation |
+| `SETUP_GUIDE.md` | Quick reference for setup and review |
+| `INDEX.md` | This overview file |
+
+### Template Files (stu_template/)
+| File | Purpose |
+|------|---------|
+| **criteria_prompts/prompt.md** | Main reviewer system prompt |
+| **criteria_prompts/rubric.md** | Official project rubric |
+| **criteria_prompts/criteria1.md** | Agent pattern evaluation guide |
+| **criteria_prompts/criteria2.md** | System integration evaluation guide |
+| **criteria_prompts/criteria3.md** | Best practices evaluation guide |
+| **criteria_prompts/judge.md** | Quality assurance validation |
+| **criteria_prompts/final.md** | Review startup instructions |
+| **criteria_prompts/commands.md** | Command reference |
+| **criteria_prompts/common_mistakes.md** | Common issues guide |
+| **criteria_prompts/pact.md** | Reviewer-student agreement |
+| **criteria_prompts/bestAward.md** | Excellence criteria |
+
+### Example Feedback Files
+| File | Purpose |
+|------|---------|
+| `example_feedback_1.md` | Example PASS feedback |
+| `example_feedback_fail.md` | Example FAIL feedback |
+| `example_summary.md` | Example final summary |
+
+## 🎯 Review Process Flow
+
+```
+1. SETUP (Automated)
+   └─→ Run: ./setup_next_student.sh
+   
+2. PREPARATION
+   └─→ Read: stu_XX/criteria_prompts/final.md
+   
+3. CRITERION 1 (Agent Patterns)
+   ├─→ Follow: criteria_prompts/criteria1.md
+   └─→ Write: feedback/1.md
+   
+4. CRITERION 2 (Integration)
+   ├─→ Follow: criteria_prompts/criteria2.md
+   └─→ Write: feedback/2.md
+   
+5. CRITERION 3 (Best Practices)
+   ├─→ Follow: criteria_prompts/criteria3.md
+   └─→ Write: feedback/3.md
+   
+6. SUMMARY
+   └─→ Write: feedback/summary.md
+   
+7. COMPLETE ✓
+```
+
+## 📊 Review Criteria Summary
+
+### Criterion 1: Agent Pattern Implementation
+- ✅ Evaluator-Optimizer Pattern
+- ✅ Parallelization Pattern (3+ agents)
+- ✅ Prompt Chaining Pattern
+- ✅ Orchestrator-Worker Pattern
+
+### Criterion 2: System Integration
+- ✅ Sequential invocation
+- ✅ Data flow between stages
+- ✅ Report generation (2+ reports)
+- ✅ Error-free execution
+
+### Criterion 3: Best Practices
+- ✅ Clean code (PEP8)
+- ✅ Documentation (docstrings)
+- ✅ Testing evidence
+- ✅ Code quality
+
+## 🔧 Common Commands
+
+### Setup
+```bash
+./setup_next_student.sh           # Create next student dir
+./setup_next_student.sh --dry-run # Preview without changes
+```
+
+### Navigation
+```bash
+ls tmp/                           # List all student dirs
+cd stu_XX                         # Enter student dir
+ls -la project/                   # View student code
+```
+
+### Review
+```bash
+cat criteria_prompts/final.md     # Read instructions
+cat criteria_prompts/criteria1.md # View criterion 1
+vim feedback/1.md                 # Edit feedback
+```
+
+### Cleanup
+```bash
+mkdir -p archive                  # Create archive dir
+mv stu_XX archive/                # Archive completed review
+```
+
+## 📚 Key Documents to Read
+
+### Before First Review
+1. `README.md` - Full system documentation
+2. `SETUP_GUIDE.md` - Quick start guide
+3. `stu_template/criteria_prompts/rubric.md` - Understand requirements
+
+### During Review
+1. `criteria_prompts/prompt.md` - Review approach
+2. `criteria_prompts/criteriaX.md` - Specific evaluation steps
+3. `criteria_prompts/common_mistakes.md` - What to watch for
+
+### For Reference
+1. `criteria_prompts/commands.md` - Command reference
+2. `feedback/example_*.md` - Feedback examples
+3. `criteria_prompts/pact.md` - Review philosophy
+
+## 🎨 Directory Structure Pattern
+
+Each `stu_XX/` follows this structure:
+```
+stu_XX/
+├── criteria_prompts/           # What to evaluate (11 files)
+│   ├── prompt.md              # System prompt
+│   ├── rubric.md              # Requirements
+│   ├── criteria1.md           # Pattern evaluation
+│   ├── criteria2.md           # Integration evaluation
+│   ├── criteria3.md           # Practices evaluation
+│   ├── judge.md               # QA validation
+│   ├── final.md               # Start here
+│   ├── commands.md            # Command help
+│   ├── common_mistakes.md     # Issue guide
+│   ├── pact.md                # Philosophy
+│   └── bestAward.md           # Excellence
+├── feedback/                   # Your generated feedback
+│   ├── 1.md                   # Criterion 1 feedback
+│   ├── 2.md                   # Criterion 2 feedback
+│   ├── 3.md                   # Criterion 3 feedback
+│   └── summary.md             # Final assessment
+├── project/                    # Student's code
+│   ├── agents/                # Agent implementations
+│   ├── main.py                # Main orchestration
+│   ├── models/                # Data models
+│   └── services/              # Helper services
+└── TODO_MASTER_LIST.md        # Progress tracking
+```
+
+## ✨ Features
+
+### Automated
+- ✅ Directory creation from template
+- ✅ Zip extraction and validation
+- ✅ Student number auto-increment
+- ✅ Structure verification
+
+### Documented
+- ✅ Comprehensive README
+- ✅ Quick start guide
+- ✅ Command reference
+- ✅ Example feedback files
+
+### Structured
+- ✅ Sequential evaluation process
+- ✅ Clear rubric alignment
+- ✅ Progress tracking
+- ✅ Quality assurance validation
+
+## 🆘 Help & Support
+
+### Having Issues?
+1. Check `README.md` for detailed docs
+2. Review `SETUP_GUIDE.md` for quick fixes
+3. Read `criteria_prompts/common_mistakes.md`
+
+### Script Problems?
+```bash
+# Test without changes
+./setup_next_student.sh --dry-run
+
+# Check permissions
+chmod +x setup_next_student.sh
+
+# View script
+cat setup_next_student.sh
+```
+
+### Review Questions?
+- Rubric: `stu_template/criteria_prompts/rubric.md`
+- Commands: `stu_template/criteria_prompts/commands.md`
+- Examples: `stu_template/feedback/example_*.md`
+
+## 🎯 Success Metrics
+
+A successful review includes:
+- ✅ All 3 criteria evaluated sequentially
+- ✅ Specific code references in feedback
+- ✅ Clear PASS/FAIL with reasoning
+- ✅ Actionable next steps (if FAIL)
+- ✅ Comprehensive summary
+
+## 📝 Notes
+
+- **Template Changes**: Modify `stu_template/` to affect all future students
+- **Existing Students**: Already created directories won't auto-update
+- **Archive**: Move completed reviews to `archive/` subdirectory
+- **Backup**: Template is safe; each student dir is independent
+
+---
+
+**Last Updated**: 2025-11-20
+**Version**: 1.0
+**Status**: Production Ready ✅
+</file_content>
+
+<file_content path="PLAYBOOK_failure_aggregation.md">
+# 📚 Failure Aggregation Playbook
+
+> **Purpose**: Replicable workflow to extract anti-patterns from student feedback and generate visual learning guides.
+
+---
+
+## 🎯 Goal
+
+Transform scattered student feedback files into a consolidated, slide-ready visual guide that documents common mistakes ("anti-patterns") for educational purposes.
+
+---
+
+## 📂 Prerequisites
+
+```
+project/
+├── tmp/
+│   ├── archive/          # Past student submissions
+│   │   ├── stu_100/
+│   │   │   └── feedback/
+│   │   │       ├── 1.md  # Criterion 1 feedback
+│   │   │       ├── 2.md
+│   │   │       └── ...
+│   │   └── stu_N/
+│   └── stu_current/      # Current student
+└── my_submission/        # Output directory
+```
+
+---
+
+## 🔄 Pipeline Steps
+
+### Step 1: Generate Failures List
+
+```bash
+cd project/
+grep -r -l "Status:.*FAIL\|Status:.*NOT MET" tmp/ > my_submission/failures_list.txt
+```
+
+This creates a list of all files containing failure feedback.
+
+---
+
+### Step 2: Run Aggregation Script
+
+```bash
+cd my_submission/
+python3 aggregate_failures.py
+```
+
+**Outputs**:
+- `visual_antipatterns_guide.md` - Slide-ready visual guide
+- Console: Statistics on files processed
+
+---
+
+### Step 3: Review & Iterate
+
+Open `visual_antipatterns_guide.md` and verify:
+- [ ] Executive summary has correct counts
+- [ ] Mermaid mindmap renders properly
+- [ ] Before/After code examples are accurate
+- [ ] Visual metaphors make sense
+
+---
+
+## 🛠️ Script Customization
+
+### Adding New Categories
+
+Edit `ANTIPATTERN_CATEGORIES` in `aggregate_failures.py`:
+
+```python
+ANTIPATTERN_CATEGORIES = {
+    "your_category": {
+        "title": "🏷️ Category Title",
+        "icon": "🔴",
+        "description": "What this category covers",
+        "keywords": ["keyword1", "keyword2"]  # For auto-categorization
+    }
+}
+```
+
+### Adding Fix Suggestions
+
+Add to `generate_fix_suggestion()`:
+
+```python
+"your_category": '''```python
+# ✅ CORRECT: Example fix
+...
+```'''
+```
+
+### Adding Visual Metaphors
+
+Add to `metaphors` dict in `generate_visual_guide()`:
+
+```python
+"your_category": "Like [relatable analogy]..."
+```
+
+---
+
+## 📊 Output Structure
+
+```markdown
+# 🚫 Agent Anti-Patterns Visual Guide
+
+## 📊 Executive Summary
+- Total failures table with impact levels
+
+## 🗺️ Anti-Pattern Landscape
+- Mermaid mindmap diagram
+
+## Category Sections
+- 📈 Frequency Distribution (bar chart)
+- 🃏 Top Anti-Patterns (detailed cards)
+  - Impact badge
+  - What went wrong
+  - Why it fails
+  - ❌ Bad code
+  - ✅ Correct pattern
+  - 💡 Visual metaphor
+
+## 🎨 Slide Generation Hints
+- Tips for LLM slide creation
+```
+
+---
+
+## 🔁 Replication Checklist
+
+For a new project:
+
+1. [ ] Copy `aggregate_failures.py` to new project's output directory
+2. [ ] Update `OUTPUT_FILE` and `FAILURES_LIST` paths in script
+3. [ ] Customize `ANTIPATTERN_CATEGORIES` for project-specific issues
+4. [ ] Run grep to generate `failures_list.txt`
+5. [ ] Run `python3 aggregate_failures.py`
+6. [ ] Review and adjust extraction regex if needed
+
+---
+
+## ⚙️ Extraction Strategies (in order)
+
+The script tries multiple patterns to extract failure reasons:
+
+1. **Action Items format**: `1. **Title**: **Issue**: ...`
+2. **Critical Requirement NOT Met**: Explicit failure headers
+3. **(PARTIAL)/(FAIL) sections**: Section-level status markers
+4. **Required Fix sections**: Explicit fix instructions
+5. **Assessment + "However"**: Prose with contrasting feedback
+6. **Status: FAIL reason**: Generic fallback
+
+If extraction is low, check which format your feedback uses and add a new strategy.
+
+---
+
+## 📈 Metrics
+
+| Metric | This Run |
+|--------|----------|
+| Files Scanned | 1488 |
+| Failures Extracted | 68 |
+| Categories Identified | 4 |
+| Total Issues | 73 |
+
+---
+
+## 🎓 Use Cases
+
+1. **Student Education**: Generate slides showing common mistakes
+2. **Reviewer Training**: Document anti-patterns for consistency
+3. **Rubric Improvement**: Identify frequently failed criteria
+4. **AI Feedback**: Feed to LLM for generating tailored feedback
+</file_content>
+
+<file_content path="README.md">
+# SWIFT Agent Project - Student Review Structure
+
+## Overview
+
+This directory contains student submissions for the SWIFT Agent project. Each student directory follows a standardized structure to facilitate consistent and thorough code reviews.
+
+## Directory Structure
+
+Each student directory (`stu_01`, `stu_02`, etc.) contains:
+
+```
+stu_XX/
+├── criteria_prompts/          # Review criteria and instructions
+│   ├── prompt.md             # Main system prompt for reviewers
+│   ├── rubric.md             # Project rubric
+│   ├── criteria1.md          # Agent Pattern Implementation checks
+│   ├── criteria2.md          # System Integration checks
+│   ├── criteria3.md          # Best Practices checks
+│   ├── judge.md              # Judge system prompt for validation
+│   ├── final.md              # Final review instructions
+│   ├── common_mistakes.md    # Common issues and fixes
+│   └── commands.md           # Command reference
+├── feedback/                  # Generated feedback files
+│   ├── 1.md                  # Feedback for Criterion 1
+│   ├── 2.md                  # Feedback for Criterion 2
+│   ├── 3.md                  # Feedback for Criterion 3
+│   └── summary.md            # Overall assessment
+├── project/                   # Student's actual submission
+│   ├── agents/               # Agent pattern implementations
+│   │   ├── evaluator_optimizer.py
+│   │   ├── parallelization.py
+│   │   ├── prompt_chaining.py
+│   │   └── orchestrator_worker.py
+│   ├── main.py               # Main orchestration
+│   ├── models/               # Data models
+│   ├── services/             # LLM and other services
+│   └── ...
+└── TODO_MASTER_LIST.md       # Review progress tracker
+
+```
+
+## Setup Process
+
+### Automated Setup (Recommended)
+
+Use the `setup_next_student.sh` script to automatically create a new student directory:
+
+```bash
+cd /Users/sharad/Projects/udacity-reviews-hq/projects/swift-agent/tmp
+./setup_next_student.sh
+```
+
+This script will:
+1. Find the latest zip file in `~/Downloads`
+2. Identify the highest numbered student directory
+3. Create the next numbered directory (e.g., `stu_03`)
+4. Copy the template structure (criteria_prompts, feedback, TODO)
+5. Extract the student's submission to `project/`
+6. Validate the setup
+
+#### Dry Run Mode
+
+To preview what the script will do without making changes:
+
+```bash
+./setup_next_student.sh --dry-run
+```
+
+### Manual Setup
+
+If you need to manually create a student directory:
+
+1. **Copy the template**:
+   ```bash
+   cp -r stu_template stu_XX
+   ```
+
+2. **Create empty feedback directory**:
+   ```bash
+   mkdir -p stu_XX/feedback
+   ```
+
+3. **Extract student submission**:
+   ```bash
+   unzip student_submission.zip -d stu_XX/project/
+   ```
+
+4. **Verify structure**:
+   ```bash
+   ls -la stu_XX/
+   ```
+
+## Review Process
+
+### Step-by-Step Review
+
+1. **Start Review**:
+   - Open the student directory
+   - Read `criteria_prompts/final.md` for instructions
+   - Open `TODO_MASTER_LIST.md` to track progress
+
+2. **Sequential Evaluation**:
+   - Follow `criteria_prompts/criteria1.md` → Generate `feedback/1.md`
+   - Follow `criteria_prompts/criteria2.md` → Generate `feedback/2.md`
+   - Follow `criteria_prompts/criteria3.md` → Generate `feedback/3.md`
+
+3. **Generate Summary**:
+   - After all criteria are evaluated, create `feedback/summary.md`
+   - Include overall PASS/FAIL determination
+
+4. **Quality Check**:
+   - Read `criteria_prompts/judge.md`
+   - Validate feedback against rubric requirements
+
+### Important Review Guidelines
+
+- ✅ **DO**: Evaluate criteria in sequential order (1 → 2 → 3)
+- ✅ **DO**: Generate feedback immediately after each criterion
+- ✅ **DO**: Base assessments ONLY on rubric requirements
+- ✅ **DO**: Use warm, encouraging, human-like tone
+- ✅ **DO**: Provide specific code examples and line references
+- ❌ **DON'T**: Skip criteria or evaluate out of order
+- ❌ **DON'T**: Use emojis in feedback files
+- ❌ **DON'T**: Make assumptions beyond the rubric
+
+## Rubric Summary
+
+### Criterion 1: Agent Pattern Implementation (4 patterns)
+- **Evaluator-Optimizer**: Validate and correct SWIFT messages
+- **Parallelization**: Concurrent fraud detection with 3+ agents
+- **Prompt Chaining**: Junior → Technical → Compliance analysis
+- **Orchestrator-Worker**: Grouped report generation
+
+### Criterion 2: Main System Integration
+- Sequential invocation of all patterns
+- Data flow between stages
+- At least 2 distinct reports
+- Error-free execution with logging
+
+### Criterion 3: Industry Best Practices
+- Clean code (PEP8, naming conventions)
+- Documentation (docstrings)
+- Testing evidence
+- No syntax errors or hardcoded paths
+
+## Template Directory
+
+The `stu_template` directory serves as the master template for all new student directories. It contains:
+- All criteria_prompts files
+- Empty feedback directory structure
+- Empty project directory
+- TODO_MASTER_LIST.md
+
+**DO NOT** modify files in `stu_template` unless you want to change the template for all future students.
+
+## Troubleshooting
+
+### Script Issues
+
+**Problem**: Script can't find latest zip file
+- **Solution**: Check `~/Downloads` for .zip files
+- **Solution**: Manually specify zip file path
+
+**Problem**: Setup validation fails
+- **Solution**: Check if project directory contains student files
+- **Solution**: Verify feedback directory is empty
+- **Solution**: Re-run script or set up manually
+
+### Review Issues
+
+**Problem**: Commands in criteria files fail
+- **Solution**: Verify student directory path is correct
+- **Solution**: Replace `stu_X` with actual student number
+
+**Problem**: Missing files in student submission
+- **Solution**: Document in feedback
+- **Solution**: Mark relevant criteria as FAIL
+
+## Archive
+
+Completed reviews can be moved to an `archive/` subdirectory:
+
+```bash
+mkdir -p archive
+mv stu_01 archive/
+```
+
+## Contact
+
+For questions or issues with this setup, refer to:
+- Project docs: `/docs/`
+- Rubric: `stu_template/criteria_prompts/rubric.md`
+- Common mistakes: `stu_template/criteria_prompts/common_mistakes.md`
+</file_content>
+
+<file_content path="SETUP_GUIDE.md">
+# Quick Setup Guide - SWIFT Agent Reviews
+
+## TL;DR
+
+```bash
+cd /Users/sharad/Projects/udacity-reviews-hq/projects/swift-agent/tmp
+./setup_next_student.sh
+```
+
+That's it! The script will automatically:
+1. Find the latest submission in `~/Downloads`
+2. Create the next student directory with proper structure
+3. Extract and validate the submission
+
+## What Gets Created
+
+```
+stu_XX/
+├── criteria_prompts/    # Review instructions and rubric
+├── feedback/           # Empty, ready for your feedback
+├── project/            # Student's extracted submission
+└── TODO_MASTER_LIST.md # Progress tracker
+```
+
+## Start Reviewing
+
+Once setup is complete:
+
+1. **Open the student directory**: 
+   ```bash
+   cd stu_XX
+   ```
+
+2. **Read the instructions**:
+   ```bash
+   cat criteria_prompts/final.md
+   ```
+
+3. **Begin evaluation**:
+   - Follow `criteria_prompts/criteria1.md`
+   - Generate `feedback/1.md`
+   - Repeat for criteria 2 and 3
+   - Generate `feedback/summary.md`
+
+## Directory Explanation
+
+### `criteria_prompts/`
+Contains all review criteria and instructions:
+- **prompt.md**: Main review system prompt
+- **rubric.md**: Official project rubric
+- **criteria1.md**: Agent patterns evaluation
+- **criteria2.md**: System integration evaluation
+- **criteria3.md**: Best practices evaluation
+- **judge.md**: Quality assurance validation
+- **commands.md**: Command reference
+- **common_mistakes.md**: Common issues guide
+
+### `feedback/`
+Your feedback files go here:
+- `1.md`, `2.md`, `3.md`: Individual criterion feedback
+- `summary.md`: Overall assessment
+
+### `project/`
+The student's actual code:
+- `agents/`: Four agent pattern implementations
+- `main.py`: Main orchestration
+- `models/`: Data models
+- `services/`: LLM and helper services
+
+## Common Workflows
+
+### Preview Before Setup
+```bash
+./setup_next_student.sh --dry-run
+```
+
+### Manual Verification
+```bash
+# Check student directory structure
+ls -la stu_XX/
+
+# Verify project files exist
+ls -la stu_XX/project/
+
+# Check feedback is empty
+ls -la stu_XX/feedback/
+```
+
+### Archive Completed Reviews
+```bash
+mkdir -p archive
+mv stu_XX archive/
+```
+
+## Troubleshooting
+
+**No zip files found**: 
+- Check `~/Downloads` has a .zip file
+- Ensure it's a recent submission
+
+**Validation failed**:
+- Check if `project/` has student files
+- Ensure `feedback/` is empty
+- Re-run the script
+
+**Wrong student number**:
+- Script auto-detects next number
+- Manually rename if needed: `mv stu_XX stu_YY`
+
+## Pro Tips
+
+1. **Use the TODO list**: Track progress in `TODO_MASTER_LIST.md`
+2. **Follow sequence**: Review criteria 1 → 2 → 3 in order
+3. **Be specific**: Reference exact code locations
+4. **Stay objective**: Base feedback only on rubric
+5. **Be human**: Write naturally, avoid robotic language
+
+## Need Help?
+
+- Full documentation: `README.md`
+- Command reference: `stu_template/criteria_prompts/commands.md`
+- Common issues: `stu_template/criteria_prompts/common_mistakes.md`
+
+## The Review Process
+
+```
+Step 1: Setup (automated)
+  ↓
+Step 2: Read criteria_prompts/final.md
+  ↓
+Step 3: Evaluate Criterion 1 → Write feedback/1.md
+  ↓
+Step 4: Evaluate Criterion 2 → Write feedback/2.md
+  ↓
+Step 5: Evaluate Criterion 3 → Write feedback/3.md
+  ↓
+Step 6: Generate feedback/summary.md
+  ↓
+Step 7: Done! ✨
+```
+
+---
+
+Happy reviewing! 🎉
+</file_content>
+
+<file_content path="STRUCTURE_COMPLETE.md">
+# ✅ SWIFT Agent Review Structure - Complete!
+
+## What Was Created
+
+Your SWIFT Agent project now has a complete, standardized review structure matching the patterns used in travel-agent, building-agents, and knowledge-agents projects.
+
+## 📁 Complete Structure
+
+```
+tmp/
+├── setup_next_student.sh          ← Automated setup script
+├── README.md                       ← Complete documentation
+├── SETUP_GUIDE.md                 ← Quick start guide
+├── INDEX.md                       ← File index and overview
+│
+├── stu_template/                  ← Master template (DON'T MODIFY UNLESS UPDATING ALL)
+│   ├── criteria_prompts/
+│   │   ├── prompt.md             ← Main reviewer system prompt
+│   │   ├── rubric.md             ← Official rubric from docs/rubric.md
+│   │   ├── criteria1.md          ← Agent Pattern evaluation
+│   │   ├── criteria2.md          ← System Integration evaluation
+│   │   ├── criteria3.md          ← Best Practices evaluation
+│   │   ├── judge.md              ← QA validation prompt
+│   │   ├── final.md              ← Review startup instructions
+│   │   ├── commands.md           ← Command reference guide
+│   │   ├── common_mistakes.md    ← Common issues and fixes
+│   │   ├── pact.md               ← Reviewer-student agreement
+│   │   └── bestAward.md          ← Excellence criteria
+│   ├── feedback/
+│   │   ├── example_feedback_1.md    ← Example PASS feedback
+│   │   ├── example_feedback_fail.md ← Example FAIL feedback
+│   │   └── example_summary.md       ← Example final summary
+│   ├── project/                  ← Empty (filled during setup)
+│   └── TODO_MASTER_LIST.md       ← Progress tracker template
+│
+├── stu_01/                        ← READY FOR REVIEW
+│   ├── criteria_prompts/         ← All 11 files
+│   ├── feedback/                 ← Empty, ready for your feedback
+│   ├── project/                  ← Contains student's code
+│   └── TODO_MASTER_LIST.md
+│
+├── stu_02/                        ← READY FOR REVIEW
+│   ├── criteria_prompts/         ← All 11 files
+│   ├── feedback/                 ← Empty, ready for your feedback
+│   ├── project/                  ← Ready for student code
+│   └── TODO_MASTER_LIST.md
+│
+└── [future stu_03, stu_04, etc.] ← Created by setup script
+```
+
+## 🎯 Key Features Implemented
+
+### ✅ Automated Setup
+- `setup_next_student.sh` - Creates new student directories automatically
+- Auto-detects latest zip file in ~/Downloads
+- Auto-increments student number
+- Validates structure after setup
+- Supports dry-run mode for testing
+
+### ✅ Comprehensive Documentation
+- **README.md** - Full system documentation (400+ lines)
+- **SETUP_GUIDE.md** - Quick reference for setup and review
+- **INDEX.md** - File index and navigation guide
+- **criteria_prompts/commands.md** - Command reference
+
+### ✅ Review Criteria Files
+Based on your SWIFT Agent rubric:
+- **criteria1.md** - Evaluates all 4 agent patterns
+- **criteria2.md** - Evaluates system integration
+- **criteria3.md** - Evaluates best practices
+- Each includes specific commands to run
+
+### ✅ Support Files
+- **prompt.md** - System prompt for sequential review
+- **rubric.md** - Official rubric requirements
+- **judge.md** - Quality assurance validation
+- **final.md** - Review startup instructions
+- **pact.md** - Reviewer-student agreement
+- **bestAward.md** - Excellence criteria
+- **common_mistakes.md** - Common issues guide
+
+### ✅ Example Feedback
+- **example_feedback_1.md** - PASS example
+- **example_feedback_fail.md** - FAIL example
+- **example_summary.md** - Summary example
+
+## 🚀 How to Use
+
+### Setting Up Next Student
+```bash
+cd /Users/sharad/Projects/udacity-reviews-hq/projects/swift-agent/tmp
+./setup_next_student.sh
+```
+
+The script will:
+1. Find latest .zip in ~/Downloads
+2. Create stu_03 (or next number)
+3. Copy template structure
+4. Extract student code to project/
+5. Validate everything is correct
+
+### Reviewing a Student
+```bash
+cd stu_XX
+cat criteria_prompts/final.md      # Read instructions
+
+# Then evaluate sequentially:
+# 1. Follow criteria_prompts/criteria1.md → Write feedback/1.md
+# 2. Follow criteria_prompts/criteria2.md → Write feedback/2.md
+# 3. Follow criteria_prompts/criteria3.md → Write feedback/3.md
+# 4. Write feedback/summary.md
+```
+
+## 📋 Review Checklist
+
+For each student submission:
+
+- [ ] Run `./setup_next_student.sh` to create directory
+- [ ] Verify `project/` contains student code
+- [ ] Read `criteria_prompts/final.md`
+- [ ] Open `TODO_MASTER_LIST.md` to track progress
+- [ ] Evaluate Criterion 1 → Write `feedback/1.md`
+- [ ] Evaluate Criterion 2 → Write `feedback/2.md`
+- [ ] Evaluate Criterion 3 → Write `feedback/3.md`
+- [ ] Generate `feedback/summary.md`
+- [ ] Archive completed review
+
+## 🎨 What Makes This Structure Consistent
+
+### Matches Other Projects
+Your structure now matches:
+- ✅ **travel-agent** - Same criteria_prompts structure
+- ✅ **building-agents** - Same feedback workflow
+- ✅ **knowledge-agents** - Same sequential evaluation
+
+### Key Similarities
+1. **criteria_prompts/** - Contains all evaluation criteria
+2. **feedback/** - Empty initially, filled during review
+3. **project/** - Contains extracted student submission
+4. **TODO_MASTER_LIST.md** - Tracks review progress
+5. **Sequential evaluation** - Criterion 1 → 2 → 3
+6. **Automated setup** - setup_next_student.sh script
+
+### Adapted for SWIFT Agent
+- **3 criteria** instead of 4 or 5 (based on SWIFT rubric)
+- **4 agent patterns** to evaluate
+- **SWIFT-specific** commands and checks
+- **Banking domain** terminology
+
+## 🔄 Workflow Comparison
+
+### Before (Manual)
+```
+1. Create directory manually
+2. Remember what files to create
+3. Copy rubric manually
+4. Extract zip manually
+5. Create feedback files
+6. Track progress in head
+```
+
+### After (Automated)
+```
+1. Run: ./setup_next_student.sh
+2. Everything created automatically
+3. Follow criteria_prompts sequentially
+4. Generate feedback files
+5. Track progress in TODO_MASTER_LIST.md
+```
+
+## 📊 Files Created Summary
+
+| Category | Count | Files |
+|----------|-------|-------|
+| Documentation | 4 | README, SETUP_GUIDE, INDEX, STRUCTURE_COMPLETE |
+| Scripts | 1 | setup_next_student.sh |
+| Template Criteria | 11 | prompt, rubric, criteria1-3, judge, final, commands, common_mistakes, pact, bestAward |
+| Template Feedback Examples | 3 | example_feedback_1, example_feedback_fail, example_summary |
+| Template Structure | 1 | stu_template/ with all subdirs |
+| Updated Students | 2 | stu_01/ and stu_02/ with complete structure |
+| **Total** | **22** | Complete review system |
+
+## ✨ Next Steps
+
+### To Start Reviewing
+```bash
+cd stu_01
+cat criteria_prompts/final.md
+# Follow the instructions
+```
+
+### To Set Up New Student
+```bash
+cd /Users/sharad/Projects/udacity-reviews-hq/projects/swift-agent/tmp
+./setup_next_student.sh
+```
+
+### To Archive Completed Review
+```bash
+mkdir -p archive
+mv stu_XX archive/
+```
+
+## 🎉 Success!
+
+Your SWIFT Agent project review system is now:
+- ✅ **Complete** - All files and structure in place
+- ✅ **Automated** - Setup script handles new students
+- ✅ **Documented** - Comprehensive guides and examples
+- ✅ **Consistent** - Matches other project structures
+- ✅ **Ready** - Can start reviewing immediately
+
+## 📚 Reference Documents
+
+Start here:
+1. **INDEX.md** - Overview and navigation
+2. **SETUP_GUIDE.md** - Quick start guide
+3. **README.md** - Complete documentation
+
+For reviews:
+1. **criteria_prompts/final.md** - Start here for each review
+2. **criteria_prompts/criteria1.md** - Agent patterns
+3. **criteria_prompts/criteria2.md** - Integration
+4. **criteria_prompts/criteria3.md** - Best practices
+
+For help:
+1. **criteria_prompts/commands.md** - Command reference
+2. **criteria_prompts/common_mistakes.md** - Issue guide
+3. **feedback/example_*.md** - Feedback examples
+
+---
+
+**Status**: ✅ COMPLETE AND READY FOR USE
+
+**Created**: 2025-11-20
+
+**Location**: `/Users/sharad/Projects/udacity-reviews-hq/projects/swift-agent/tmp/`
+
+Happy reviewing! 🎉
+</file_content>
+
+<file_content path="aggregate_failures.py">
+#!/usr/bin/env python3
+"""
+Visual Anti-Patterns Guide Generator
+
+This script processes student feedback files and generates a rich, 
+infographic-ready markdown document for LLM slide generation.
+"""
+
+import os
+import re
+from collections import defaultdict
+from dataclasses import dataclass, field
+from typing import List, Dict, Optional
+
+OUTPUT_FILE = "/Users/sharad/Projects/udacity-reviews-hq/projects/swift-agent/my_submission/visual_antipatterns_guide.md"
+FAILURES_LIST = "/Users/sharad/Projects/udacity-reviews-hq/projects/swift-agent/my_submission/failures_list.txt"
+
+# Define anti-pattern categories with visual metadata
+ANTIPATTERN_CATEGORIES = {
+    "string_matching": {
+        "title": "🔤 String Matching Pitfalls",
+        "icon": "⚠️",
+        "color": "red",
+        "description": "Logic errors where substring matching causes false positives/negatives",
+        "keywords": ["substring", "in ", "contains", "COMPAT", "matching", "parsing logic"]
+    },
+    "missing_documentation": {
+        "title": "📝 Missing Documentation",
+        "icon": "📋",
+        "color": "orange",
+        "description": "Tool docstrings lacking critical information for LLM understanding",
+        "keywords": ["docstring", "documentation", "missing", "placeholder", "fill in", "date format", "YYYY-MM-DD"]
+    },
+    "output_format_mismatch": {
+        "title": "📤 Output Format Mismatch",
+        "icon": "🔀",
+        "color": "yellow",
+        "description": "Response formats that don't match downstream parser expectations",
+        "keywords": ["format", "output", "IS_COMPATIBLE", "mismatch", "parser", "JSON", "Pydantic", "validation error"]
+    },
+    "hallucination_triggers": {
+        "title": "🌫️ Hallucination Triggers",
+        "icon": "👻",
+        "color": "purple",
+        "description": "Prompt patterns that cause LLMs to generate fictional data",
+        "keywords": ["hallucinate", "placeholder", "fictional", "doesn't exist", "made up", "invented", "fake"]
+    },
+    "incomplete_react_cycle": {
+        "title": "🔄 Incomplete ReAct Cycle",
+        "icon": "🔁",
+        "color": "blue",
+        "description": "Missing THINK-ACT-OBSERVE components in agent prompts",
+        "keywords": ["ReAct", "THINK", "ACT", "OBSERVE", "cycle", "tool", "parameter", "argument", "schema", "exit"]
+    },
+    "missing_constraints": {
+        "title": "🚧 Missing Constraints",
+        "icon": "🛑",
+        "color": "gray",
+        "description": "Prompts lacking explicit boundaries or validation rules",
+        "keywords": ["constraint", "validation", "boundary", "explicit", "requirement", "backup", "alternative", "contingency", "option"]
+    },
+    "role_definition": {
+        "title": "🎭 Role Definition Issues",
+        "icon": "🎭",
+        "color": "teal",
+        "description": "Missing or unclear role instructions for the LLM agent",
+        "keywords": ["role", "identity", "persona", "analyst", "expert", "agent"]
+    },
+    "chain_of_thought": {
+        "title": "🧠 Chain-of-Thought Gaps",
+        "icon": "🧠",
+        "color": "pink",
+        "description": "Missing step-by-step reasoning guidance in prompts",
+        "keywords": ["chain-of-thought", "reasoning", "step-by-step", "analysis", "think through", "CoT"]
+    }
+}
+
+
+@dataclass
+class AntiPattern:
+    """Represents a single anti-pattern instance"""
+    category: str
+    title: str
+    description: str
+    bad_code: Optional[str] = None
+    good_code: Optional[str] = None
+    why_fails: str = ""
+    frequency: int = 0
+    students: List[str] = field(default_factory=list)
+    criterion: str = ""
+
+def categorize_issue(issue_text: str, full_text: str) -> str:
+    """Categorize an issue based on keywords"""
+    combined = (issue_text + " " + full_text).lower()
+    
+    for cat_id, cat_info in ANTIPATTERN_CATEGORIES.items():
+        for keyword in cat_info["keywords"]:
+            if keyword.lower() in combined:
+                return cat_id
+    
+    return "other"
+
+def extract_code_blocks(text: str) -> List[str]:
+    """Extract all code blocks from text"""
+    return re.findall(r"```[\w]*\n?(.*?)```", text, re.DOTALL)
+
+def generate_fix_suggestion(category: str, bad_code: str) -> str:
+    """Generate a suggested fix based on category"""
+    fixes = {
+        "string_matching": '''```python
+# ✅ CORRECT: Check for negative case first
+if "INCOMPAT" in normalized_resp:
+    is_compatible = False
+elif "COMPAT" in normalized_resp:
+    is_compatible = True
+
+# ✅ BETTER: Use exact matching
+if normalized_resp == "IS_COMPATIBLE":
+    is_compatible = True
+elif normalized_resp == "IS_INCOMPATIBLE":
+    is_compatible = False
+```''',
+        "missing_documentation": '''```python
+# ✅ CORRECT: Comprehensive docstring with format specification
+def get_activities_by_date_tool(date: str, city: str) -> List[Activity]:
+    """Retrieves available activities for a specific date and city.
+    
+    Args:
+        date (str): Target date in YYYY-MM-DD format (e.g., "2025-06-12")
+        city (str): City name (e.g., "AgentsVille")
+    
+    Returns:
+        List[Activity]: Available activities matching criteria
+    
+    Example:
+        >>> get_activities_by_date_tool("2025-06-12", "AgentsVille")
+        [Activity(id="A001", name="Museum Tour", ...)]
+    """
+```''',
+        "output_format_mismatch": '''```yaml
+# ✅ CORRECT: Match the exact expected format from rubric
+OUTPUT_FORMAT:
+  - Use "IS_COMPATIBLE" (not "COMPATIBLE")
+  - Use "IS_INCOMPATIBLE" (not "INCOMPATIBLE")
+  
+EXAMPLES:
+  - Input: "Outdoor hiking" + "Heavy Rain"
+    Output: "IS_INCOMPATIBLE: Heavy rain makes trails dangerous"
+```''',
+        "incomplete_react_cycle": '''```python
+# ✅ CORRECT: Complete ReAct prompt with all components
+ITINERARY_REVISION_AGENT_SYSTEM_PROMPT = """
+You are an expert travel planner. Follow the THINK-ACT-OBSERVE cycle:
+
+## Available Tools (with parameter schemas)
+- get_activities_by_date_tool(date: str, city: str): Get activities
+  - date: Date in YYYY-MM-DD format
+  - city: City name string
+- run_evals_tool(travel_plan: TravelPlan, info: VacationInfo): Validate plan
+- final_answer_tool(answer: str): Submit final answer and EXIT
+
+## Workflow
+1. THINK: Analyze what needs to be done
+2. ACT: Call a tool with proper JSON: {"tool_name": "...", "arguments": {...}}
+3. OBSERVE: Review the result
+4. Repeat until ready, then call final_answer_tool to EXIT
+"""
+```''',
+        "missing_constraints": '''```python
+# ✅ CORRECT: Include backup options in weather compatibility prompt
+WEATHER_COMPATIBILITY_PROMPT = """
+## Task
+- Report IS_COMPATIBLE if weather allows the activity
+- Report IS_INCOMPATIBLE if weather prevents the activity
+- Consider backup options: Can the activity move indoors?
+- Consider alternatives: Are there covered areas available?
+
+## Decision Criteria
+- Indoor activities: Generally IS_COMPATIBLE
+- Outdoor with backup: Consider the backup option
+- Outdoor-only in bad weather: IS_INCOMPATIBLE
+"""
+```''',
+        "role_definition": '''```python
+# ✅ CORRECT: Clear role definition with responsibilities
+SYSTEM_PROMPT = """
+You are an expert travel planning agent specializing in outdoor activities.
+
+Your responsibilities:
+1. Create weather-appropriate itineraries
+2. Ensure budget compliance
+3. Maximize activity variety
+4. Consider traveler preferences
+
+Your expertise includes: activity scheduling, weather analysis, backup planning.
+"""
+```''',
+        "chain_of_thought": '''```python
+# ✅ CORRECT: Explicit Chain-of-Thought guidance
+PROMPT = """
+## Analysis Process (follow these steps)
+1. First, review all available activities and their requirements
+2. Then, check weather conditions for each date
+3. Next, filter activities by weather compatibility
+4. Finally, select activities that maximize variety while staying in budget
+
+Show your reasoning at each step before making decisions.
+"""
+```'''
+    }
+    return fixes.get(category, "")
+
+
+def process_failures() -> Dict[str, List[AntiPattern]]:
+    """Process all failure files and extract anti-patterns"""
+    
+    patterns_by_category: Dict[str, List[AntiPattern]] = defaultdict(list)
+    issue_tracker: Dict[str, AntiPattern] = {}  # Dedupe by issue text
+    
+    print("Reading failure list...")
+    try:
+        with open(FAILURES_LIST, "r") as f:
+            file_list = [line.strip() for line in f if line.strip()]
+    except FileNotFoundError:
+        print("failures_list.txt not found.")
+        return {}
+    
+    print(f"Processing {len(file_list)} files...")
+    processed = 0
+    
+    for fb_path in file_list:
+        if "summary.md" in fb_path or "criteria_prompts" in fb_path:
+            continue
+            
+        # Extract metadata from path
+        stu_match = re.search(r"(stu_\d+)", fb_path)
+        stu_id = stu_match.group(1) if stu_match else "unknown"
+        
+        filename = os.path.basename(fb_path)
+        crit_match = re.search(r"(\d+)", filename)
+        crit_id = crit_match.group(1) if crit_match else "unknown"
+        
+        try:
+            with open(fb_path, "r", encoding="utf-8", errors="ignore") as f:
+                content = f.read()
+            
+            if not re.search(r"Status:.*(?:FAIL|NOT MET)", content, re.IGNORECASE):
+                continue
+            
+            found_issue = False
+            code_blocks = extract_code_blocks(content)
+            bad_code = code_blocks[0] if code_blocks else ""
+                
+            # Strategy 1: Action Items with Issue/Why/Fix (stu_333 format)
+            action_items = re.findall(
+                r"\d+\.\s+\*\*([^*]+)\*\*:.*?\*\*Issue\*\*:\s*(.*?)(?=\*\*(?:Why|Fix)|$)",
+                content, re.DOTALL
+            )
+            
+            for title, issue in action_items:
+                title = title.strip()
+                issue = issue.strip()
+                
+                why_match = re.search(
+                    rf"{re.escape(title)}.*?\*\*Why it (?:fails|matters)\*\*:\s*(.*?)(?=\*\*Fix|$)",
+                    content, re.DOTALL
+                )
+                why = why_match.group(1).strip() if why_match else ""
+                
+                category = categorize_issue(issue, content)
+                issue_key = issue[:100]
+                
+                if issue_key in issue_tracker:
+                    issue_tracker[issue_key].frequency += 1
+                    issue_tracker[issue_key].students.append(stu_id)
+                else:
+                    pattern = AntiPattern(
+                        category=category,
+                        title=title,
+                        description=issue,
+                        bad_code=bad_code,
+                        why_fails=why,
+                        frequency=1,
+                        students=[stu_id],
+                        criterion=crit_id
+                    )
+                    issue_tracker[issue_key] = pattern
+                found_issue = True
+            
+            # Strategy 2: "Critical Requirement NOT Met" sections (stu_139 format)
+            if not found_issue:
+                critical_match = re.search(
+                    r"\*\*Critical Requirement NOT Met:\*\*.*?[-•]\s*\*\*([^*]+)\*\*[:\s]*(.*?)(?=\n\n|\*\*Required Fix|$)",
+                    content, re.DOTALL
+                )
+                if critical_match:
+                    title = critical_match.group(1).strip()
+                    issue = critical_match.group(2).strip()
+                    
+                    # Get detailed explanation
+                    why = ""
+                    why_match = re.search(r"The rubric.*?states[:\s]*(.*?)(?=\n\n|$)", content, re.DOTALL)
+                    if why_match:
+                        why = why_match.group(1).strip()
+                    
+                    category = categorize_issue(title + " " + issue, content)
+                    issue_key = (title + issue)[:100]
+                    
+                    if issue_key in issue_tracker:
+                        issue_tracker[issue_key].frequency += 1
+                        issue_tracker[issue_key].students.append(stu_id)
+                    else:
+                        pattern = AntiPattern(
+                            category=category,
+                            title=title,
+                            description=issue,
+                            bad_code=bad_code,
+                            why_fails=why,
+                            frequency=1,
+                            students=[stu_id],
+                            criterion=crit_id
+                        )
+                        issue_tracker[issue_key] = pattern
+                    found_issue = True
+            
+            # Strategy 3: "(PARTIAL)" or "(FAIL)" section headers
+            if not found_issue:
+                partial_matches = re.findall(
+                    r"###\s*\d*\.?\s*([^(]+)\s*\((?:PARTIAL|FAIL)\)(.*?)(?=###|\Z)",
+                    content, re.DOTALL
+                )
+                for title, section in partial_matches:
+                    title = title.strip()
+                    # Find the issue in this section
+                    finding_match = re.search(r"\*\*Finding:\*\*\s*(.*?)(?=\*\*Analysis|$)", section, re.DOTALL)
+                    analysis_match = re.search(r"\*\*Analysis:\*\*\s*(.*?)(?=\n\n|$)", section, re.DOTALL)
+                    
+                    issue = finding_match.group(1).strip() if finding_match else title
+                    why = analysis_match.group(1).strip() if analysis_match else ""
+                    
+                    category = categorize_issue(title + issue, content)
+                    issue_key = (title + issue[:50])[:100]
+                    
+                    if issue_key in issue_tracker:
+                        issue_tracker[issue_key].frequency += 1
+                        issue_tracker[issue_key].students.append(stu_id)
+                    else:
+                        pattern = AntiPattern(
+                            category=category,
+                            title=title,
+                            description=issue[:200],
+                            bad_code=bad_code,
+                            why_fails=why[:300],
+                            frequency=1,
+                            students=[stu_id],
+                            criterion=crit_id
+                        )
+                        issue_tracker[issue_key] = pattern
+                    found_issue = True
+            
+            # Strategy 4: "Required Fix" section
+            if not found_issue:
+                fix_match = re.search(
+                    r"\*\*Required Fix:\*\*\s*(.*?)(?=```|$)",
+                    content, re.DOTALL
+                )
+                if fix_match:
+                    issue = fix_match.group(1).strip()
+                    category = categorize_issue(issue, content)
+                    issue_key = issue[:100]
+                    
+                    if issue_key in issue_tracker:
+                        issue_tracker[issue_key].frequency += 1
+                        issue_tracker[issue_key].students.append(stu_id)
+                    else:
+                        pattern = AntiPattern(
+                            category=category,
+                            title="Required Fix",
+                            description=issue[:200],
+                            bad_code=bad_code,
+                            why_fails="",
+                            frequency=1,
+                            students=[stu_id],
+                            criterion=crit_id
+                        )
+                        issue_tracker[issue_key] = pattern
+                    found_issue = True
+            
+            # Strategy 5: Assessment section with "However" (fallback)
+            if not found_issue:
+                assessment = re.search(r"## Assessment(.*?)(?=## |\Z)", content, re.DOTALL)
+                if assessment:
+                    text = assessment.group(1).strip()
+                    however_match = re.search(r"However,?\s*(.*?)(?=\n\n|$)", text, re.DOTALL)
+                    if however_match:
+                        issue = however_match.group(1).strip()
+                        category = categorize_issue(issue, text)
+                        issue_key = issue[:100]
+                        
+                        if issue_key in issue_tracker:
+                            issue_tracker[issue_key].frequency += 1
+                            issue_tracker[issue_key].students.append(stu_id)
+                        else:
+                            pattern = AntiPattern(
+                                category=category,
+                                title="Assessment Issue",
+                                description=issue,
+                                why_fails=text[:500],
+                                frequency=1,
+                                students=[stu_id],
+                                criterion=crit_id
+                            )
+                            issue_tracker[issue_key] = pattern
+                        found_issue = True
+            
+            # Strategy 6: Generic "Status: FAIL" reason extraction
+            if not found_issue:
+                # Look for text after "Status: FAIL" header
+                fail_reason = re.search(
+                    r"##\s*Status:\s*FAIL\s*(.*?)(?=\n##|\Z)",
+                    content, re.DOTALL | re.IGNORECASE
+                )
+                if fail_reason:
+                    text = fail_reason.group(1).strip()
+                    # First sentence or first 200 chars
+                    issue = text.split('.')[0] if '.' in text[:200] else text[:200]
+                    category = categorize_issue(issue, text)
+                    issue_key = issue[:100]
+                    
+                    if issue_key in issue_tracker:
+                        issue_tracker[issue_key].frequency += 1
+                        issue_tracker[issue_key].students.append(stu_id)
+                    else:
+                        pattern = AntiPattern(
+                            category=category,
+                            title="Failure Reason",
+                            description=issue,
+                            bad_code=bad_code,
+                            why_fails=text[:300],
+                            frequency=1,
+                            students=[stu_id],
+                            criterion=crit_id
+                        )
+                        issue_tracker[issue_key] = pattern
+                    found_issue = True
+            
+            if found_issue:
+                processed += 1
+                            
+        except Exception as e:
+            print(f"Error: {fb_path}: {e}")
+    
+    print(f"Extracted issues from {processed} files")
+    
+    # Organize by category
+    for pattern in issue_tracker.values():
+        patterns_by_category[pattern.category].append(pattern)
+    
+    # Sort each category by frequency
+    for cat in patterns_by_category:
+        patterns_by_category[cat].sort(key=lambda x: x.frequency, reverse=True)
+    
+    return patterns_by_category
+
+
+def generate_visual_guide(patterns: Dict[str, List[AntiPattern]]):
+    """Generate the visual markdown guide"""
+    
+    total_failures = sum(p.frequency for cat in patterns.values() for p in cat)
+    
+    with open(OUTPUT_FILE, "w", encoding="utf-8") as out:
+        # Header
+        out.write("# 🚫 Agent Anti-Patterns Visual Guide\n\n")
+        out.write("> **Purpose**: A visual reference for LLMs to generate educational slides and infographics about common agent development mistakes.\n\n")
+        
+        # Executive Summary
+        out.write("## 📊 Executive Summary\n\n")
+        out.write(f"**Total Failures Analyzed**: {total_failures}\n\n")
+        
+        # Statistics table
+        out.write("| Category | Count | Impact Level |\n")
+        out.write("|----------|-------|-------------|\n")
+        for cat_id, cat_patterns in sorted(patterns.items(), key=lambda x: sum(p.frequency for p in x[1]), reverse=True):
+            if cat_id == "other":
+                continue
+            cat_info = ANTIPATTERN_CATEGORIES.get(cat_id, {"title": cat_id, "icon": "❓"})
+            count = sum(p.frequency for p in cat_patterns)
+            impact = "🔴 Critical" if count > 100 else "🟡 Moderate" if count > 20 else "🟢 Low"
+            out.write(f"| {cat_info['icon']} {cat_info['title']} | {count} | {impact} |\n")
+        out.write("\n")
+        
+        # Visual Overview Diagram
+        out.write("## 🗺️ Anti-Pattern Landscape\n\n")
+        out.write("```mermaid\nmindmap\n")
+        out.write("  root((Agent\\nAnti-Patterns))\n")
+        for cat_id, cat_patterns in patterns.items():
+            if cat_id == "other" or not cat_patterns:
+                continue
+            cat_info = ANTIPATTERN_CATEGORIES.get(cat_id, {"title": cat_id})
+            safe_title = cat_info['title'].replace('"', "'")
+            out.write(f"    {safe_title}\n")
+            for p in cat_patterns[:3]:  # Top 3 issues per category
+                safe_desc = p.description[:30].replace('"', "'").replace("\n", " ")
+                out.write(f"      {safe_desc}...\n")
+        out.write("```\n\n")
+        
+        # Detailed Sections per Category
+        for cat_id, cat_patterns in patterns.items():
+            if cat_id == "other" or not cat_patterns:
+                continue
+                
+            cat_info = ANTIPATTERN_CATEGORIES.get(cat_id, {"title": cat_id, "icon": "❓", "description": ""})
+            
+            out.write(f"---\n\n## {cat_info['icon']} {cat_info['title']}\n\n")
+            out.write(f"> {cat_info['description']}\n\n")
+            
+            # Frequency chart (text-based)
+            out.write("### 📈 Frequency Distribution\n\n")
+            out.write("```\n")
+            max_freq = max(p.frequency for p in cat_patterns[:5])
+            for p in cat_patterns[:5]:
+                bar_len = int((p.frequency / max_freq) * 30) if max_freq > 0 else 0
+                bar = "█" * bar_len
+                label = p.description[:40].replace("\n", " ")
+                out.write(f"{label:<40} {bar} ({p.frequency})\n")
+            out.write("```\n\n")
+            
+            # Top anti-patterns with visual cards
+            out.write("### 🃏 Top Anti-Patterns\n\n")
+            
+            for i, pattern in enumerate(cat_patterns[:3], 1):
+                out.write(f"#### {i}. {pattern.title if pattern.title != 'Assessment Issue' else pattern.description[:50]}\n\n")
+                
+                # Impact badge
+                impact_emoji = "🔴" if pattern.frequency > 50 else "🟡" if pattern.frequency > 10 else "🟢"
+                out.write(f"**Impact**: {impact_emoji} {pattern.frequency} students affected (Criterion {pattern.criterion})\n\n")
+                
+                # Description
+                if pattern.description:
+                    out.write(f"**What went wrong**:\n> {pattern.description}\n\n")
+                
+                # Why it fails
+                if pattern.why_fails:
+                    out.write(f"**Why this breaks the agent**:\n> {pattern.why_fails[:300]}{'...' if len(pattern.why_fails) > 300 else ''}\n\n")
+                
+                # Bad code example
+                if pattern.bad_code:
+                    out.write("**❌ Anti-Pattern Code**:\n")
+                    out.write(f"```python\n{pattern.bad_code}\n```\n\n")
+                
+                # Good code suggestion
+                fix = generate_fix_suggestion(cat_id, pattern.bad_code or "")
+                if fix:
+                    out.write("**✅ Correct Pattern**:\n")
+                    out.write(f"{fix}\n\n")
+                
+                # Visual metaphor
+                out.write("**💡 Visual Metaphor**:\n")
+                metaphors = {
+                    "string_matching": "Like a bouncer checking IDs who lets in anyone whose name *contains* 'VIP' - including 'NOT_VIP'!",
+                    "missing_documentation": "Like giving someone a map with no labels - they'll guess where to go and probably get lost.",
+                    "output_format_mismatch": "Like speaking French to a Spanish parser - technically language, but nothing gets through.",
+                    "hallucination_triggers": "Like asking 'describe the elephant in the room' when there's no elephant - the LLM will invent one!",
+                    "incomplete_react_cycle": "Like a pilot with only 2 of 3 controls - take-off works, but landing is unpredictable.",
+                    "missing_constraints": "Like asking a chef to 'make something good' with no ingredient list - they'll improvise with whatever they imagine.",
+                    "role_definition": "Like hiring an actor but never telling them what character to play - expect improvised chaos.",
+                    "chain_of_thought": "Like asking someone to solve a puzzle blindfolded - they might get lucky, but probably won't."
+                }
+                out.write(f"> {metaphors.get(cat_id, 'Every small gap compounds into system failure.')}\n\n")
+                
+                out.write("---\n\n")
+        
+        # Footer with slide generation hints
+        out.write("## 🎨 Slide Generation Hints\n\n")
+        out.write("When generating slides from this document:\n\n")
+        out.write("1. **Title Slide**: Use the executive summary statistics\n")
+        out.write("2. **Category Slides**: One slide per category with the mindmap subsection\n")
+        out.write("3. **Deep Dive Slides**: Before/After code comparisons with visual metaphors\n")
+        out.write("4. **Impact Slides**: Use frequency bars to show which issues are most common\n")
+        out.write("5. **Takeaway Slide**: Summarize the top 3 anti-patterns to avoid\n\n")
+        
+        out.write("### Color Coding Reference\n\n")
+        out.write("| Color | Meaning |\n")
+        out.write("|-------|--------|\n")
+        out.write("| 🔴 Red | Critical issue (>100 occurrences) |\n")
+        out.write("| 🟡 Yellow | Moderate issue (20-100 occurrences) |\n")
+        out.write("| 🟢 Green | Low frequency (<20 occurrences) |\n")
+    
+    print(f"Done. Visual guide written to {OUTPUT_FILE}")
+
+def main():
+    patterns = process_failures()
+    generate_visual_guide(patterns)
+    
+if __name__ == "__main__":
+    main()
+</file_content>
+
+<file_content path="all_transactions_report.txt">
+================================================================================
+SWIFT TRANSACTION PROCESSING SYSTEM - ALL TRANSACTIONS REPORT
+================================================================================
+Generated: 2025-11-05 19:45:34
+Total Transactions: 10
+
+SUMMARY STATISTICS:
+- Valid Messages: 10
+- Fraudulent Messages: 0
+- Clean Messages: 10
+- MT103 Messages: 7
+- MT202 Messages: 3
+.2f
+
+TOP 10 TRANSACTIONS BY AMOUNT:
+--------------------------------------------------------------------------------
+2dType: MT202 | Status: VALID | Fraud: CLEAN
+2dType: MT103 | Status: VALID | Fraud: CLEAN
+2dType: MT202 | Status: VALID | Fraud: CLEAN
+2dType: MT103 | Status: VALID | Fraud: CLEAN
+2dType: MT103 | Status: VALID | Fraud: CLEAN
+2dType: MT202 | Status: VALID | Fraud: CLEAN
+2dType: MT103 | Status: VALID | Fraud: CLEAN
+2dType: MT103 | Status: VALID | Fraud: CLEAN
+2dType: MT103 | Status: VALID | Fraud: CLEAN
+2dType: MT103 | Status: VALID | Fraud: CLEAN
+</file_content>
+
+<file_content path="config.py">
+"""
+Configuration settings for the SWIFT processing system
+"""
+
+import os
+from typing import Dict, Any
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+
+class Config:
+    """Configuration class for the SWIFT processing system"""
+
+    # System settings
+    MESSAGE_COUNT = 10
+    BANK_COUNT = 5
+
+    # Processing settings
+    MAX_WORKERS = 8
+    BATCH_SIZE = 50
+
+    # LLM settings
+    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', 'your_api_key_here')
+    OPENAI_MODEL = "gpt-4o"
+
+    @classmethod
+    def get_all_settings(cls) -> Dict[str, Any]:
+        """Get all configuration settings as a dictionary"""
+        return {
+            attr: getattr(cls, attr)
+            for attr in dir(cls)
+            if not attr.startswith('_') and not callable(getattr(cls, attr))
+        }
+</file_content>
+
+<file_content path="failures_list.txt">
+tmp/stu_3/feedback/5.md
+tmp/stu_3/feedback/1.md
+</file_content>
+
+<file_content path="generate_swift_messages.py">
+"""
+Simple script to generate 100 SWIFT messages in proper format
+"""
+
+import os
+import random
+from datetime import datetime, timedelta
+
+def generate_bic():
+    """Generate a realistic BIC code"""
+    bank_codes = ['CITI', 'JPMC', 'BARC', 'HSBC', 'DEUT', 'BNPP', 'SANT', 'UBSW', 'CSGN', 'RABO']
+    countries = ['US', 'GB', 'DE', 'FR', 'CH', 'NL', 'ES', 'IT', 'JP', 'SG']
+    
+    bank = random.choice(bank_codes)
+    country = random.choice(countries)
+    location = ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=2))
+    branch = ''.join(random.choices('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', k=3))
+    
+    return f"{bank}{country}{location}{branch}"
+
+def generate_reference():
+    """Generate transaction reference"""
+    prefixes = ['PAY', 'TXN', 'REF', 'INV', 'FT']
+    prefix = random.choice(prefixes)
+    number = random.randint(100000, 999999)
+    return f"{prefix}{number}"
+
+def generate_amount():
+    """Generate realistic transaction amount"""
+    amounts = [
+        round(random.uniform(100, 10000), 2),      # Small amounts
+        round(random.uniform(10000, 100000), 2),   # Medium amounts  
+        round(random.uniform(100000, 1000000), 2), # Large amounts
+    ]
+    return random.choice(amounts)
+
+def generate_value_date():
+    """Generate value date (YYMMDD format)"""
+    base_date = datetime.now()
+    days_forward = random.randint(0, 5)
+    value_date = base_date + timedelta(days=days_forward)
+    return value_date.strftime('%y%m%d')
+
+def generate_customer_name():
+    """Generate customer name"""
+    first_names = ['JOHN', 'MARY', 'DAVID', 'SARAH', 'MICHAEL', 'EMMA', 'JAMES', 'ANNA']
+    last_names = ['SMITH', 'JOHNSON', 'WILLIAMS', 'BROWN', 'JONES', 'GARCIA', 'MILLER', 'DAVIS']
+    companies = ['TECH CORP LTD', 'GLOBAL INDUSTRIES INC', 'IMPORT EXPORT LLC', 'SERVICES COMPANY']
+    
+    if random.random() < 0.7:  # 70% individuals
+        return f"{random.choice(first_names)} {random.choice(last_names)}"
+    else:  # 30% companies
+        return random.choice(companies)
+
+def generate_mt103_message(msg_id):
+    """Generate MT103 Customer Credit Transfer"""
+    reference = generate_reference()
+    amount = generate_amount()
+    currency = random.choice(['USD', 'EUR', 'GBP', 'JPY', 'CHF'])
+    value_date = generate_value_date()
+    sender_bic = generate_bic()
+    receiver_bic = generate_bic()
+    ordering_customer = generate_customer_name()
+    beneficiary = generate_customer_name()
+    
+    # Ensure sender and receiver are different
+    while receiver_bic == sender_bic:
+        receiver_bic = generate_bic()
+    
+    # MT103 format
+    swift_message = f"""{"{1:F01" + sender_bic + "0000000000}"}
+{"{2:I103" + receiver_bic + "N}"}
+{"{3:{{108:MT103}}}"}
+{"{4:"}
+:20:{reference}
+:23B:CRED
+:32A:{value_date}{currency}{amount:.2f}
+:50K:/{random.randint(1000000000, 9999999999)}
+{ordering_customer}
+:59:/{random.randint(1000000000, 9999999999)}
+{beneficiary}
+:70:PAYMENT FOR SERVICES
+:71A:OUR
+-}}"""
+    
+    return swift_message
+
+def generate_mt202_message(msg_id):
+    """Generate MT202 General Financial Institution Transfer"""
+    reference = generate_reference()
+    amount = generate_amount()
+    currency = random.choice(['USD', 'EUR', 'GBP', 'JPY', 'CHF'])
+    value_date = generate_value_date()
+    sender_bic = generate_bic()
+    receiver_bic = generate_bic()
+    
+    # Ensure sender and receiver are different
+    while receiver_bic == sender_bic:
+        receiver_bic = generate_bic()
+    
+    # MT202 format
+    swift_message = f"""{"{1:F01" + sender_bic + "0000000000}"}
+{"{2:I202" + receiver_bic + "N}"}
+{"{3:{{108:MT202}}}"}
+{"{4:"}
+:20:{reference}
+:21:{reference}
+:32A:{value_date}{currency}{amount:.2f}
+:52A:{sender_bic}
+:58A:{receiver_bic}
+:72:/RETN/MSINV
+-}}"""
+    
+    return swift_message
+
+def main():
+    """Generate 100 SWIFT messages and save them to files"""
+    
+    # Create directory for SWIFT messages
+    messages_dir = "swift_messages"
+    os.makedirs(messages_dir, exist_ok=True)
+    
+    print(f"Generating 100 SWIFT messages in directory: {messages_dir}")
+    
+    for i in range(1, 101):
+        # Choose message type (70% MT103, 30% MT202)
+        if random.random() < 0.7:
+            message = generate_mt103_message(i)
+            msg_type = "MT103"
+        else:
+            message = generate_mt202_message(i)
+            msg_type = "MT202"
+        
+        # Save to file
+        filename = f"{msg_type}_{i:03d}.swift"
+        filepath = os.path.join(messages_dir, filename)
+        
+        with open(filepath, 'w') as f:
+            f.write(message)
+        
+        if i % 10 == 0:
+            print(f"Generated {i}/100 messages...")
+    
+    print(f"✅ Successfully generated 100 SWIFT messages in '{messages_dir}' directory")
+    print(f"Files are named: MT103_001.swift, MT103_002.swift, MT202_001.swift, etc.")
+
+if __name__ == "__main__":
+    main()
+</file_content>
+
+<file_content path="high_value_transactions_report.txt">
+================================================================================
+SWIFT TRANSACTION PROCESSING SYSTEM - HIGH VALUE TRANSACTIONS REPORT
+================================================================================
+Generated: 2025-11-05 19:45:34
+High-Value Transactions (> $50,000): 5
+
+HIGH-VALUE TRANSACTION STATISTICS:
+- Valid Messages: 5
+- Fraudulent Messages: 0
+- Clean Messages: 5
+.2f
+
+ORCHESTRATOR ANALYSIS:
+- Tasks Created: 8
+- Task Types Created:
+  * fraud_analysis: 3
+  * amount_verification: 1
+  * compliance_check: 2
+  * pattern_detection: 1
+  * summary_report: 1
+
+TASK EXECUTION RESULTS:
+- Tasks Completed: 8
+- Tasks Failed: 0
+
+HIGH-VALUE TRANSACTION DETAILS:
+--------------------------------------------------------------------------------
+2dType: MT103 | Status: VALID | Fraud: CLEAN (20.0%)
+    Sender: SCHTHKGC756
+    Receiver: XMVJAUKY57V
+    Reference: INV46902
+
+2dType: MT103 | Status: VALID | Fraud: CLEAN (10.0%)
+    Sender: JFRTFR2L7EI
+    Receiver: YKEFDEGDP7H
+    Reference: TXN197406079088
+
+2dType: MT103 | Status: VALID | Fraud: CLEAN (13.33%)
+    Sender: HUSPFR43SXO
+    Receiver: BZEVUS16NWS
+    Reference: INV81856
+
+2dType: MT202 | Status: VALID | Fraud: CLEAN (13.33%)
+    Sender: JFRTFR2L7EI
+    Receiver: YQPVFRXT8Y0
+    Reference: ECB523216
+
+2dType: MT202 | Status: VALID | Fraud: CLEAN (20.0%)
+    Sender: SCHTHKGC756
+    Receiver: HGUIGBFEHXR
+    Reference: RXG329475
+</file_content>
+
+<file_content path="main.py">
+"""
+SWIFT Transaction Processing System with Agent Patterns
+Main application entry point
+
+This is the main integration point where all agent patterns work together
+to process SWIFT messages through a complete pipeline.
+"""
+
+from typing import List, Dict
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+from config import Config
+from models.swift_message import SWIFTMessage
+from services.swift_generator import SWIFTGenerator
+
+# Import the agent patterns you'll be using
+from agents.evaluator_optimizer import EvaluatorOptimizerPattern
+from agents.parallelization import ParallelizationPattern
+from agents.orchestrator_worker import OrchestratorWorkerPattern
+from agents.prompt_chaining import PromptChainingPattern
+
+
+class SWIFTProcessingSystem:
+    """Main system orchestrating all agent patterns for SWIFT processing"""
+
+    def __init__(self):
+        self.config = Config()
+        self.swift_generator = SWIFTGenerator()
+
+        # Initialize agent patterns
+        # NOTE: These classes are scaffolded in the agents folder
+        # You'll need to complete the TODOs in each file for them to work properly
+        self.evaluator_optimizer = EvaluatorOptimizerPattern()
+        self.parallelization_agent = ParallelizationPattern()
+        self.orchestrator_worker = OrchestratorWorkerPattern()
+        self.prompt_chaining_agent = PromptChainingPattern()
+    
+    def generate_swift_messages(self) -> List[Dict]:
+        """Generate SWIFT messages for testing"""
+        swift_messages = self.swift_generator.generate_messages(
+            count=self.config.MESSAGE_COUNT,
+            bank_count=self.config.BANK_COUNT
+        )
+        # Convert SWIFTMessage objects to dictionaries
+        messages = []
+        for msg in swift_messages:
+            msg_dict = {
+                'message_id': msg.message_id,
+                'message_type': msg.message_type,
+                'reference': msg.reference,
+                'amount': f"{msg.amount} {msg.currency}",
+                'currency': msg.currency,
+                'sender_bic': msg.sender_bic,
+                'receiver_bic': msg.receiver_bic,
+                'value_date': msg.value_date,
+                'ordering_customer': msg.ordering_customer,
+                'beneficiary': msg.beneficiary,
+                'remittance_info': msg.remittance_info,
+                'validation_status': msg.validation_status,
+                'validation_errors': msg.validation_errors,
+                'fraud_status': msg.fraud_status,
+                'fraud_score': msg.fraud_score,
+                'processing_status': msg.processing_status,
+                'fraud_statements': msg.fraud_statements,
+                'created_at': msg.created_at.isoformat(),
+                'processed_at': msg.processed_at.isoformat() if msg.processed_at else None,
+                'fraud_evaluation': msg.fraud_evaluation,
+                'chain_analysis': msg.chain_analysis,
+                'agent_perspectives': msg.agent_perspectives,
+                'note': msg.note
+            }
+            messages.append(msg_dict)
+        return messages
+    
+    def process_with_evaluator_optimizer(self, messages: List[Dict]) -> List[Dict]:
+        """
+        Step 1: Validate and correct SWIFT messages using Evaluator-Optimizer pattern
+
+        This method calls the evaluator optimizer pattern to validate and fix messages.
+        """
+        print("\n" + "=" * 60)
+        print("STEP 1: EVALUATOR-OPTIMIZER PATTERN")
+        print("=" * 60)
+
+        # Call the evaluator optimizer's process method
+        validated_messages = self.evaluator_optimizer.process_with_evaluator_optimizer(messages)
+        return validated_messages
+
+    def process_with_parallelization(self, messages: List[Dict]) -> List[Dict]:
+        """
+        Step 2: Process messages in parallel with fraud detection
+
+        This method uses parallel processing to run multiple fraud detection agents.
+        """
+        print("\n" + "=" * 60)
+        print("STEP 2: PARALLELIZATION PATTERN")
+        print("=" * 60)
+
+        # Process messages in parallel using fraud detection agents
+        processed_messages = self.parallelization_agent.process_batch_parallel(messages)
+        return processed_messages
+
+    def process_with_prompt_chaining(self, messages: List[Dict]) -> Dict:
+        """
+        Step 3: Enhanced fraud analysis using Prompt Chaining pattern
+
+        This method chains multiple AI agents for comprehensive fraud analysis.
+        """
+        print("\n" + "=" * 60)
+        print("STEP 3: PROMPT CHAINING PATTERN")
+        print("=" * 60)
+
+        # Process through the chain of agents
+        chain_results = self.prompt_chaining_agent.process_chain(messages)
+        return chain_results
+
+    def process_with_orchestrator_worker(self, messages: List[Dict]) -> None:
+        """
+        Step 4: Process transactions using Orchestrator-Worker pattern
+
+        This method uses an orchestrator to create tasks and workers to execute them.
+        Generates and saves two different reports.
+        """
+        print("\n" + "=" * 60)
+        print("STEP 4: ORCHESTRATOR-WORKER PATTERN")
+        print("=" * 60)
+
+        # Generate Report 1: All transactions report
+        print("Generating Report 1: All Transactions Report")
+        self._generate_all_transactions_report(messages)
+
+        # Filter for high-value transactions (amount > 50000) for alternative report set
+        clean_messages = []
+        for msg in messages:
+            try:
+                amount_str = msg.get('amount', '0')
+                amount = float(''.join(c for c in amount_str if c.isdigit() or c == '.'))
+                if amount > 50000:
+                    clean_messages.append(msg)
+            except (ValueError, TypeError):
+                pass
+
+        # Generate Report 2: High-value transactions report
+        print(f"Generating Report 2: High-Value Transactions Report ({len(clean_messages)} transactions)")
+        self._generate_high_value_report(clean_messages)
+
+    def _generate_all_transactions_report(self, messages: List[Dict]) -> None:
+        """Generate and save a comprehensive report for all transactions."""
+        from datetime import datetime
+
+        report_content = []
+        report_content.append("=" * 80)
+        report_content.append("SWIFT TRANSACTION PROCESSING SYSTEM - ALL TRANSACTIONS REPORT")
+        report_content.append("=" * 80)
+        report_content.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        report_content.append(f"Total Transactions: {len(messages)}")
+        report_content.append("")
+
+        # Summary statistics
+        total_amount = 0
+        valid_count = 0
+        fraudulent_count = 0
+        mt103_count = 0
+        mt202_count = 0
+
+        for msg in messages:
+            try:
+                amount_str = msg.get('amount', '0')
+                amount = float(''.join(c for c in amount_str if c.isdigit() or c == '.'))
+                total_amount += amount
+            except:
+                pass
+
+            if msg.get('validation_status') == 'VALID':
+                valid_count += 1
+
+            if msg.get('fraud_status') == 'FRAUDULENT':
+                fraudulent_count += 1
+
+            if msg.get('message_type') == 'MT103':
+                mt103_count += 1
+            elif msg.get('message_type') == 'MT202':
+                mt202_count += 1
+
+        report_content.append("SUMMARY STATISTICS:")
+        report_content.append(f"- Valid Messages: {valid_count}")
+        report_content.append(f"- Fraudulent Messages: {fraudulent_count}")
+        report_content.append(f"- Clean Messages: {len(messages) - fraudulent_count}")
+        report_content.append(f"- MT103 Messages: {mt103_count}")
+        report_content.append(f"- MT202 Messages: {mt202_count}")
+        report_content.append(".2f")
+        report_content.append("")
+
+        # Top 10 transactions by amount
+        report_content.append("TOP 10 TRANSACTIONS BY AMOUNT:")
+        report_content.append("-" * 80)
+
+        sorted_messages = []
+        for msg in messages:
+            try:
+                amount_str = msg.get('amount', '0')
+                amount = float(''.join(c for c in amount_str if c.isdigit() or c == '.'))
+                sorted_messages.append((amount, msg))
+            except:
+                sorted_messages.append((0, msg))
+
+        sorted_messages.sort(reverse=True, key=lambda x: x[0])
+
+        for i, (amount, msg) in enumerate(sorted_messages[:10]):
+            status = "VALID" if msg.get('validation_status') == 'VALID' else "INVALID"
+            fraud_status = msg.get('fraud_status', 'UNKNOWN')
+            report_content.append("2d"
+                                  f"Type: {msg.get('message_type', 'N/A')} | "
+                                  f"Status: {status} | "
+                                  f"Fraud: {fraud_status}")
+        report_content.append("")
+
+        # Save report to file
+        with open('all_transactions_report.txt', 'w') as f:
+            f.write('\n'.join(report_content))
+
+        print("? Report saved: all_transactions_report.txt")
+
+    def _generate_high_value_report(self, messages: List[Dict]) -> None:
+        """Generate and save a report for high-value transactions."""
+        from datetime import datetime
+
+        report_content = []
+        report_content.append("=" * 80)
+        report_content.append("SWIFT TRANSACTION PROCESSING SYSTEM - HIGH VALUE TRANSACTIONS REPORT")
+        report_content.append("=" * 80)
+        report_content.append(f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        report_content.append(f"High-Value Transactions (> $50,000): {len(messages)}")
+        report_content.append("")
+
+        if not messages:
+            report_content.append("No high-value transactions found.")
+        else:
+            # Calculate total value
+            total_amount = 0
+            valid_count = 0
+            fraudulent_count = 0
+
+            for msg in messages:
+                try:
+                    amount_str = msg.get('amount', '0')
+                    amount = float(''.join(c for c in amount_str if c.isdigit() or c == '.'))
+                    total_amount += amount
+                except:
+                    pass
+
+                if msg.get('validation_status') == 'VALID':
+                    valid_count += 1
+
+                if msg.get('fraud_status') == 'FRAUDULENT':
+                    fraudulent_count += 1
+
+            report_content.append("HIGH-VALUE TRANSACTION STATISTICS:")
+            report_content.append(f"- Valid Messages: {valid_count}")
+            report_content.append(f"- Fraudulent Messages: {fraudulent_count}")
+            report_content.append(f"- Clean Messages: {len(messages) - fraudulent_count}")
+            report_content.append(".2f")
+            report_content.append("")
+
+            # Process with orchestrator for detailed analysis
+            orchestrator_results = self.orchestrator_worker.process_with_orchestrator(messages)
+
+            if orchestrator_results:
+                report_content.append("ORCHESTRATOR ANALYSIS:")
+                analysis = orchestrator_results.get('orchestrator_analysis', {})
+                task_count = analysis.get('task_count', 0)
+                report_content.append(f"- Tasks Created: {task_count}")
+
+                tasks = analysis.get('tasks', [])
+                if tasks:
+                    report_content.append("- Task Types Created:")
+                    task_types = {}
+                    for task in tasks:
+                        task_type = task.get('type', 'unknown')
+                        task_types[task_type] = task_types.get(task_type, 0) + 1
+
+                    for task_type, count in task_types.items():
+                        report_content.append(f"  * {task_type}: {count}")
+
+                report_content.append("")
+
+                # Task execution results
+                task_results = orchestrator_results.get('task_results', [])
+                if task_results:
+                    report_content.append("TASK EXECUTION RESULTS:")
+                    completed = sum(1 for r in task_results if r.get('status') == 'completed')
+                    failed = sum(1 for r in task_results if r.get('status') == 'failed')
+                    report_content.append(f"- Tasks Completed: {completed}")
+                    report_content.append(f"- Tasks Failed: {failed}")
+                    report_content.append("")
+
+            # Detailed transaction listing
+            report_content.append("HIGH-VALUE TRANSACTION DETAILS:")
+            report_content.append("-" * 80)
+
+            for i, msg in enumerate(messages, 1):
+                try:
+                    amount_str = msg.get('amount', '0')
+                    amount = float(''.join(c for c in amount_str if c.isdigit() or c == '.'))
+                except:
+                    amount = 0
+
+                status = "VALID" if msg.get('validation_status') == 'VALID' else "INVALID"
+                fraud_status = msg.get('fraud_status', 'UNKNOWN')
+                fraud_score = msg.get('fraud_score', 0)
+
+                report_content.append("2d"
+                                      f"Type: {msg.get('message_type', 'N/A')} | "
+                                      f"Status: {status} | "
+                                      f"Fraud: {fraud_status} ({fraud_score}%)")
+                report_content.append(f"    Sender: {msg.get('sender_bic', 'N/A')}")
+                report_content.append(f"    Receiver: {msg.get('receiver_bic', 'N/A')}")
+                report_content.append(f"    Reference: {msg.get('reference', 'N/A')}")
+                report_content.append("")
+
+        # Save report to file
+        with open('high_value_transactions_report.txt', 'w') as f:
+            f.write('\n'.join(report_content))
+
+        print("? Report saved: high_value_transactions_report.txt")
+        
+    
+    def run(self):
+        """Main execution method - Orchestrates all agent patterns in sequence"""
+        try:
+            print("=" * 60)
+            print("SWIFT TRANSACTION PROCESSING SYSTEM")
+            print("=" * 60)
+
+            # Step 1: Generate SWIFT messages
+            print("\nGenerating SWIFT messages...")
+            messages = self.generate_swift_messages()
+            print(f"Generated {len(messages)} SWIFT messages")
+
+            # Call evaluator optimizer
+            validated_messages = self.process_with_evaluator_optimizer(messages)
+
+            # Call parallelization process
+            processed_messages = self.process_with_parallelization(validated_messages)
+
+            # Call prompt chaining
+            chain_results = self.process_with_prompt_chaining(processed_messages)
+
+            # Pass results to orchestrator
+            self.process_with_orchestrator_worker(processed_messages)
+
+            print("\n" + "=" * 60)
+            print("PROCESSING COMPLETE")
+            print("=" * 60)
+
+        except Exception as e:
+            print(f"Error in main execution: {e}")
+            raise
+
+
+if __name__ == "__main__":
+    system = SWIFTProcessingSystem()
+    system.run()
+</file_content>
+
+<file_content path="master_failed_context.md">
+# 📊 Master Failed Context: Swift Agent Project
+
+> **Generated**: 2025-12-19  
+> **Project**: Swift Agent (Udacity)  
+> **Files Analyzed**: 2 sample failure feedback files  
+> **Method**: LLM-based semantic extraction
+
+---
+
+## 📈 Executive Summary
+
+| Criterion | Failures | Primary Anti-Pattern |
+|-----------|----------|---------------------|
+| **Criterion 5: Integration** | ~50% | Console output instead of persistent files |
+| **Criterion 1: Evaluator Pattern** | ~50% | Hardcoded regex instead of LLM Agent / Bypassing Service |
+
+---
+
+## 🔴 Integration Anti-Patterns
+
+### 5.1 Missing Report Artifacts
+**What Went Wrong**: System orchestrates data flow correctly and prints results to console, but fails to save them to disk (files).
+
+**Why It Matters in Real World**:
+- "Artifacts": Automated systems need to leave trails (logs, reports, files) for downstream consumption
+- Auditability: Console logs are ephemeral; files are persistent
+- Requirement: "Generated reports exist and contain expected data" = Files
+
+**Rubric Requirement**: "Generated reports exist and contain expected data"
+
+```python
+# ❌ ANTI-PATTERN
+print(f"Report: {analysis}") # Displayed only
+
+# ✅ CORRECT
+with open("report_high_value.json", "w") as f:
+    json.dump(analysis, f) # Persisted
+```
+
+---
+
+## 🟡 Evaluator Pattern Anti-Patterns
+
+### 1.1 Regex Masquerading as Agent
+**What Went Wrong**: The "Evaluator" is implemented as a simple Python function with regex/if-else logic, rather than an LLM-based agent.
+
+**Why It Matters in Real World**:
+- "Agentic Behavior": The goal is to use AI to evaluate complex/subjective criteria that regex can't handle
+- Scalability: Regex fails on semantics; Agents succeed
+- Definition: If it's just code, it's a script, not an agent pattern
+
+**Rubric Requirement**: "Use an Evaluator-Optimizer Agent that calls an evaluator agent (using LLM)"
+
+---
+
+### 1.2 Bypassing Central Infrastructure
+**What Went Wrong**: An agent instantiates its own `OpenAI()` client instead of using the shared `LLMService` class.
+
+**Why It Matters in Real World**:
+- "Shadow IT": Bypassing central configuration breaks observability (logging), cost tracking, and error handling
+- Consistency: Hardcoding clients creates multiple points of config failure
+
+**Rubric Requirement**: "Use LLMService for all model interactions"
+
+```python
+# ❌ ANTI-PATTERN
+client = OpenAI() # Direct instantiation
+
+# ✅ CORRECT
+response = self.llm_service.get_response(...) # Centralized service
+```
+
+---
+
+## 🎯 Top Anti-Patterns by Impact
+
+| Rank | Anti-Pattern | Criteria | Why Critical |
+|------|--------------|----------|--------------|
+| 1 | **Fake Agents (Regex)** | 1 | Fails the core definition of "Agentic System" |
+| 2 | **Ephemeral Output** | 5 | No record of work performed |
+| 3 | **Bypassing Infra** | 1 | Unmaintainable / Unobservable code |
+
+---
+*Generated by LLM-based semantic extraction*
+</file_content>
+
+<file_content path="visual_antipatterns_guide.md">
+# 🚫 Agent Anti-Patterns Visual Guide
+
+> **Purpose**: A visual reference for LLMs to generate educational slides and infographics about common agent development mistakes.
+
+## 📊 Executive Summary
+
+**Total Failures Analyzed**: 0
+
+| Category | Count | Impact Level |
+|----------|-------|-------------|
+
+## 🗺️ Anti-Pattern Landscape
+
+```mermaid
+mindmap
+  root((Agent\nAnti-Patterns))
+```
+
+## 🎨 Slide Generation Hints
+
+When generating slides from this document:
+
+1. **Title Slide**: Use the executive summary statistics
+2. **Category Slides**: One slide per category with the mindmap subsection
+3. **Deep Dive Slides**: Before/After code comparisons with visual metaphors
+4. **Impact Slides**: Use frequency bars to show which issues are most common
+5. **Takeaway Slide**: Summarize the top 3 anti-patterns to avoid
+
+### Color Coding Reference
+
+| Color | Meaning |
+|-------|--------|
+| 🔴 Red | Critical issue (>100 occurrences) |
+| 🟡 Yellow | Moderate issue (20-100 occurrences) |
+| 🟢 Green | Low frequency (<20 occurrences) |
+</file_content>
+
+<file_content path="agents/__init__.py">
+"""
+Agent patterns for SWIFT transaction processing
+"""
+
+from .evaluator_optimizer import EvaluatorOptimizerPattern
+from .orchestrator_worker import OrchestratorWorkerPattern
+from .parallelization import ParallelizationPattern
+from .prompt_chaining import PromptChainingPattern
+
+__all__ = [
+    "EvaluatorOptimizerPattern",
+    "OrchestratorWorkerPattern",
+    "ParallelizationPattern",
+    "PromptChainingPattern"
+]
+</file_content>
+
+<file_content path="agents/evaluator_optimizer.py">
+"""
+Evaluator-Optimizer Pattern for SWIFT Message Validation
+
+This module implements iterative validation and correction of SWIFT messages.
+The evaluator identifies issues, and the optimizer corrects them.
+"""
+
+from typing import Dict, List, Any, Tuple
+from agents.workflow_agents.base_agents import SwiftCorrectionAgent
+from config import Config
+
+
+class EvaluatorOptimizerPattern:
+    """
+    Implements the evaluator-optimizer pattern for SWIFT message processing.
+
+    This pattern:
+    1. Evaluates messages for compliance with SWIFT standards
+    2. Optimizes (corrects) any identified issues
+    3. Re-evaluates to ensure corrections are valid
+    4. Repeats up to MAX_ITERATIONS times
+    """
+
+    def __init__(self):
+        """Initialize the evaluator-optimizer pattern."""
+        self.config = Config()
+        self.MAX_ITERATIONS = 3
+        self.correction_agent = SwiftCorrectionAgent()
+
+        # SWIFT validation rules
+        self.SWIFT_STANDARDS = {
+            "max_reference_length": 16,
+            "max_amount": 999999999.99,
+            "min_amount": 0.01,
+            "required_fields": [
+                "message_type", "reference", "amount",
+                "sender_bic", "receiver_bic"
+            ],
+            "valid_message_types": ["MT103", "MT202"],
+            "valid_currencies": ["USD", "EUR", "GBP", "JPY", "CHF"]
+        }
+
+    def evaluate_message(self, message: Dict) -> Tuple[bool, List[str]]:
+        """
+        Evaluate a SWIFT message for compliance with standards.
+
+        Args:
+            message: SWIFT message to evaluate
+
+        Returns:
+            Tuple of (is_valid, list_of_errors)
+        """
+        errors = []
+
+        # Check required fields
+        for field in self.SWIFT_STANDARDS["required_fields"]:
+            if field not in message or not message[field]:
+                errors.append(f"Missing required field: {field}")
+
+        # Validate message type
+        if message.get("message_type") not in self.SWIFT_STANDARDS["valid_message_types"]:
+            errors.append(f"Invalid message type: {message.get('message_type')}")
+
+        # Validate reference length
+        reference = message.get("reference", "")
+        if len(reference) > self.SWIFT_STANDARDS["max_reference_length"]:
+            errors.append(f"Reference too long: {len(reference)} chars (max {self.SWIFT_STANDARDS['max_reference_length']})")
+
+        # Validate amount
+        try:
+            amount_str = message.get("amount", "0")
+            # Extract numeric value from amount string (e.g., "1000.00 USD" -> 1000.00)
+            amount_value = float(''.join(c for c in amount_str.split()[0] if c.isdigit() or c == '.'))
+
+            if amount_value > self.SWIFT_STANDARDS["max_amount"]:
+                errors.append(f"Amount exceeds maximum: {amount_value}")
+            elif amount_value < self.SWIFT_STANDARDS["min_amount"]:
+                errors.append(f"Amount below minimum: {amount_value}")
+        except (ValueError, IndexError, AttributeError):
+            errors.append(f"Invalid amount format: {message.get('amount')}")
+
+        # Validate BIC codes
+        sender_bic = message.get("sender_bic", "")
+        receiver_bic = message.get("receiver_bic", "")
+
+        if not self._validate_bic(sender_bic):
+            errors.append(f"Invalid sender BIC: {sender_bic}")
+        if not self._validate_bic(receiver_bic):
+            errors.append(f"Invalid receiver BIC: {receiver_bic}")
+
+        # Check if same sender and receiver
+        if sender_bic and sender_bic == receiver_bic:
+            errors.append("Sender and receiver BIC cannot be the same")
+
+        # Validate currency
+        if "amount" in message:
+            try:
+                currency = message["amount"].split()[-1]
+                if currency not in self.SWIFT_STANDARDS["valid_currencies"]:
+                    errors.append(f"Invalid currency: {currency}")
+            except (IndexError, AttributeError):
+                errors.append("Cannot extract currency from amount")
+
+        is_valid = len(errors) == 0
+        return is_valid, errors
+
+    def _validate_bic(self, bic: str) -> bool:
+        """
+        Validate a BIC (Bank Identifier Code) format.
+
+        BIC format: 8 or 11 characters
+        - 4 letters: Bank code
+        - 2 letters: Country code
+        - 2 letters/digits: Location code
+        - 3 letters/digits: Branch code (optional)
+
+        Args:
+            bic: BIC code to validate
+
+        Returns:
+            True if valid, False otherwise
+        """
+        if not bic:
+            return False
+
+        # BIC must be 8 or 11 characters
+        if len(bic) not in [8, 11]:
+            return False
+
+        # First 4 characters must be letters (bank code)
+        if not bic[:4].isalpha():
+            return False
+
+        # Characters 5-6 must be letters (country code)
+        if not bic[4:6].isalpha():
+            return False
+
+        # Characters 7-8 must be alphanumeric (location code)
+        if not bic[6:8].isalnum():
+            return False
+
+        # If 11 characters, last 3 must be alphanumeric (branch code)
+        if len(bic) == 11 and not bic[8:11].isalnum():
+            return False
+
+        return True
+
+    def optimize_message(self, message: Dict, errors: List[str]) -> Dict:
+        """
+        Optimize (correct) a SWIFT message based on identified errors.
+
+        NOTE: This method uses the SwiftCorrectionAgent that You implement
+        in base_agents.py (TODOs 7-9).
+
+        Args:
+            message: SWIFT message to optimize
+            errors: List of errors to correct
+
+        Returns:
+            Optimized message
+        """
+        if not errors:
+            return message
+
+        try:
+            # Use the correction agent to fix errors
+            corrected = self.correction_agent.respond(message, errors)
+
+            # Ensure all required fields are present in the corrected message
+            for field in self.SWIFT_STANDARDS["required_fields"]:
+                if field not in corrected:
+                    corrected[field] = message.get(field, "")
+
+            return corrected
+
+        except Exception as e:
+            print(f"Error during optimization: {e}")
+            return message
+
+    def process_with_evaluator_optimizer(self, messages: List[Dict]) -> List[Dict]:
+        """
+        Process messages through the evaluator-optimizer pattern.
+
+        Args:
+            messages: List of SWIFT messages to process
+
+        Returns:
+            List of validated and optimized messages
+        """
+        print("=" * 60)
+        print("EVALUATOR-OPTIMIZER PATTERN PROCESSING")
+        print("=" * 60)
+
+        optimized_messages = []
+
+        for i, message in enumerate(messages):
+            print(f"\nProcessing message {i+1}/{len(messages)}: {message.get('message_id', 'Unknown')}")
+
+            # Iterative evaluation and optimization
+            for iteration in range(self.MAX_ITERATIONS):
+                is_valid, errors = self.evaluate_message(message)
+
+                if is_valid:
+                    print(f"  ✓ Message valid after {iteration} iteration(s)")
+                    message['validation_status'] = 'VALID'
+                    message['validation_errors'] = []
+                    break
+                else:
+                    print(f"  Iteration {iteration + 1}: Found {len(errors)} error(s)")
+                    for error in errors[:3]:  # Show first 3 errors
+                        print(f"    - {error}")
+
+                    if iteration < self.MAX_ITERATIONS - 1:
+                        # Attempt to optimize
+                        print(f"  Attempting optimization...")
+                        message = self.optimize_message(message, errors)
+                    else:
+                        # Max iterations reached
+                        print(f"  ✗ Max iterations reached. Message still has errors.")
+                        message['validation_status'] = 'INVALID'
+                        message['validation_errors'] = errors
+
+            optimized_messages.append(message)
+
+        # Print summary
+        valid_count = sum(1 for m in optimized_messages if m.get('validation_status') == 'VALID')
+        print(f"\n{'=' * 60}")
+        print(f"EVALUATOR-OPTIMIZER SUMMARY")
+        print(f"{'=' * 60}")
+        print(f"Total messages processed: {len(optimized_messages)}")
+        print(f"Valid messages: {valid_count}")
+        print(f"Invalid messages: {len(optimized_messages) - valid_count}")
+
+        return optimized_messages
+
+    def test_pattern(self):
+        """
+        Test the evaluator-optimizer pattern with sample messages.
+        You can use this to verify the pattern works with your implementations.
+        """
+        test_messages = [
+            {
+                'message_id': 'VALID001',
+                'message_type': 'MT103',
+                'reference': 'REF123456',
+                'amount': '5000.00 USD',
+                'sender_bic': 'CHASUS33XXX',
+                'receiver_bic': 'DEUTDEFFXXX',
+                'remittance_info': 'Invoice payment'
+            },
+            {
+                'message_id': 'INVALID001',
+                'message_type': 'MT999',  # Invalid type
+                'reference': 'THIS_REFERENCE_IS_WAY_TOO_LONG_12345',  # Too long
+                'amount': '9999999999.99 USD',  # Too large
+                'sender_bic': 'INVALID',  # Invalid BIC
+                'receiver_bic': 'INVALID',  # Invalid BIC
+                'remittance_info': 'Test invalid message'
+            },
+            {
+                'message_id': 'FIXABLE001',
+                'message_type': 'MT103',
+                'reference': 'REF_NEEDS_FIX_123456789',  # Slightly too long
+                'amount': '0.001 USD',  # Too small
+                'sender_bic': 'TEST1234',  # Invalid format
+                'receiver_bic': 'BARCGB22XXX',
+                'remittance_info': 'Should be fixable'
+            }
+        ]
+
+        print("Testing Evaluator-Optimizer Pattern\n")
+        results = self.process_with_evaluator_optimizer(test_messages)
+
+        print("\nTest Results:")
+        for msg in results:
+            print(f"\n{msg.get('message_id')}:")
+            print(f"  Status: {msg.get('validation_status')}")
+            if msg.get('validation_errors'):
+                print(f"  Remaining errors: {len(msg.get('validation_errors'))}")
+
+        return results
+
+
+if __name__ == "__main__":
+    # Test the evaluator-optimizer pattern
+    pattern = EvaluatorOptimizerPattern()
+    pattern.test_pattern()
+</file_content>
+
+<file_content path="agents/orchestrator_worker.py">
+"""
+Orchestrator-Worker Pattern for Task Distribution
+
+This module implements the orchestrator-worker pattern where an orchestrator
+breaks down work into tasks that are executed by generic workers.
+"""
+
+import json
+from typing import Dict, List, Any
+from openai import OpenAI
+from config import Config
+
+
+class OrchestratorWorkerPattern:
+    """
+    Implements the orchestrator-worker pattern for SWIFT message processing.
+    The orchestrator analyzes messages and creates tasks for generic workers.
+    """
+
+    def __init__(self):
+        """Initialize the orchestrator-worker pattern."""
+        self.config = Config()
+        self.client = OpenAI()
+        self.model = "gpt-4o"
+
+    class Orchestrator:
+        """
+        Orchestrator that analyzes messages and creates tasks for workers.
+        """
+
+        def __init__(self):
+            """Initialize the Orchestrator."""
+            self.client = OpenAI()
+            self.model = "gpt-4o"
+
+        def analyze_and_create_tasks(self, messages: List[Dict]) -> Dict:
+            """
+            Analyze messages and create tasks for workers.
+            """
+            # Create system prompt for orchestrator
+            system_prompt = """You are an Orchestrator for SWIFT transaction processing.
+            Analyze the provided messages and create specific tasks for workers.
+
+            Task types you can create:
+            - compliance_check: Check for regulatory compliance
+            - fraud_analysis: Detailed fraud investigation
+            - amount_verification: Verify and analyze amounts
+            - pattern_detection: Detect unusual patterns
+            - summary_report: Create summary reports
+
+            Return JSON with your analysis and a list of specific tasks."""
+
+            # Create user prompt with messages
+            user_prompt = f"""Analyze these SWIFT messages and create processing tasks:
+
+            {json.dumps(messages, indent=2)}
+
+            Return JSON with structure:
+            {{
+                "analysis": "Your analysis of the message batch",
+                "task_count": number,
+                "tasks": [
+                    {{
+                        "task_id": "unique_id",
+                        "type": "task_type",
+                        "description": "What needs to be done",
+                        "priority": "high|medium|low",
+                        "data": "relevant data for the task"
+                    }}
+                ]
+            }}"""
+
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    response_format={"type": "json_object"},
+                    temperature=0.1
+                )
+
+                return json.loads(response.choices[0].message.content or "{}")
+
+            except Exception as e:
+                print(f"Error in Orchestrator: {e}")
+                return {"analysis": "Error occurred", "task_count": 0, "tasks": []}
+
+    class GenericAgent:
+        """
+        Generic worker agent that executes tasks assigned by the orchestrator.
+        """
+
+        def __init__(self):
+            """Initialize the Generic Agent."""
+            self.client = OpenAI()
+            self.model = "gpt-4o"
+
+        def execute_task(self, task: Dict) -> Dict:
+            """
+            Execute a task assigned by the orchestrator.
+            """
+            task_type = task.get('type', 'unknown')
+            description = task.get('description', '')
+            task_data = task.get('data', {})
+
+            # Create prompts based on task type
+            if task_type == 'compliance_check':
+                system_prompt = """You are a Compliance Specialist.
+                Execute the compliance check as described. Focus on regulatory requirements and compliance issues."""
+            elif task_type == 'fraud_analysis':
+                system_prompt = """You are a Fraud Analyst.
+                Perform detailed fraud analysis as requested. Identify suspicious patterns and red flags."""
+            elif task_type == 'amount_verification':
+                system_prompt = """You are a Financial Auditor.
+                Verify and analyze the amounts as specified. Check for unusual amounts or patterns."""
+            elif task_type == 'pattern_detection':
+                system_prompt = """You are a Pattern Analysis Expert.
+                Detect and report unusual patterns in the transaction data."""
+            elif task_type == 'summary_report':
+                system_prompt = """You are a Report Generator.
+                Create the requested summary report with key findings and insights."""
+            else:
+                system_prompt = """You are a Generic Processing Agent.
+                Complete the assigned task professionally and accurately."""
+
+            user_prompt = f"""Execute this task:
+            Type: {task_type}
+            Description: {description}
+            Data: {json.dumps(task_data, indent=2)}
+
+            Return your results in JSON format with relevant findings and analysis."""
+
+            try:
+                response = self.client.chat.completions.create(
+                    model=self.model,
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    response_format={"type": "json_object"},
+                    temperature=0.1
+                )
+
+                result = json.loads(response.choices[0].message.content or "{}")
+                return {
+                    "task_id": task.get('task_id'),
+                    "status": "completed",
+                    "results": result
+                }
+
+            except Exception as e:
+                print(f"Error executing task {task.get('task_id')}: {e}")
+                return {
+                    "task_id": task.get('task_id'),
+                    "status": "failed",
+                    "error": str(e),
+                    "results": {}
+                }
+
+    def process_with_orchestrator(self, messages: List[Dict]) -> Dict:
+        """
+        Process messages using the orchestrator-worker pattern.
+        """
+        print("=" * 60)
+        print("ORCHESTRATOR-WORKER PATTERN PROCESSING")
+        print("=" * 60)
+
+        # Step 1: Create orchestrator
+        orchestrator = self.Orchestrator()
+
+        # Step 2: Get tasks from orchestrator
+        print("Orchestrator analyzing messages...")
+        orchestrator_response = orchestrator.analyze_and_create_tasks(messages)
+
+        print(f"Orchestrator Analysis: {orchestrator_response.get('analysis', 'No analysis')}")
+        print(f"Tasks created: {orchestrator_response.get('task_count', 0)}")
+
+        # Step 3: Create generic agent
+        agent = self.GenericAgent()
+
+        # Step 4: Execute tasks
+        results = []
+        tasks = orchestrator_response.get('tasks', [])
+
+        for task in tasks:
+            print(f"Executing task: {task.get('task_id')} - {task.get('description')}")
+            result = agent.execute_task(task)
+            results.append(result)
+            print(f"Task {task.get('task_id')} {result.get('status', 'unknown')}")
+
+        # Step 5: Return results
+        return {
+            'orchestrator_analysis': orchestrator_response,
+            'task_results': results,
+            'summary': f"Processed {len(tasks)} tasks for {len(messages)} messages"
+        }
+
+    def test_orchestrator(self):
+        """
+        Test method for the orchestrator-worker pattern.
+        You can use this to verify your implementation.
+        """
+        test_messages = [
+            {
+                'message_id': 'MSG001',
+                'message_type': 'MT103',
+                'amount': '75000.00 USD',
+                'sender_bic': 'CHASUS33XXX',
+                'receiver_bic': 'DEUTDEFFXXX',
+                'reference': 'TRX20240101001',
+                'remittance_info': 'Payment for equipment purchase'
+            },
+            {
+                'message_id': 'MSG002',
+                'message_type': 'MT202',
+                'amount': '1000000.00 EUR',
+                'sender_bic': 'BNPAFRPPXXX',
+                'receiver_bic': 'BARCGB22XXX',
+                'reference': 'COV20240101002',
+                'remittance_info': 'Cover payment'
+            }
+        ]
+
+        print("Testing Orchestrator-Worker Pattern\n")
+        results = self.process_with_orchestrator(test_messages)
+
+        print("\n" + "=" * 60)
+        print("TEST RESULTS SUMMARY")
+        print("=" * 60)
+
+        if results:
+            print(f"Results obtained: {type(results)}")
+            if isinstance(results, dict):
+                for key, value in results.items():
+                    print(f"{key}: {value if not isinstance(value, list) else f'{len(value)} items'}")
+
+        return results
+
+
+# Hint for You: You can test individual components
+class TestHelper:
+    """
+    Helper class for testing individual components.
+    You can use this to debug your implementations.
+    """
+
+    @staticmethod
+    def test_orchestrator_only():
+        """Test just the Orchestrator class."""
+        print("Testing Orchestrator in isolation...")
+        # Create an instance of the Orchestrator
+        # Test with sample messages
+        # Print the tasks it creates
+        pass
+
+    @staticmethod
+    def test_generic_agent_only():
+        """Test just the GenericAgent class."""
+        print("Testing GenericAgent in isolation...")
+        sample_task = {
+            'task_id': 'test_001',
+            'type': 'compliance_check',
+            'description': 'Check if sender BIC is valid',
+            'data': {'sender_bic': 'CHASUS33XXX'}
+        }
+        # Create an instance of GenericAgent
+        # Execute the sample task
+        # Print the results
+        pass
+
+
+if __name__ == "__main__":
+    # Test the orchestrator-worker pattern
+    # Note: Requires OPENAI_API_KEY environment variable
+    pattern = OrchestratorWorkerPattern()
+    pattern.test_orchestrator()
+
+    # Uncomment to test individual components:
+    # TestHelper.test_orchestrator_only()
+    # TestHelper.test_generic_agent_only()
+</file_content>
+
+<file_content path="agents/parallelization.py">
+"""
+Parallelization Pattern for Concurrent Fraud Detection
+
+This module implements parallel fraud detection using multiple agents.
+You will add a third fraud detection agent and implement aggregation.
+"""
+
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import List, Dict, Any
+import time
+from agents.workflow_agents.base_agents import (
+    FraudAmountDetectionAgent,
+    FraudPatternDetectionAgent,
+    FraudGeographicRiskAgent,
+    FraudAggAgent
+)
+
+
+class ParallelizationPattern:
+    """
+    Implements parallel processing of fraud detection agents.
+    Multiple agents analyze messages concurrently for better performance.
+    """
+
+    def __init__(self, max_workers: int = 8):
+        """
+        Initialize the parallelization pattern.
+
+        Args:
+            max_workers: Maximum number of concurrent threads
+        """
+        self.max_workers = max_workers
+
+        # Initialize fraud detection agents
+        self.list_of_agents = [
+            FraudAmountDetectionAgent(),
+            FraudPatternDetectionAgent(),
+            FraudGeographicRiskAgent()  # Geographic risk detection agent
+        ]
+
+    def _process_message(self, message: Dict, agent: Any) -> Dict:
+        """
+        Process a single message with a specific fraud detection agent.
+
+        Args:
+            message: SWIFT message to analyze
+            agent: Fraud detection agent to use
+
+        Returns:
+            Fraud analysis results from the agent
+        """
+        try:
+            # Call the agent's analyze method
+            result = agent.analyze(message)
+            result['message_id'] = message.get('message_id', 'unknown')
+            return result
+        except Exception as e:
+            print(f"Error in agent {agent.__class__.__name__}: {e}")
+            return {
+                'agent': agent.__class__.__name__,
+                'error': str(e),
+                'risk_score': 0,
+                'fraud_reasons': []
+            }
+
+    def process_batch_parallel(self, messages: List[Dict]) -> List[Dict]:
+        """
+        Process a batch of messages in parallel using all fraud detection agents.
+
+        Args:
+            messages: List of SWIFT messages to process
+
+        Returns:
+            List of messages with fraud detection results
+        """
+        print(f"Processing {len(messages)} messages with {len(self.list_of_agents)} agents in parallel...")
+        start_time = time.time()
+
+        # Initialize the aggregation agent
+        aggregator = FraudAggAgent()
+
+        # Process messages in parallel
+        processed_messages = []
+
+        with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
+            # Submit all tasks
+            future_to_msg = {}
+            for message in messages:
+                # Submit tasks for each agent to analyze this message
+                agent_futures = []
+                for agent in self.list_of_agents:
+                    future = executor.submit(self._process_message, message, agent)
+                    agent_futures.append(future)
+
+                future_to_msg[message['message_id']] = {
+                    'message': message,
+                    'futures': agent_futures
+                }
+
+            # Collect results
+            for msg_id, msg_data in future_to_msg.items():
+                message = msg_data['message']
+                agent_results = []
+
+                # Wait for all agents to complete for this message
+                for future in msg_data['futures']:
+                    try:
+                        result = future.result(timeout=5)
+                        agent_results.append(result)
+                    except Exception as e:
+                        print(f"Error getting result for message {msg_id}: {e}")
+
+                # Aggregate results and mark messages as fraudulent or clean
+                if aggregator:
+                    aggregated = aggregator.aggregate_results(agent_results)
+                    message['fraud_status'] = "FRAUDULENT" if aggregated['is_fraudulent'] else "CLEAN"
+                    message['fraud_score'] = aggregated['confidence']
+                    message['fraud_reasons'] = aggregated['aggregated_reasons']
+                else:
+                    message['fraud_status'] = "PENDING"
+                    message['fraud_score'] = 0
+                    message['fraud_reasons'] = []
+
+                # Store raw results for debugging
+                message['fraud_analysis'] = agent_results
+
+                processed_messages.append(message)
+
+        elapsed_time = time.time() - start_time
+        print(f"Parallel processing completed in {elapsed_time:.2f} seconds")
+
+        # Print fraud summary
+        fraudulent_count = sum(1 for m in processed_messages
+                              if m.get('fraud_status') == 'FRAUDULENT')
+        print(f"Fraud Detection Summary: {fraudulent_count}/{len(processed_messages)} messages flagged as fraudulent")
+
+        return processed_messages
+
+    def test_agents(self):
+        """
+        Test method to verify all agents are working.
+        You can use this to test your third agent.
+        """
+        test_message = {
+            'message_id': 'TEST001',
+            'amount': '15000.00 USD',
+            'sender_bic': 'TESTUS33XXX',
+            'receiver_bic': 'FAKEGB22XXX',
+            'remittance_info': 'Urgent payment needed immediately'
+        }
+
+        print("Testing fraud detection agents:")
+        print(f"Test message: {test_message}")
+        print("\nAgent results:")
+
+        for agent in self.list_of_agents:
+            result = agent.analyze(test_message)
+            print(f"\n{agent.__class__.__name__}:")
+            print(f"  Risk Score: {result.get('risk_score', 0)}")
+            print(f"  Reasons: {result.get('fraud_reasons', [])}")
+
+        # Test aggregation if aggregator is available
+        if hasattr(self, 'aggregator'):
+            agent_results = [agent.analyze(test_message) for agent in self.list_of_agents]
+            aggregated = self.aggregator.aggregate_results(agent_results)
+            print(f"\nAggregated Result:")
+            print(f"  Is Fraudulent: {aggregated['is_fraudulent']}")
+            print(f"  Confidence: {aggregated['confidence']}%")
+            print(f"  Total Risk Score: {aggregated['total_risk_score']}")
+
+
+# Example of how to create a custom fraud detection agent
+# You can use this as a template for TODO 10
+
+class CustomFraudAgent:
+    """
+    Example template for creating a custom fraud detection agent.
+    You can modify this for your third agent in TODO 10.
+    """
+
+    def __init__(self):
+        # Initialize any rules or thresholds your agent needs
+        self.threshold = 0.5
+
+    def analyze(self, message: Dict) -> Dict:
+        """
+        Analyze a message for fraud indicators.
+
+        Args:
+            message: SWIFT message to analyze
+
+        Returns:
+            Dictionary with:
+                - agent: Name of this agent
+                - risk_score: Float between 0 and 1
+                - fraud_reasons: List of reasons for the risk score
+        """
+        risk_score = 0
+        fraud_reasons = []
+
+        # Add your fraud detection logic here
+        # Example: Check for specific patterns, amounts, or behaviors
+
+        return {
+            "agent": self.__class__.__name__,
+            "risk_score": min(risk_score, 1.0),  # Keep between 0 and 1
+            "fraud_reasons": fraud_reasons
+        }
+
+
+if __name__ == "__main__":
+    # Test the parallelization pattern
+    pattern = ParallelizationPattern()
+    pattern.test_agents()
+</file_content>
+
+<file_content path="agents/prompt_chaining.py">
+"""
+Prompt Chaining Pattern for Multi-Stage Fraud Analysis
+
+This module implements a chain of specialized agents for comprehensive fraud analysis.
+Each agent in the chain builds upon the insights from previous agents.
+"""
+
+import json
+from typing import Dict, List, Any
+from openai import OpenAI
+from config import Config
+
+
+class PromptChainingPattern:
+    """
+    Implements a chain of agents for progressive fraud analysis.
+    Each agent adds your specialized analysis to build a comprehensive assessment.
+    """
+
+    def __init__(self):
+        """Initialize the prompt chaining pattern with OpenAI client."""
+        self.config = Config()
+        self.client = OpenAI()
+        self.model = "gpt-4o"
+        self.temperature = 0.1  # Low temperature for consistent analysis
+
+    def _create_initial_screener_prompt(self, messages: List[Dict]) -> tuple:
+        """
+        Create prompt for the initial screening agent.
+
+        Args:
+            messages: List of SWIFT messages to screen
+
+        Returns:
+            Tuple of (system_prompt, user_prompt)
+        """
+        system_prompt = """You are an Initial Fraud Screener specializing in rapid triage of SWIFT transactions.
+        Your role is to quickly categorize transactions into risk levels.
+
+        For each transaction, assign:
+        - GREEN: Low risk, standard processing
+        - YELLOW: Medium risk, needs review
+        - RED: High risk, immediate attention
+
+        Consider: amounts, BIC codes, countries, and obvious red flags.
+        Return your analysis in JSON format."""
+
+        user_prompt = f"""Perform initial screening on these SWIFT messages:
+        {json.dumps(messages, indent=2)}
+
+        Return JSON with structure:
+        {{
+            "screening_results": [
+                {{
+                    "message_id": "...",
+                    "risk_level": "GREEN|YELLOW|RED",
+                    "initial_flags": ["..."],
+                    "recommended_action": "..."
+                }}
+            ],
+            "summary": "Overall batch assessment"
+        }}"""
+
+        return system_prompt, user_prompt
+
+    def _create_technical_analyst_prompt(self, messages: List[Dict], initial_screening: Dict) -> tuple:
+        """
+        Create prompt for the technical analyst agent.
+
+        Args:
+            messages: Original SWIFT messages
+            initial_screening: Results from initial screener
+
+        Returns:
+            Tuple of (system_prompt, user_prompt)
+        """
+        system_prompt = """You are a Technical Analyst specializing in SWIFT message format validation.
+        Review the initial screening results and perform deep technical analysis.
+
+        Focus on:
+        - SWIFT format compliance (MT103/MT202 standards)
+        - BIC code validation and legitimacy
+        - Amount format and currency validation
+        - Reference number patterns
+        - Date format compliance
+
+        Build upon the initial screening to identify technical anomalies.
+        Return your analysis in JSON format."""
+
+        user_prompt = f"""Review these SWIFT messages with initial screening results:
+
+        Messages: {json.dumps(messages, indent=2)}
+
+        Initial Screening: {json.dumps(initial_screening, indent=2)}
+
+        Perform technical validation and return JSON with:
+        {{
+            "technical_analysis": [
+                {{
+                    "message_id": "...",
+                    "format_compliance": true/false,
+                    "bic_validation": {{"sender": "status", "receiver": "status"}},
+                    "technical_issues": ["..."],
+                    "risk_adjustment": "increase|maintain|decrease",
+                    "technical_score": 0-100
+                }}
+            ],
+            "technical_summary": "Overall technical assessment"
+        }}"""
+
+        return system_prompt, user_prompt
+
+    def _create_compliance_officer_prompt(self, messages: List[Dict], chain_results: Dict) -> tuple:
+        """
+        Create prompt for the compliance officer agent.
+
+        Args:
+            messages: Original SWIFT messages
+            chain_results: All previous analysis results
+
+        Returns:
+            Tuple of (system_prompt, user_prompt)
+        """
+        system_prompt = """You are a Compliance Officer specializing in AML and regulatory compliance.
+        Review all previous analysis and assess regulatory compliance risks.
+
+        Focus on:
+        - AML (Anti-Money Laundering) red flags
+        - Sanctions screening indicators
+        - PEP (Politically Exposed Persons) risks
+        - Regulatory reporting requirements
+        - KYC (Know Your Customer) concerns
+
+        Consider the complete analysis chain to make compliance determinations.
+        Return your analysis in JSON format."""
+
+        user_prompt = f"""Review these SWIFT messages with complete analysis chain:
+
+        Messages: {json.dumps(messages, indent=2)}
+
+        Analysis Chain Results: {json.dumps(chain_results, indent=2)}
+
+        Perform compliance assessment and return JSON with:
+        {{
+            "compliance_review": [
+                {{
+                    "message_id": "...",
+                    "aml_risk": "low|medium|high",
+                    "sanctions_risk": "clear|potential|confirmed",
+                    "compliance_issues": ["..."],
+                    "required_actions": ["..."],
+                    "compliance_score": 0-100
+                }}
+            ],
+            "compliance_summary": "Overall compliance assessment",
+            "escalation_required": true/false
+        }}"""
+
+        return system_prompt, user_prompt
+
+    def _create_final_reviewer_prompt(self, messages: List[Dict], complete_chain: Dict) -> tuple:
+        """
+        Create prompt for the final review agent.
+
+        Args:
+            messages: Original SWIFT messages
+            complete_chain: All analysis results from the chain
+
+        Returns:
+            Tuple of (system_prompt, user_prompt)
+        """
+        system_prompt = """You are the Final Reviewer responsible for synthesizing all analysis.
+        Make the final fraud determination based on the complete analysis chain.
+
+        Review all findings from:
+        1. Initial Screening
+        2. Technical Analysis
+        3. Risk Assessment (if completed)
+        4. Compliance Review
+
+        Make final decisions: APPROVE, HOLD, or REJECT each transaction.
+        Provide clear justification based on the accumulated evidence.
+        Return your analysis in JSON format."""
+
+        user_prompt = f"""Make final determinations based on complete analysis:
+
+        Messages: {json.dumps(messages, indent=2)}
+
+        Complete Analysis Chain: {json.dumps(complete_chain, indent=2)}
+
+        Return final decisions in JSON:
+        {{
+            "final_decisions": [
+                {{
+                    "message_id": "...",
+                    "decision": "APPROVE|HOLD|REJECT",
+                    "confidence": 0-100,
+                    "key_factors": ["..."],
+                    "justification": "...",
+                    "follow_up_required": ["..."]
+                }}
+            ],
+            "batch_summary": {{
+                "approved": 0,
+                "held": 0,
+                "rejected": 0,
+                "overall_risk": "low|medium|high"
+            }}
+        }}"""
+
+        return system_prompt, user_prompt
+
+    def _call_llm(self, system_prompt: str, user_prompt: str) -> Dict:
+        """
+        Make a call to the LLM with the given prompts.
+
+        Args:
+            system_prompt: System role prompt
+            user_prompt: User message prompt
+
+        Returns:
+            Parsed JSON response from the LLM
+        """
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ],
+                response_format={"type": "json_object"},
+                temperature=self.temperature
+            )
+
+            return json.loads(response.choices[0].message.content or "{}")
+
+        except Exception as e:
+            print(f"Error calling LLM: {e}")
+            return {}
+
+    def process_chain(self, messages: List[Dict]) -> Dict:
+        """
+        Process messages through the complete prompt chain.
+
+        Args:
+            messages: List of SWIFT messages to analyze
+
+        Returns:
+            Complete analysis results from all agents in the chain
+        """
+        print("Starting Prompt Chaining Analysis...")
+        chain_results = {}
+
+        # Step 1: Initial Screening
+        print("Step 1: Initial Screener analyzing messages...")
+        system_prompt, user_prompt = self._create_initial_screener_prompt(messages)
+        initial_results = self._call_llm(system_prompt, user_prompt)
+        chain_results['initial_screening'] = initial_results
+
+        # Step 2: Technical Analyst
+        print("Step 2: Technical Analyst reviewing messages...")
+        system_prompt, user_prompt = self._create_technical_analyst_prompt(messages, initial_results)
+        technical_results = self._call_llm(system_prompt, user_prompt)
+        chain_results['technical_analysis'] = technical_results
+
+        # Step 3: Risk Assessor (Provided as example)
+        print("Step 3: Risk Assessor evaluating patterns...")
+        # This step is implemented for you as an example
+        risk_prompt_system = """You are a Risk Assessment Specialist.
+        Analyze behavioral patterns and transaction risks based on previous findings.
+        Focus on velocity, patterns, and behavioral anomalies."""
+
+        risk_prompt_user = f"""Assess risk based on analysis so far:
+        Messages: {json.dumps(messages, indent=2)}
+        Current Analysis: {json.dumps(chain_results, indent=2)}
+
+        Return JSON with risk scores and pattern analysis."""
+
+        risk_results = self._call_llm(risk_prompt_system, risk_prompt_user)
+        chain_results['risk_assessment'] = risk_results
+
+        # Step 4: Compliance Officer
+        print("Step 4: Compliance Officer reviewing for regulatory issues...")
+        system_prompt, user_prompt = self._create_compliance_officer_prompt(messages, chain_results)
+        compliance_results = self._call_llm(system_prompt, user_prompt)
+        chain_results['compliance_review'] = compliance_results
+
+        # Step 5: Final Reviewer (Provided)
+        print("Step 5: Final Reviewer making decisions...")
+        system_prompt, user_prompt = self._create_final_reviewer_prompt(messages, chain_results)
+        final_results = self._call_llm(system_prompt, user_prompt)
+        chain_results['final_review'] = final_results
+
+        # Update messages with final decisions
+        if 'final_decisions' in final_results:
+            decision_map = {d['message_id']: d for d in final_results['final_decisions']}
+            for message in messages:
+                msg_id = message.get('message_id')
+                if msg_id in decision_map:
+                    decision = decision_map[msg_id]
+                    message['fraud_decision'] = decision['decision']
+                    message['fraud_confidence'] = decision.get('confidence', 0)
+                    message['fraud_justification'] = decision.get('justification', '')
+
+        print("Prompt Chaining Analysis Complete!")
+        return chain_results
+
+    def test_chain(self):
+        """
+        Test the prompt chain with sample messages.
+        You can use this to verify your implementations.
+        """
+        test_messages = [
+            {
+                'message_id': 'TEST001',
+                'message_type': 'MT103',
+                'amount': '50000.00 USD',
+                'sender_bic': 'CHASUS33XXX',
+                'receiver_bic': 'DEUTGB22XXX',
+                'reference': 'REF123456',
+                'remittance_info': 'Invoice payment for services'
+            },
+            {
+                'message_id': 'TEST002',
+                'message_type': 'MT103',
+                'amount': '999999.99 USD',
+                'sender_bic': 'TESTUS33XXX',
+                'receiver_bic': 'FAKEGB22XXX',
+                'reference': 'URGENT999',
+                'remittance_info': 'Urgent confidential transfer'
+            }
+        ]
+
+        print("Testing Prompt Chain with sample messages:")
+        results = self.process_chain(test_messages)
+
+        # Print summary of results
+        print("\n=== Chain Results Summary ===")
+        for stage, data in results.items():
+            print(f"\n{stage.upper()}:")
+            if isinstance(data, dict):
+                # Print key findings from each stage
+                if 'summary' in data:
+                    print(f"  Summary: {data['summary']}")
+                elif 'batch_summary' in data:
+                    print(f"  Batch Summary: {data['batch_summary']}")
+
+        return results
+
+
+if __name__ == "__main__":
+    # Test the prompt chaining pattern
+    # Note: Requires OPENAI_API_KEY environment variable
+    pattern = PromptChainingPattern()
+    pattern.test_chain()
+</file_content>
+
+<file_content path="agents/workflow_agents/__init__.py">
+
+</file_content>
+
+<file_content path="agents/workflow_agents/base_agents.py">
+"""
+Base Agent Classes for SWIFT Transaction Processing
+
+This module contains the base classes that all agents inherit from.
+You will implement the BaseAgent abstract class and the SwiftCorrectionAgent.
+"""
+
+from abc import ABC, abstractmethod
+from config import Config
+from services.llm_service import LLMService
+
+class BaseAgent(ABC):
+    """Abstract base class for all agents in the SWIFT processing system"""
+
+    def __init__(self):
+        """Initialize the base agent with configuration and LLM service"""
+        self.config = Config()
+        self.llm_service = LLMService()
+
+    @abstractmethod
+    def create_prompt(self, data):
+        """Each agent must implement their own prompt creation logic"""
+        pass
+
+    def respond(self, prompt: str):
+        """Common method to get LLM response"""
+        return self.llm_service.call_llm(prompt)
+
+
+class SwiftCorrectionAgent:
+    """Agent for correcting SWIFT messages based on validation errors."""
+
+    def __init__(self):
+        # Initialize LLM service for correction tasks
+        self.llm_service = LLMService()
+
+    def create_prompt(self, message, errors):
+        """
+        Create a prompt for the LLM to correct a SWIFT message.
+
+        Args:
+            message: The SWIFT message data
+            errors: List of validation errors to fix
+
+        Returns:
+            str: The formatted prompt for the LLM
+        """
+        system_prompt = """You are a SWIFT message correction expert.
+        Fix the validation errors while maintaining the business intent.
+        Return the corrected message in JSON format."""
+
+        user_prompt = f"""
+        Original SWIFT Message:
+        {message}
+
+        Validation Errors to Fix:
+        {errors}
+
+        Please correct these errors and return the complete corrected message in JSON format.
+        """
+
+        return system_prompt, user_prompt
+
+    def respond(self, message, errors):
+        """
+        Get LLM response to correct the SWIFT message.
+
+        Args:
+            message: The SWIFT message to correct
+            errors: The validation errors to fix
+
+        Returns:
+            dict: The corrected message data
+        """
+        import json
+        from openai import OpenAI
+
+        system_prompt, user_prompt = self.create_prompt(message, errors)
+
+        try:
+            client = OpenAI()
+            response = client.chat.completions.create(
+                model="gpt-4o",
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ],
+                response_format={"type": "json_object"},
+                temperature=0.1
+            )
+
+            # Parse the JSON response
+            content = response.choices[0].message.content
+            result = json.loads(content)
+            return result
+
+        except Exception as e:
+            print(f"Error in SwiftCorrectionAgent: {e}")
+            return message  # Return original if correction fails
+
+
+class FraudAmountDetectionAgent:
+    """Agent for detecting fraud based on transaction amounts."""
+
+    def __init__(self):
+        self.rules = [
+            {"condition": "amount > 10000", "risk_score": 0.3},
+            {"condition": "round_amount", "risk_score": 0.2},
+            {"condition": "unusual_precision", "risk_score": 0.1}
+        ]
+
+    def analyze(self, message):
+        """
+        Analyze a SWIFT message for amount-based fraud patterns.
+
+        Args:
+            message: The SWIFT message to analyze
+
+        Returns:
+            dict: Fraud analysis results with risk score and reasons
+        """
+        risk_score = 0
+        fraud_reasons = []
+
+        try:
+            # Extract amount from message
+            amount_str = message.get('amount', '0')
+            # Remove currency code and convert to float
+            amount = float(''.join(c for c in amount_str if c.isdigit() or c == '.'))
+
+            # Rule 1: Large amounts
+            if amount > 10000:
+                risk_score += 0.3
+                fraud_reasons.append(f"High amount transaction: {amount}")
+
+            # Rule 2: Round amounts (multiples of 1000)
+            if amount % 1000 == 0 and amount > 0:
+                risk_score += 0.2
+                fraud_reasons.append(f"Suspiciously round amount: {amount}")
+
+            # Rule 3: Unusual precision for large amounts
+            if amount > 100000 and (amount % 1) != 0:
+                risk_score += 0.1
+                fraud_reasons.append("Large amount with unusual decimal precision")
+
+        except (ValueError, TypeError) as e:
+            print(f"Error analyzing amount: {e}")
+
+        return {
+            "agent": "FraudAmountDetectionAgent",
+            "risk_score": min(risk_score, 1.0),
+            "fraud_reasons": fraud_reasons
+        }
+
+
+class FraudPatternDetectionAgent:
+    """Agent for detecting fraud based on transaction patterns."""
+
+    def __init__(self):
+        self.high_risk_patterns = ['TEST', 'FAKE', 'DEMO', '999', '000000']
+        self.suspicious_keywords = ['urgent', 'immediately', 'secret', 'confidential']
+
+    def analyze(self, message):
+        """
+        Analyze a SWIFT message for pattern-based fraud indicators.
+
+        Args:
+            message: The SWIFT message to analyze
+
+        Returns:
+            dict: Fraud analysis results with risk score and reasons
+        """
+        risk_score = 0
+        fraud_reasons = []
+
+        # Check BIC codes for test patterns
+        sender_bic = message.get('sender_bic', '')
+        receiver_bic = message.get('receiver_bic', '')
+
+        for pattern in self.high_risk_patterns:
+            if pattern in sender_bic.upper() or pattern in receiver_bic.upper():
+                risk_score += 0.4
+                fraud_reasons.append(f"Test/fake pattern detected in BIC: {pattern}")
+
+        # Check for same sender and receiver
+        if sender_bic and sender_bic == receiver_bic:
+            risk_score += 0.5
+            fraud_reasons.append("Same sender and receiver BIC")
+
+        # Check remittance info for suspicious keywords
+        remittance = message.get('remittance_info', '') or ''
+        remittance = remittance.lower()
+        for keyword in self.suspicious_keywords:
+            if keyword in remittance:
+                risk_score += 0.2
+                fraud_reasons.append(f"Suspicious keyword in remittance: {keyword}")
+
+        return {
+            "agent": "FraudPatternDetectionAgent",
+            "risk_score": min(risk_score, 1.0),
+            "fraud_reasons": fraud_reasons
+        }
+
+
+class FraudGeographicRiskAgent:
+    """Agent for detecting fraud based on geographic risk factors."""
+
+    def __init__(self):
+        # High-risk countries based on common financial sanctions and risk assessments
+        self.high_risk_countries = {
+            'IR', 'KP', 'SY', 'CU', 'VE', 'RU', 'BY', 'AF', 'IQ', 'LB',
+            'SD', 'ZW', 'MM', 'YE', 'SO', 'CD', 'CG', 'HT', 'TG', 'GN'
+        }
+        # Medium-risk countries
+        self.medium_risk_countries = {
+            'CN', 'HK', 'SG', 'AE', 'SA', 'QA', 'KW', 'BH', 'OM', 'JO',
+            'TR', 'EG', 'MA', 'TN', 'DZ', 'LY', 'PK', 'BD', 'LK', 'NP'
+        }
+
+    def analyze(self, message):
+        """
+        Analyze a SWIFT message for geographic risk indicators.
+
+        Args:
+            message: The SWIFT message to analyze
+
+        Returns:
+            dict: Fraud analysis results with risk score and reasons
+        """
+        risk_score = 0
+        fraud_reasons = []
+
+        try:
+            # Extract sender and receiver BICs to get country codes
+            sender_bic = message.get('sender_bic', '')
+            receiver_bic = message.get('receiver_bic', '')
+
+            # Extract country codes from BICs (positions 4-5)
+            sender_country = sender_bic[4:6].upper() if len(sender_bic) >= 6 else ''
+            receiver_country = receiver_bic[4:6].upper() if len(receiver_bic) >= 6 else ''
+
+            # Check for high-risk countries
+            if sender_country in self.high_risk_countries:
+                risk_score += 0.4
+                fraud_reasons.append(f"High-risk sender country: {sender_country}")
+
+            if receiver_country in self.high_risk_countries:
+                risk_score += 0.4
+                fraud_reasons.append(f"High-risk receiver country: {receiver_country}")
+
+            # Check for medium-risk countries
+            if sender_country in self.medium_risk_countries:
+                risk_score += 0.2
+                fraud_reasons.append(f"Medium-risk sender country: {sender_country}")
+
+            if receiver_country in self.medium_risk_countries:
+                risk_score += 0.2
+                fraud_reasons.append(f"Medium-risk receiver country: {receiver_country}")
+
+            # Check for unusual country combinations
+            if sender_country and receiver_country:
+                # Transactions between very different risk levels
+                sender_high_risk = sender_country in self.high_risk_countries
+                sender_med_risk = sender_country in self.medium_risk_countries
+                receiver_high_risk = receiver_country in self.high_risk_countries
+                receiver_med_risk = receiver_country in self.medium_risk_countries
+
+                if (sender_high_risk and not receiver_high_risk and not receiver_med_risk) or \
+                   (receiver_high_risk and not sender_high_risk and not sender_med_risk):
+                    risk_score += 0.3
+                    fraud_reasons.append(f"Unusual risk level combination: {sender_country} ? {receiver_country}")
+
+        except (IndexError, AttributeError) as e:
+            print(f"Error analyzing geographic risk: {e}")
+
+        return {
+            "agent": "FraudGeographicRiskAgent",
+            "risk_score": min(risk_score, 1.0),
+            "fraud_reasons": fraud_reasons
+        }
+
+
+class FraudAggAgent:
+    """Agent for aggregating fraud detection results from multiple agents."""
+
+    def __init__(self):
+        self.threshold = 0.5  # Fraud threshold (50%)
+
+    def aggregate_results(self, fraud_results):
+        """
+        Aggregate fraud detection results from multiple agents.
+
+        Args:
+            fraud_results: List of fraud detection results from different agents
+
+        Returns:
+            dict: Aggregated fraud assessment
+        """
+        if not fraud_results:
+            return {
+                "is_fraudulent": False,
+                "confidence": 0,
+                "total_risk_score": 0,
+                "aggregated_reasons": []
+            }
+
+        # Calculate average risk score
+        total_risk = sum(r.get('risk_score', 0) for r in fraud_results)
+        avg_risk = total_risk / len(fraud_results)
+
+        # Aggregate all fraud reasons
+        all_reasons = []
+        for result in fraud_results:
+            agent_name = result.get('agent', 'Unknown')
+            reasons = result.get('fraud_reasons', [])
+            for reason in reasons:
+                all_reasons.append(f"[{agent_name}] {reason}")
+
+        # Determine if fraudulent based on threshold
+        is_fraudulent = avg_risk >= self.threshold
+
+        return {
+            "is_fraudulent": is_fraudulent,
+            "confidence": round(avg_risk * 100, 2),
+            "total_risk_score": round(avg_risk, 3),
+            "aggregated_reasons": all_reasons
+        }
+</file_content>
+
+<file_content path="models/__init__.py">
+
+</file_content>
+
+<file_content path="models/bank.py">
+"""
+Bank models and data structures
+"""
+
+from pydantic import BaseModel, Field
+from typing import List, Optional
+from faker import Faker
+import random
+
+
+class Bank(BaseModel):
+    """Bank model with BIC and details"""
+    
+    bic_code: str = Field(pattern=r'^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$')
+    bank_name: str
+    country_code: str = Field(pattern=r'^[A-Z]{2}$')
+    city: str
+    address: str
+    swift_network_member: bool = True
+    
+    # Risk profiling
+    risk_score: float = Field(default=0.5, ge=0.0, le=1.0)
+    transaction_volume: int = Field(default=0)
+    
+    @classmethod
+    def generate_fake_banks(cls, count: int) -> List['Bank']:
+        """Generate fake banks for testing"""
+        fake = Faker()
+        banks = []
+        
+        # Common country codes for international banks
+        countries = ['US', 'GB', 'DE', 'FR', 'JP', 'CH', 'SG', 'HK', 'AU', 'CA']
+        
+        for i in range(count):
+            country = random.choice(countries)
+            
+            # Generate realistic BIC code
+            bank_code = fake.lexify(text='????', letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+            location_code = f"{country}{fake.lexify(text='??', letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')}"
+            branch_code = fake.lexify(text='???', letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')
+            
+            bic = f"{bank_code}{location_code}{branch_code}"
+            
+            bank = cls(
+                bic_code=bic,
+                bank_name=f"{fake.company()} Bank",
+                country_code=country,
+                city=fake.city(),
+                address=fake.address().replace('\n', ', '),
+                risk_score=random.uniform(0.1, 0.9),
+                transaction_volume=random.randint(1000, 50000)
+            )
+            banks.append(bank)
+        
+        return banks
+    
+    def is_high_risk(self) -> bool:
+        """Check if bank is considered high risk"""
+        return self.risk_score > 0.7
+    
+    def get_risk_level(self) -> str:
+        """Get risk level description"""
+        if self.risk_score < 0.3:
+            return "LOW"
+        elif self.risk_score < 0.7:
+            return "MEDIUM"
+        else:
+            return "HIGH"
+
+
+class BankRegistry:
+    """Registry for managing banks"""
+    
+    def __init__(self):
+        self.banks: List[Bank] = []
+        self._bic_to_bank = {}
+    
+    def add_bank(self, bank: Bank):
+        """Add bank to registry"""
+        self.banks.append(bank)
+        self._bic_to_bank[bank.bic_code] = bank
+    
+    def get_bank_by_bic(self, bic: str) -> Optional[Bank]:
+        """Get bank by BIC code"""
+        return self._bic_to_bank.get(bic)
+    
+    def get_random_bank(self) -> Bank:
+        """Get random bank from registry"""
+        return random.choice(self.banks)
+    
+    def get_banks_by_country(self, country_code: str) -> List[Bank]:
+        """Get all banks from specific country"""
+        return [bank for bank in self.banks if bank.country_code == country_code]
+    
+    def initialize_with_fake_data(self, count: int = 30):
+        """Initialize registry with fake bank data"""
+        fake_banks = Bank.generate_fake_banks(count)
+        for bank in fake_banks:
+            self.add_bank(bank)
+    
+    def to_csv_data(self) -> List[dict]:
+        """Convert banks to CSV-compatible format"""
+        return [
+            {
+                'bic_code': bank.bic_code,
+                'bank_name': bank.bank_name,
+                'country_code': bank.country_code,
+                'city': bank.city,
+                'address': bank.address,
+                'risk_score': bank.risk_score,
+                'transaction_volume': bank.transaction_volume
+            }
+            for bank in self.banks
+        ]
+</file_content>
+
+<file_content path="models/swift_message.py">
+"""
+SWIFT message models and validation
+"""
+
+from pydantic import BaseModel, Field 
+from typing import Optional, Literal
+from datetime import datetime
+import uuid
+
+
+class SWIFTMessage(BaseModel):
+    """SWIFT message model with validation"""
+    
+    message_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
+    message_type: Literal["MT103", "MT202"]
+    reference: str 
+    amount: str 
+    currency: str 
+    sender_bic: str 
+    receiver_bic: str 
+    value_date: str 
+    
+    # Additional MT103 fields
+    ordering_customer: Optional[str] = None
+    beneficiary: Optional[str] = None
+    remittance_info: Optional[str] = None
+    
+    # Processing status fields
+    validation_status: str = Field(default="PENDING")
+    validation_errors: list = Field(default_factory=list)
+    fraud_status: str = Field(default="PENDING")
+    fraud_score: Optional[float] = None
+    processing_status: str = Field(default="PENDING")
+    fraud_statements : list = Field(default_factory=list)
+    # Timestamps
+    created_at: datetime = Field(default_factory=datetime.now)
+    processed_at: Optional[datetime] = None
+    fraud_evaluation : str = Field(default="PENDING")
+    chain_analysis : Optional[str] = ""
+    agent_perspectives: Optional[str] = ""
+
+    note: Optional[str] = None
+    
+    def get_first_digit(self) -> int:
+        """Get first digit of amount for Benford's law analysis"""
+        amount_str = self.amount.replace('.', '').lstrip('0')
+        return int(amount_str[0]) if amount_str else 0
+    
+    def mark_as_fraudulent(self, score: float, reason: str):
+        """Mark message as fraudulent"""
+        self.fraud_status = "FRAUDULENT"
+        self.fraud_score = score
+        self.validation_errors.append(f"FRAUD: {reason}")
+    
+    def mark_as_held(self, score: float, reason: str):
+        """Mark message as held for review"""
+        self.fraud_status = "HELD"
+        self.fraud_score = score
+        self.validation_errors.append(f"HOLD: {reason}")
+    
+    def mark_as_clean(self, score: float = 0.0):
+        """Mark message as clean"""
+        self.fraud_status = "CLEAN"
+        self.fraud_score = score
+    
+    class Config:
+        arbitrary_types_allowed = True
+</file_content>
+
+<file_content path="services/__init__.py">
+
+</file_content>
+
+<file_content path="services/llm_service.py">
+"""
+LLM service for fraud analysis and SWIFT message correction using OpenAI
+"""
+
+import json
+import logging
+from typing import Dict, List, Any
+import os
+
+from openai import OpenAI
+from models.swift_message import SWIFTMessage
+from config import Config
+
+
+class LLMService:
+    """
+    Service for LLM-based fraud analysis and SWIFT message correction
+    """
+    
+    def __init__(self):
+        self.logger = logging.getLogger(__name__)
+        self.config = Config()
+        
+        # Initialize OpenAI client
+        # the newest OpenAI model is "gpt-4o" which was released May 13, 2024.
+        # do not change this unless explicitly requested by the user
+        self.client = OpenAI(api_key=self.config.OPENAI_API_KEY)
+        self.model = self.config.OPENAI_MODEL
+        
+        self.logger.info(f"LLM Service initialized with model: {self.model}")
+    
+    def review_suspicious_transaction(self, message: SWIFTMessage, fraud_score: float, 
+                                    indicators: List[str]) -> Dict[str, Any]:
+        """
+        Use LLM to review suspicious transactions and make hold/approve decisions
+        """
+        
+        try:
+            prompt = self._create_fraud_review_prompt(message, fraud_score, indicators)
+            
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are an expert fraud analyst specializing in SWIFT transactions. "
+                        "Analyze the provided transaction data and make a decision about whether to "
+                        "approve, reject, or hold the transaction for further investigation. "
+                        "Respond with JSON in the specified format."
+                    },
+                    {
+                        "role": "user", 
+                        "content": prompt
+                    }
+                ],
+                response_format={"type": "json_object"},
+                temperature=0.1  # Low temperature for consistent analysis
+            )
+            
+            result = json.loads(response.choices[0].message.content or "{}")
+            
+            self.logger.debug(f"LLM fraud review completed for {message.message_id}: {result['decision']}")
+            
+            return result
+            
+        except Exception as e:
+            self.logger.error(f"LLM fraud review failed for {message.message_id}: {str(e)}")
+            # Return conservative hold decision on error
+            return {
+                "decision": "HOLD",
+                "confidence": 0.5,
+                "reasoning": f"LLM analysis failed: {str(e)}",
+                "risk_factors": indicators,
+                "recommended_actions": ["Manual review required due to system error"]
+            }
+    
+    def get_swift_correction(self, prompt: str) -> Dict[str, Any]:
+        """
+        Get SWIFT message corrections from LLM
+        """
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a SWIFT message validation expert. "
+                        "Your task is to correct SWIFT message format errors while "
+                        "maintaining the business intent of the transaction. "
+                        "Respond with JSON containing the corrected fields."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                response_format={"type": "json_object"},
+                temperature=0.1
+            )
+            
+            result = json.loads(response.choices[0].message.content or "{}")
+            
+            return result
+            
+        except Exception as e:
+            self.logger.error(f"LLM SWIFT correction failed: {str(e)}")
+            return {}
+    
+    def analyze_benford_deviation(self, amounts: List[float], deviation_score: float, 
+                                p_value: float) -> Dict[str, Any]:
+        """
+        Use LLM to analyze Benford's Law deviations and provide insights
+        """
+        try:
+            prompt = self._create_benford_analysis_prompt(amounts, deviation_score, p_value)
+            
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a financial forensics expert specializing in "
+                        "Benford's Law analysis for fraud detection. Analyze the provided "
+                        "transaction data and explain the significance of any deviations. "
+                        "Respond with JSON in the specified format."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                response_format={"type": "json_object"},
+                temperature=0.1
+            )
+            
+            result = json.loads(response.choices[0].message.content or "{}")
+            
+            self.logger.debug("LLM Benford's Law analysis completed")
+            
+            return result
+            
+        except Exception as e:
+            self.logger.error(f"LLM Benford analysis failed: {str(e)}")
+            return {
+                "analysis": "Analysis failed",
+                "significance": "UNKNOWN",
+                "recommendations": ["Manual review required"]
+            }
+    
+    def _create_fraud_review_prompt(self, message: SWIFTMessage, fraud_score: float, 
+                                  indicators: List[str]) -> str:
+        """
+        Create prompt for LLM fraud review
+        """
+        prompt = f"""
+Analyze the following SWIFT transaction for fraud risk:
+
+TRANSACTION DETAILS:
+- Message ID: {message.message_id}
+- Type: {message.message_type}
+- Reference: {message.reference}
+- Amount: {message.amount} {message.currency}
+- Sender BIC: {message.sender_bic}
+- Receiver BIC: {message.receiver_bic}
+- Value Date: {message.value_date}
+
+AUTOMATED FRAUD ANALYSIS:
+- Fraud Score: {fraud_score:.3f} (0.0 = no risk, 1.0 = high risk)
+- Risk Indicators:
+{chr(10).join(f"  - {indicator}" for indicator in indicators)}
+
+ADDITIONAL CONTEXT:
+- Ordering Customer: {getattr(message, 'ordering_customer', 'N/A')}
+- Beneficiary: {getattr(message, 'beneficiary', 'N/A')}
+- Remittance Info: {getattr(message, 'remittance_info', 'N/A')}
+
+Based on this information, make a decision and provide analysis.
+
+Respond with JSON in this exact format:
+{{
+    "decision": "APPROVE|HOLD|REJECT",
+    "confidence": 0.0-1.0,
+    "reasoning": "Detailed explanation of your decision",
+    "risk_factors": ["list", "of", "key", "risk", "factors"],
+    "recommended_actions": ["list", "of", "recommended", "actions"],
+    "business_impact": "Assessment of business impact if decision is wrong",
+    "additional_checks": ["list", "of", "additional", "checks", "recommended"]
+}}
+
+Decision Guidelines:
+- APPROVE: Low risk, process normally
+- HOLD: Medium risk, requires manual review
+- REJECT: High risk, block transaction
+"""
+        return prompt
+    
+    def _create_benford_analysis_prompt(self, amounts: List[float], deviation_score: float, 
+                                      p_value: float) -> str:
+        """
+        Create prompt for Benford's Law analysis
+        """
+        # Extract first digits for analysis
+        first_digits = []
+        for amount in amounts[:20]:  # Sample first 20 for prompt
+            amount_str = str(int(amount)).lstrip('0')
+            if amount_str and amount_str[0].isdigit():
+                first_digits.append(int(amount_str[0]))
+        
+        prompt = f"""
+Analyze the following transaction data for Benford's Law compliance:
+
+DATASET OVERVIEW:
+- Total Transactions: {len(amounts)}
+- Sample First Digits: {first_digits[:20]}
+- Sample Amounts: {[f"${amt:,.2f}" for amt in amounts[:10]]}
+
+STATISTICAL ANALYSIS:
+- Deviation Score: {deviation_score:.4f}
+- P-Value: {p_value:.6f}
+- Significant Deviation: {p_value < 0.05}
+
+BENFORD'S LAW CONTEXT:
+Benford's Law states that in many real-world datasets, the first digit follows a specific distribution:
+- Digit 1: ~30.1%
+- Digit 2: ~17.6%
+- Digit 3: ~12.5%
+- etc.
+
+Significant deviations may indicate:
+- Data manipulation
+- Systematic fraud
+- Artificial data generation
+- Specific business processes
+
+Respond with JSON in this exact format:
+{{
+    "analysis": "Detailed analysis of the deviation and its implications",
+    "significance": "LOW|MEDIUM|HIGH",
+    "fraud_probability": 0.0-1.0,
+    "likely_causes": ["list", "of", "likely", "causes"],
+    "recommendations": ["list", "of", "recommended", "actions"],
+    "false_positive_risk": "Assessment of false positive risk",
+    "additional_analysis": "Suggestions for additional analysis"
+}}
+"""
+        return prompt
+    
+    def batch_analyze_transactions(self, messages: List[SWIFTMessage]) -> Dict[str, Any]:
+        """
+        Perform batch analysis of multiple transactions for patterns
+        """
+        try:
+            # Create summary of transaction patterns
+            amounts = [float(msg.amount) for msg in messages]
+            currencies = [msg.currency for msg in messages]
+            bics = [(msg.sender_bic, msg.receiver_bic) for msg in messages]
+            
+            prompt = f"""
+Analyze this batch of {len(messages)} SWIFT transactions for suspicious patterns:
+
+SUMMARY STATISTICS:
+- Total Transactions: {len(messages)}
+- Amount Range: ${min(amounts):,.2f} - ${max(amounts):,.2f}
+- Average Amount: ${sum(amounts)/len(amounts):,.2f}
+- Unique Currencies: {len(set(currencies))}
+- Unique BIC Pairs: {len(set(bics))}
+
+SAMPLE TRANSACTIONS:
+{chr(10).join([
+    f"- {msg.message_type} {msg.amount} {msg.currency} {msg.sender_bic}->{msg.receiver_bic}"
+    for msg in messages[:10]
+])}
+
+Look for patterns that might indicate:
+- Systematic fraud
+- Money laundering schemes  
+- Structuring activities
+- Coordination between entities
+
+Respond with JSON format analysis of suspicious patterns found.
+"""
+            
+            response = self.client.chat.completions.create(
+                model=self.model,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": "You are a financial crimes investigator analyzing "
+                        "transaction patterns for suspicious activity."
+                    },
+                    {
+                        "role": "user",
+                        "content": prompt
+                    }
+                ],
+                response_format={"type": "json_object"},
+                temperature=0.1
+            )
+            
+            result = json.loads(response.choices[0].message.content or "{}")
+            
+            self.logger.info("LLM batch analysis completed")
+            
+            return result
+            
+        except Exception as e:
+            self.logger.error(f"LLM batch analysis failed: {str(e)}")
+            return {
+                "analysis": "Batch analysis failed",
+                "patterns": [],
+                "recommendations": ["Manual review required"]
+            }
+</file_content>
+
+<file_content path="services/swift_generator.py">
+"""
+SWIFT message generation service
+"""
+
+import logging
+from typing import List
+from faker import Faker
+import random
+from datetime import datetime, timedelta
+
+from models.swift_message import SWIFTMessage
+from models.bank import BankRegistry
+
+
+class SWIFTGenerator:
+    """Service for generating realistic SWIFT messages"""
+    
+    def __init__(self):
+        self.logger = logging.getLogger(__name__)
+        self.fake = Faker()
+        self.bank_registry = BankRegistry()
+        
+        # Initialize with fake banks
+        self.bank_registry.initialize_with_fake_data(30)
+        
+        self.logger.info("SWIFT Generator initialized with bank registry")
+    
+    def generate_messages(self, count: int = 1000, bank_count: int = 30) -> List[SWIFTMessage]:
+        """
+        Generate specified number of SWIFT messages
+        """
+        
+        messages = []
+        
+        for i in range(count):
+            message = self._generate_single_message()
+            messages.append(message)
+            
+        return messages
+    
+    def _generate_single_message(self) -> SWIFTMessage:
+        """
+        Generate a single realistic SWIFT message
+        """
+        # Random message type
+        message_type = random.choice(["MT103", "MT202"])
+        
+        # Random banks
+        sender_bank = self.bank_registry.get_random_bank()
+        receiver_bank = self.bank_registry.get_random_bank()
+        
+        # Ensure different banks
+        while receiver_bank.bic_code == sender_bank.bic_code:
+            receiver_bank = self.bank_registry.get_random_bank()
+        
+        # Generate realistic amounts with some pattern variations
+        amount = self._generate_realistic_amount()
+        
+        # Generate reference
+        reference = self._generate_reference()
+        
+        # Generate value date (today to +5 business days)
+        value_date = self._generate_value_date()
+        
+        # Generate currency (mostly USD, some variety)
+        currency = self._generate_currency()
+        
+        # Create message
+        message = SWIFTMessage(
+            message_type=message_type,
+            reference=reference,
+            amount=f"{amount:.2f}",
+            currency=currency,
+            sender_bic=sender_bank.bic_code,
+            receiver_bic=receiver_bank.bic_code,
+            value_date=value_date
+        )
+        
+        # Add MT103-specific fields
+        if message_type == "MT103":
+            message.ordering_customer = self._generate_customer_name()
+            message.beneficiary = self._generate_customer_name()
+            message.remittance_info = self._generate_remittance_info()
+        
+        return message
+    
+    def _generate_realistic_amount(self) -> float:
+        """
+        Generate realistic transaction amounts with various patterns
+        """
+        # Create distribution that roughly follows real-world patterns
+        rand = random.random()
+        
+        if rand < 0.4:  # 40% small amounts (1-10,000)
+            return round(random.uniform(1, 10000), 2)
+        elif rand < 0.7:  # 30% medium amounts (10,000-100,000)
+            return round(random.uniform(10000, 100000), 2)
+        elif rand < 0.9:  # 20% large amounts (100,000-1,000,000)
+            return round(random.uniform(100000, 1000000), 2)
+        else:  # 10% very large amounts (1,000,000+)
+            return round(random.uniform(1000000, 10000000), 2)
+    
+    def _generate_reference(self) -> str:
+        """
+        Generate realistic SWIFT reference
+        """
+        # Various reference patterns
+        patterns = [
+            lambda: f"PAY{random.randint(100000, 999999)}",
+            lambda: f"TXN{self.fake.date_object().strftime('%Y%m%d')}{random.randint(1000, 9999)}",
+            lambda: f"REF{self.fake.lexify(text='???????', letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789')}",
+            lambda: f"INV{random.randint(10000, 99999)}",
+            lambda: f"{self.fake.lexify(text='???', letters='ABCDEFGHIJKLMNOPQRSTUVWXYZ')}{random.randint(100000, 999999)}"
+        ]
+        
+        return random.choice(patterns)()[:16]  # Ensure max length
+    
+    def _generate_value_date(self) -> str:
+        """
+        Generate realistic value date (YYMMDD format)
+        """
+        # Value date is typically today to +5 business days
+        base_date = datetime.now()
+        days_forward = random.randint(0, 7)  # 0-7 days forward
+        
+        value_date = base_date + timedelta(days=days_forward)
+        return value_date.strftime('%y%m%d')
+    
+    def _generate_currency(self) -> str:
+        """
+        Generate currency code with realistic distribution
+        """
+        # Currency distribution based on real SWIFT usage
+        currencies = {
+            'USD': 0.5,   # 50% USD
+            'EUR': 0.2,   # 20% EUR
+            'GBP': 0.1,   # 10% GBP
+            'JPY': 0.05,  # 5% JPY
+            'CHF': 0.05,  # 5% CHF
+            'CAD': 0.03,  # 3% CAD
+            'AUD': 0.03,  # 3% AUD
+            'SGD': 0.02,  # 2% SGD
+            'HKD': 0.02   # 2% HKD
+        }
+        
+        rand = random.random()
+        cumulative = 0
+        
+        for currency, probability in currencies.items():
+            cumulative += probability
+            if rand <= cumulative:
+                return currency
+        
+        return 'USD'  # Default fallback
+    
+    def _generate_customer_name(self) -> str:
+        """
+        Generate realistic customer name for MT103
+        """
+        # Mix of individual and corporate names
+        if random.random() < 0.3:  # 30% corporate
+            return f"{self.fake.company()} {random.choice(['Ltd', 'Inc', 'Corp', 'LLC', 'AG'])}"
+        else:  # 70% individual
+            return self.fake.name()
+    
+    def _generate_remittance_info(self) -> str:
+        """
+        Generate realistic remittance information
+        """
+        purposes = [
+            "Payment for services",
+            "Invoice payment",
+            "Salary transfer",
+            "Investment transfer",
+            "Trade settlement",
+            "Property purchase",
+            "Loan repayment",
+            "Consulting fees",
+            "Equipment purchase",
+            "Software licensing"
+        ]
+        
+        return random.choice(purposes)
+    
+    def generate_test_batch_for_benfords(self, count: int = 100, fraud_ratio: float = 0.1) -> List[SWIFTMessage]:
+        """
+        Generate a test batch with known fraud patterns for Benford's Law testing
+        """
+        self.logger.info(f"Generating test batch of {count} messages with {fraud_ratio*100}% fraud patterns")
+        
+        messages = []
+        fraud_count = int(count * fraud_ratio)
+        clean_count = count - fraud_count
+        
+        # Generate clean messages (following Benford's Law)
+        for i in range(clean_count):
+            message = self._generate_single_message()
+            messages.append(message)
+        
+        # Generate fraudulent messages (violating Benford's Law)
+        for i in range(fraud_count):
+            message = self._generate_fraudulent_message()
+            messages.append(message)
+        
+        # Shuffle to randomize order
+        random.shuffle(messages)
+        
+        self.logger.info(f"Generated test batch: {clean_count} clean, {fraud_count} fraudulent")
+        return messages
+    
+    def _generate_fraudulent_message(self) -> SWIFTMessage:
+        """
+        Generate message with patterns that violate Benford's Law
+        """
+        # Generate message with suspicious patterns
+        message = self._generate_single_message()
+        
+        # Force amounts starting with higher digits (violates Benford's Law)
+        suspicious_first_digits = [5, 6, 7, 8, 9]
+        first_digit = random.choice(suspicious_first_digits)
+        
+        # Create amount starting with suspicious digit
+        magnitude = random.choice([100, 1000, 10000, 100000])
+        base_amount = first_digit * magnitude
+        variation = random.uniform(0, magnitude * 0.9)
+        
+        fraudulent_amount = base_amount + variation
+        message.amount = f"{fraudulent_amount:.2f}"
+        
+        return message
+</file_content>
+
+<file_content path="docs/instructions.md">
+Your project is to build a system that uses multiple AI agents, each with its own special skill, to work together to analyze a batch of SWIFT messages and flag any suspicious activity.
+
+You'll build a system of AI agents that collaborate to process and analyze SWIFT messages. You will implement four distinct agent patterns:
+
+The Evaluator-Optimizer: This agent acts as a quality checker. It first evaluates each SWIFT message to see if it's formatted correctly and then optimizes it by fixing any errors it finds.
+The Parallelization Agent: To work efficiently, this agent processes many messages at once. You'll create multiple fraud detection agents that run in parallel to check for different types of suspicious patterns.
+The Prompt Chaining Agent: This is like a detective squad. One agent does an initial screening, then passes its findings to a technical expert, who passes it to a risk assessor, and so on. Each agent adds to the analysis in a conversational chain.
+The Orchestrator-Worker: This is our project manager. The orchestrator agent looks at the big picture—all the "clean" transactions—and breaks down the final processing into logical tasks for a team of worker agents to execute.
+You're given a starter code repository that has all the starter code you'll need, like data models and services, already built for you. Your job is to implement the core logic for each of the four agent patterns. You will follow the TODO comments in the code, which will guide you through each step of building this powerful fraud detection system.
+
+Download the starter files from the workspace on the following page
+
+Guide to starter code
+/models directory : The swift_message.py, bank.py, and transaction.py files. You'll need these data structures to work with.
+
+/services/: The swift_generator.py and llm_service.py files. The logic for generating fake SWIFT data and interacting with the OpenAI API.
+
+config.py: The project configuration.
+generate_swift_messages.py: The script to create sample data files.
+pyproject.toml: The file that lists project dependencies.
+Files with "TODO" Items for You to Complete:
+
+main.py: The main application entry point. Call the different agent patterns in the correct sequence.
+/agents/workflow_agents/base_agents.py: Create a base agent class and correctly define how agents interact with the LLM service.
+/agents/parallelization.py: Implement the logic to process messages concurrently and add a new fraud detection agent.
+/agents/prompt_chaining.py: Complete the conversation chain by implementing the steps for the Technical Analyst and Compliance Officer.
+/agents/orchestrator_worker.py: Implement the orchestrator that breaks down the main goal into subtasks for worker agents.
+Project Assessment
+Your project will be assessed based on the rubric provided on the following pages. The rubric covers the correctness of your implementation for each agent pattern, the quality of your code, and the successful execution of the complete system. Double check your project against the rubric items before submission.
+
+Project Instructions
+Step 1: Get Familiar with the Project
+Your goal is to build a system that can:
+
+Read a batch of SWIFT messages from a file.
+Clean and validate each message.
+Analyze the messages for potential fraud using multiple specialized agents.
+Organize the final, validated transactions into a structured report.
+Familiarize yourself with the project structure. The main logic is in the agents/ directory, and the main.py file is where the entire workflow is executed.
+
+Step 2: Generate Your Data
+Before you can process any data, you need to create some. The project includes a script for this purpose.
+
+Open the terminal in your VS Code workspace.
+Run the following command:
+python generate_swift_messages.py
+This will create a swift_messages.csv file inside the /data directory. This file contains the raw SWIFT messages your agents will work with. Some of these messages intentionally have errors, and some might be fraudulent—it's your system's job to figure that out.
+Step 3: Implement the Evaluator-Optimizer Agent
+The Concept: This first agent acts as a quality control specialist. It follows a two-step pattern:
+
+Evaluate: It first checks a SWIFT message against a set of rules (a "golden prompt") to see if it's valid.
+Optimize: If the message is invalid, the agent's goal is to fix it.
+Your Task:
+
+Navigate to the agents/ directory and open the evaluator_optimizer.py file.
+Inside the EvaluatorOptimizerAgent class, you will find a TODO.
+Your task is to implement the logic that first calls the evaluator_agent to check the message.
+Then, based on the evaluator's feedback, you will either approve the message as-is or pass it to the optimizer_agent to be corrected.
+The method should return the final, validated SWIFT message.
+Step 4: Implement the Parallelization Agent
+The Concept: Processing messages one by one can be slow. To speed things up, we can use multiple agents working in parallel, with each agent assigned a specific fraud detection task.
+
+Your Task:
+
+Open the agents/parallelization.py file.
+Your first TODO is to complete the run_agents_in_parallel function. You will need to use Python's concurrent.futures.ThreadPoolExecutor to run a list of fraud-detection agents simultaneously on each SWIFT message.
+Your second TODO is to create a new, simple fraud detection agent. Define a new prompt that describes a specific fraudulent pattern (for example, "transactions to a high-risk country"). Then, add this new agent to the list of agents that will be run in parallel.
+Step 5: Implement the Prompt Chaining Agent
+The Concept: Sometimes, a complex analysis requires multiple perspectives. A prompt chaining agent works like an assembly line. The output of one agent becomes the input for the next, creating a chain of analysis. In our case, a Junior Analyst does an initial check, a Technical Analyst reviews the details, and a Compliance Officer gives the final sign-off.
+
+Your Task:
+
+Open the agents/prompt_chaining.py file.
+Inside the PromptChainingAgent class, you will find a TODO.
+Your task is to complete the conversation chain. You will need to:
+Take the initial analysis from the Junior Analyst.
+Pass it to the Technical Analyst for a more detailed review.
+Pass the combined analysis to the Compliance Officer for the final decision.
+The method should return the complete conversation history.
+Step 6: Implement the Orchestrator-Worker Pattern
+The Concept: For the final step, an Orchestrator agent acts as the project manager. It takes the list of all the cleaned and approved transactions and decides how to best organize them. It then gives instructions to Worker agents to perform the actual formatting.
+
+Your Task:
+
+Open the agents/orchestrator_worker.py file.
+Inside the OrchestratorWorker class, you will find a TODO.
+Your task is to implement the logic for the orchestrator.
+First, the orchestrator_agent will analyze the list of transactions and propose a plan for how to group them (for example, by bank or by currency).
+Next, you will call the worker_agent, providing it with both the orchestrator's plan and the list of transactions. The worker will then execute the plan and return the final, structured report.
+Step 7: Run the Full System
+Once you have completed all the TODO items, it's time to see your multi-agent system in action.
+
+Open the main.py file.
+Review the file to see how all the agents you built are called in sequence.
+In your terminal, run the main script:
+python main.py
+Watch the output in the terminal. You should see the logs from each agent as it processes the messages, detects fraud, and organizes the final output. Congratulations, you've now built a sophisticated, multi-agent system for financial message processing!
+Submission Instructions
+Following these instructions carefully will help make sure that your submission is complete and easy to grade.
+
+Step 1: Final Code Review
+Before you submit, do a final check of your work:
+
+Check for Completeness: Make sure you have filled in all the TODO sections in the starter code. Every TODO represents a piece of the core logic that will be assessed.
+Run Your Code: Do one last run of your entire system to make sure it works from start to finish without any errors. Run python main.py and check that the output looks correct and complete.
+Do Not Include Personal Information: Make sure you have removed your OPENAI_API_KEY from the .env file. Do not submit your .env file or any other file containing personal keys or credentials.
+Step 2: Create the Submission Zip File
+You will submit a single zip file containing all of your project code.
+
+Navigate to the Project Directory: In your file explorer, go to the folder that contains your project files.
+Compress the Folder:
+On Windows: Right-click on the project folder, select "Send to," and then choose "Compressed (zipped) folder."
+On macOS: Right-click on the project folder and select "Compress '[folder_name]'."
+Name Your File: Name the resulting zip file using this format: YourName_Project.zip.
+Step 4: Submit Your Project
+Upload the single YourName_Project.zip file on the following "Project Submission Page"
+
+Your project will be assessed based on the rubric provided on the following pages. The rubric covers the correctness of your implementation for each agent pattern, the quality of your code, and the successful execution of the complete system. Double check your project against the rubric items before submission.
+
+
+
+
+
+
+### Guide to starter code
+
+**/models directory** : The `swift_message.py`, `bank.py`, and `transaction.py` files. You'll need these data structures to work with.
+
+ **/services/** : The `swift_generator.py` and `llm_service.py` files. The logic for generating fake SWIFT data and interacting with the OpenAI API.
+
+* `config.py`: The project configuration.
+* `generate_swift_messages.py`: The script to create sample data files.
+* `pyproject.toml`: The file that lists project dependencies.
+
+**Files with "TODO" Items for You to Complete:**
+
+* `main.py`: The main application entry point. Call the different agent patterns in the correct sequence.
+* /agents/workflow_agents/`base_agents.py`: Create a base agent class and correctly define how agents interact with the LLM service.
+* /agents/`parallelization.py`: Implement the logic to process messages concurrently and add a new fraud detection agent.
+* /agents/`prompt_chaining.py`: Complete the conversation chain by implementing the steps for the `Technical Analyst` and `Compliance Officer`.
+* /agents/`orchestrator_worker.py`: Implement the orchestrator that breaks down the main goal into subtasks for worker agents.
+</file_content>
+
+<file_content path="docs/overview.md">
+AI agents can act as autonomous workers to solve complex problems. Now, you get to build a team of them.
+
+#### The Scenario: A Digital Banking Revolution
+
+Imagine you work for a large international bank. Every single day, thousands of financial messages called **SWIFT messages** fly between your bank and others around the globe. These messages are the backbone of international money transfers, containing instructions to move millions of dollars. The challenge is that this process needs to be fast, accurate, and secure. Every message with an error has to be manually corrected by a human, which costs the bank time and money. Even worse, some of these transactions might be fraudulent. How can a bank possibly keep up?
+
+This is where your AI system comes in.
+
+#### Your Mission: Build an Agentic SWIFT Processing System
+
+What is SWIFT? Think of it as the messaging system for the global banking world. When banks send money to each other across borders, they send a SWIFT message. It’s a secure, standardized way to communicate financial transactions. As you can guess, making sure these transactions are legitimate is a top priority for any bank.
+
+In this project, you will build a multi-agent system to automate the processing of a batch of SWIFT transactions. Your system will be responsible for:
+
+1. **Validating and Correcting** incoming messages to make sure they meet SWIFT standards.
+2. **Detecting Potential Fraud** by analyzing transaction patterns.
+3. **Processing Clean Transactions** efficiently.
+
+You won't be building just one AI; you'll be implementing a pipeline of specialized agents that work together, each based on a specific agentic workflow design pattern.
+
+**Meet Your Team of Agents:**
+
+* **The Evaluator-Optimizer Agent:** Think of this as your  **Quality Control Specialist** . Its job is to inspect every incoming SWIFT message, identify any errors, and intelligently correct them.
+* **The Parallelization Agent:** This is your  **Dispatcher** . To work faster, it will take the batch of validated messages and distribute them among multiple workers for simultaneous fraud screening.
+* **The Prompt Chaining Agent:** This is the  **Lead Fraud Investigator** . For transactions that look suspicious, this agent performs a deeper, multi-step analysis to gather more evidence before making a final judgment.
+* **The Orchestrator-Worker Agent:** This is the  **Operations Manager** . It takes the clean, verified transactions and delegates the final processing tasks to worker agents.
+
+Banks measure their efficiency using a metric called the Straight-Through Processing (STP) rate—the percentage of transactions processed with zero manual intervention. A high STP rate saves millions of dollars. By building this system, you'll learn how AI agents can directly impact a financial institution's bottom line by improving efficiency and reducing risk.
+
+You're about to build a practical, real-world application of agentic AI that showcases skills in workflows, system design, fraud analytics, and large language model implementation.
+
+Let's get started!
+</file_content>
+
+<file_content path="docs/rubric.md">
+# Rubric
+
+Use this project rubric to understand and assess the project criteria.
+
+## Agent Pattern Implementation
+
+| Criteria                                                                                   | Submission Requirements                                                                                                                                                                                                                                                                                    |
+| ------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Validate and correct malformed SWIFT messages using the Evaluator-Optimizer pattern.       | * The `EvaluatorOptimizerAgent` calls the `evaluator_agent` to assess message validity.* If invalid, the message is passed to `optimizer_agent` for correction.* The final output is a valid SWIFT message object (original or corrected).* Implementation is located in `evaluator_optimizer.py`. |
+| Concurrently detect different types of fraudulent activity using multiple agents           | * At least three fraud detection agents are implemented, including a custom third agent.* All fraud detection agents run in parallel using `ThreadPoolExecutor`.* Fraud results are aggregated using a dedicated aggregation agent.* Implementation is located in `parallelization.py`.                |
+| Perform multi-step fraud analysis using chained agents with distinct roles                 | * The conversation chain includes a Junior Analyst → Technical Analyst → Compliance Officer.* Each step uses the result of the previous agent to inform its own reasoning.* Output is a structured log of all steps in the chain.* Implementation is located in `prompt_chaining.py`.                  |
+| Structure finalized transactions using an orchestrator that delegates subtasks to workers. | * Orchestrator agent proposes a valid grouping plan (e.g., by bank, currency).* Worker agent formats and returns final reports based on the orchestrator’s plan.* Outputs are coherent, structured, and match the proposed grouping.* Implementation is located in `orchestrator_worker.py`.            |
+
+## Main System Integration and Workflow
+
+| Criteria                                                                         | Submission Requirements                                                                                                                                                                                                                                                                  |
+| -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sequentially invoke all agent patterns to analyze and report SWIFT transactions. | * The system calls all four agent patterns in sequence within `main.py`.* Outputs from one stage feed directly into the next.* At least two distinct reports are generated based on different message filters.* System runs end-to-end without errors and logs agent activity clearly. |
+
+## Industry Best Practices
+
+| Criteria                                                                            | Submission Requirements                                                                                                                                                                                                                                               |
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Follow clean coding practices and include documentation for implemented components. | * Clear function names and consistent formatting (PEP8 style).* All custom agent classes and key methods include docstrings.* Includes evidence of testing: print statements, logs, or screenshots of output.* No syntax errors, missing imports, or hardcoded paths. |
+
+## Suggestions to Make Your Project Stand Out
+
+* Additional fraud detection logic (e.g., AI-driven anomaly detection)
+* Performance optimizations (e.g., caching, batching)
+* Comprehensive error handling (e.g., fallback logic, retry strategies)
+* Unit tests for any agent or system component
+
+---
+</file_content>
+
+
+================================================================================
+END OF FILE: swift-agent/my_submission/master_context.md
+================================================================================
+
+
+
+================================================================================

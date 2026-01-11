@@ -1,0 +1,22 @@
+# Ignore student submission archives to reduce repo size
+# These directories contain ~75GB of student submissions
+**/tmp/archive/
+
+# Common Python ignores
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv/
+venv/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

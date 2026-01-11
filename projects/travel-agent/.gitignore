@@ -1,0 +1,75 @@
+# Temporary files and directories
+# tmp/ - now more selective to allow scripts
+tmp/stu_*/
+tmp/archive/
+!tmp/*.sh
+!tmp/stu_template/
+*.tmp
+temp/
+
+# OS files
+.DS_Store
+**/.DS_Store
+Thumbs.db
+
+# Large binary files
+*.zip
+*.tar.gz
+*.rar
+*.7z
+*.db
+*.sqlite
+*.sqlite3
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+.conda/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Log files
+*.log
+logs/
+log/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env.local
+.env.production
+.env.test
+
+# Archives and downloads
+Downloads/
+*.dmg
+*.iso
+
+# Claude Code specific
+.claude/tmp/
+
+# Ignore student submission archives
+tmp/archive/

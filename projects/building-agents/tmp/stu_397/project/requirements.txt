@@ -1,0 +1,16 @@
+pyodbc
+python-dotenv
+crewai
+crewai_tools
+langchain_community
+langchain_ollama
+ollama
+litellm
+SQLAlchemy
+agentops
+langgraph
+langchain
+langchain-openai
+langmem
+langchain-anthropic
+nltk == 3.8.1

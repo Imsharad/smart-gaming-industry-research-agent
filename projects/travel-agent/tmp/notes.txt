@@ -1,0 +1,11 @@
+- Use the following files as reference: 
+  - @context_engineering_toolkit/final.md
+  - @context_engineering_toolkit/
+  - @context_engineering_toolkit/pact.md
+  - @context_engineering_toolkit/prompt.md
+  - @context_engineering_toolkit/rubric.md
+- Generate and evaluate student assignments submitted as IPython notebook (ipynb) files.
+- Create feedback files using content from the final.md file, the provided prompt.md file, and the attached pack guidelines.
+- Ensure all generated feedback is written in a genuine, authentic, and human tone—avoid any machine-generated or robotic language.
+- Do not use emojis in any part of the feedback.
+- For each feedback file, attach or append any external links as described in the criteria files.

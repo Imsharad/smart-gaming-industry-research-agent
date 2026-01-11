@@ -1,0 +1,38 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "Python 3",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/python:2-3.13-trixie",
+
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	"postCreateCommand": "pip install --user -r requirements.txt",
+		"containerEnv": {
+		"VOCAREUM_KEY": "${localEnv:VOCAREUM_KEY}",
+		"OPENAI_API_KEY": "${localEnv:OPENAI_API_KEY}",
+		"TAVILY_API_KEY": "${localEnv:TAVILY_API_KEY}"
+		},
+	"customizations": {
+        "vscode": {
+            "settings": {
+                "python.defaultInterpreterPath": "/home/vscode/.local/lib/python3.13/site-packages",
+                "python.selectInterpreter": "/home/vscode/.local/lib/python3.13/site-packages"
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-toolsai.jupyter"
+            ]
+        }
+    }
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
