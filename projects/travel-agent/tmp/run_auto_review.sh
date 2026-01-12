@@ -13,6 +13,13 @@ NC='\033[0m'
 print_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 print_step() { echo -e "${BLUE}[STEP]${NC} $1"; }
 
+# macOS Notification
+notify_macos() {
+    local title="$1"
+    local message="$2"
+    osascript -e "display notification \"$message\" with title \"$title\" sound name \"Submarine\""
+}
+
 # Check prerequisites
 if [[ ! -f "$SETUP_SCRIPT" ]]; then
     echo -e "${RED}[ERROR]${NC} Setup script not found: $SETUP_SCRIPT"
@@ -38,9 +45,9 @@ EXIT_CODE=$?
 # Print output for user visibility
 echo "$OUTPUT"
 
+# Warn if setup failed, but continue anyway to give Gemini a chance
 if [[ $EXIT_CODE -ne 0 ]]; then
-    echo -e "${RED}[ERROR]${NC} Setup script failed."
-    exit 1
+    echo -e "${YELLOW}[WARNING]${NC} Setup script reported errors, but continuing to run review..."
 fi
 
 # Extract the new student directory from the output
@@ -51,9 +58,16 @@ NEW_DIR_NAME=$(echo "$OUTPUT" | grep -o "Creating stu_[0-9]*" | head -n 1 | awk 
 if [[ -n "$NEW_DIR_NAME" ]]; then
     NEW_DIR="./$NEW_DIR_NAME"
 else
-    echo -e "${RED}[ERROR]${NC} Could not detect created directory from setup logs."
-    echo -e "Logs:\n$OUTPUT"
-    exit 1
+    # If we can't detect from output, try to find the latest stu_* directory
+    echo -e "${YELLOW}[WARNING]${NC} Could not detect directory from logs, searching for latest..."
+    LATEST_STU=$(ls -dt stu_* 2>/dev/null | grep -v "stu_template" | head -1)
+    if [[ -n "$LATEST_STU" ]]; then
+        NEW_DIR="./$LATEST_STU"
+        echo -e "${GREEN}[INFO]${NC} Found: $LATEST_STU"
+    else
+        echo -e "${RED}[ERROR]${NC} Could not find any student directory to review."
+        exit 1
+    fi
 fi
 
 STUDENT_ID=$(basename "$NEW_DIR")
@@ -85,12 +99,24 @@ if [[ $GEMINI_EXIT -eq 0 ]]; then
     
     if [[ $COUNT -ge 5 && "$HAS_SUMMARY" == "yes" ]]; then
         print_info "SUCCESS: Generated $COUNT criteria files and summary.md"
+        
+        # Step 3: Generate JSON for Chrome Extension
+        print_step "Generating all_feedback.json for Chrome Extension..."
+        if python3 ../generate_feedback_json.py; then
+            print_info "JSON feedback generation successful."
+            notify_macos "✅ Review Complete" "Feedback for $STUDENT_ID is ready"
+        else
+            echo -e "${RED}[WARNING]${NC} Failed to generate JSON feedback."
+        fi
+
         # Optional: open the summary
         # open feedback/summary.md
     else
         echo -e "${RED}[WARNING]${NC} Process finished but some files might be missing. Found $COUNT criteria files."
+        notify_macos "⚠️ Review Warning" "Some files might be missing for $STUDENT_ID"
     fi
 else
     echo -e "${RED}[ERROR]${NC} Gemini agent failed with exit code $GEMINI_EXIT"
+    notify_macos "❌ Review Failed" "Gemini agent failed for $STUDENT_ID"
     exit 1
 fi

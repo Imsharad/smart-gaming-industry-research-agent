@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # =============================================================================
-# GOLD STANDARD: run_auto_review.sh
-# Master orchestration script for automated Udacity project review
+# Building Agents Project - Automated Review Orchestration
 # =============================================================================
 # USAGE: ./run_auto_review.sh
 # 
@@ -12,7 +11,7 @@
 # 3. Verifies feedback generation
 # =============================================================================
 
-# Configuration - UPDATE THIS FOR EACH PROJECT
+# Configuration
 SETUP_SCRIPT="./setup_next_student_optimized.sh"
 NOTES_FILE="notes.txt"
 
@@ -65,7 +64,6 @@ if [[ $EXIT_CODE -ne 0 ]]; then
 fi
 
 # Extract the new student directory from the output
-# Robustly parse the log message "Creating stu_XXX" to get the exact directory name
 NEW_DIR_NAME=$(echo "$OUTPUT" | grep -o "Creating stu_[0-9]*" | head -n 1 | awk '{print $2}')
 
 if [[ -n "$NEW_DIR_NAME" ]]; then
@@ -105,8 +103,8 @@ DURATION=$((END_TIME - START_TIME))
 if [[ $GEMINI_EXIT -eq 0 ]]; then
     print_step "Review generation completed in ${DURATION}s."
     
-    # Verify outputs
-    COUNT=$(ls feedback/criteria_*.md 2>/dev/null | wc -l)
+    # Verify outputs - check both naming conventions
+    COUNT=$(ls feedback/criteria_*.md feedback/[0-9]*.md 2>/dev/null | wc -l)
     HAS_SUMMARY=$([[ -f "feedback/summary.md" ]] && echo "yes" || echo "no")
     
     if [[ $COUNT -ge 1 && "$HAS_SUMMARY" == "yes" ]]; then
@@ -115,7 +113,7 @@ if [[ $GEMINI_EXIT -eq 0 ]]; then
         # Step 3: Generate Feedback JSON
         print_step "Step 3: Generating all_feedback.json..."
         
-        # Locate the python script (assume it's in the same dir as this script)
+        # Locate the python script (same dir as this script)
         SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
         JSON_GEN_SCRIPT="$SCRIPT_DIR/generate_feedback_json.py"
         
